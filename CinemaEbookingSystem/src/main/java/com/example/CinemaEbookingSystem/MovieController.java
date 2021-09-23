@@ -11,7 +11,7 @@ public class MovieController {
 
     @GetMapping
     String getMovie(Model model) {
-        model.addAttribute("something", "this is coming from the controller");
+        model.addAttribute("something", "Cinema E-booking System");
         model.addAttribute("movie", Arrays.asList(
                 new Movie("Movie1"),
                 new Movie("Movie2"),
