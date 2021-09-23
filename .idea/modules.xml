@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CinemaEbookingSystem/CinemaEbookingSystem.iml" filepath="$PROJECT_DIR$/CinemaEbookingSystem/CinemaEbookingSystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/cs4050_groupc4.iml" filepath="$PROJECT_DIR$/.idea/cs4050_groupc4.iml" />
+    </modules>
+  </component>
+</project>
