@@ -11,43 +11,49 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        span.rqrd{
+            color: red;
+        }
+    </style>
+
 </head>
 
 <body>
 <div class="container">
     <h2>Sign Up With The Best Movie Theater</h2>
 
-    <form action="/action_page.php">
+    <form action="registration_confirmation">
 
-        <div class="form-group">
-            <label for="first_name">First Name:</label>
-            <input type="text" class="form-control" id="first_name" style="width: 370px">
+        <div class="required">
+            <label for="first_name">First Name: <span class="rqrd">*</span></label>
+            <input type="text" class="form-control" id="first_name" style="width: 370px" required>
         </div>
 
 
         <div class="form-group">
-            <label for="last_name">Last Name:</label>
-            <input type="text" class="form-control" id="last_name" style="width: 370px">
+            <label for="last_name">Last Name: <span class="rqrd">*</span></label>
+            <input type="text" class="form-control" id="last_name" style="width: 370px" required>
         </div>
 
         <div class="form-group">
-            <label for="date_of_birth">Date of Birth: " </label>
+            <label for="date_of_birth">Date of Birth:</label>
             <input type="date" class="form-control" id="date_of_birth" style="width: 228px">
         </div>
 
         <div class="form-group">
-            <label for="email">Email address:</label>
-            <input type="email" class="form-control" id="email" style="width: 370px">
+            <label for="email">Email address: <span class="rqrd">*</span></label>
+            <input type="email" class="form-control" id="email" style="width: 370px" required>
         </div>
 
         <div class="form-group">
-            <label for="pwd">Password:</label>
-            <input type="password" class="form-control" id="pwd" style="width: 370px">
+            <label for="pwd">Password: <span class="rqrd">*</span></label>
+            <input type="password" class="form-control" id="pwd" style="width: 370px" required>
         </div>
 
         <div class="form-group">
-            <label for="cpwd">Confirm Password:</label>
-            <input type="password" class="form-control" id="cpwd" style="width: 370px">
+            <label for="cpwd">Confirm Password: <span class="rqrd">*</span></label>
+            <input type="password" class="form-control" id="cpwd" style="width: 370px" required>
         </div>
 
 
