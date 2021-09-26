@@ -20,4 +20,9 @@ public class MovieController {
         return "movie";
     }
 
+    @GetMapping(path = "/signup")
+    String signUp(Model model){
+        return "signup";
+    }
+
 }
