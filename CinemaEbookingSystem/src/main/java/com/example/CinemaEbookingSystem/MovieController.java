@@ -33,4 +33,8 @@ public class MovieController {
         return "registrationconfirmation";
     }
 
+    @GetMapping(path = "/EditProfile")
+    String getEditProfile() {
+        return "Edit-Profile";
+    }
 }
