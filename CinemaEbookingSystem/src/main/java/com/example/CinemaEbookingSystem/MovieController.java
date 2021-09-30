@@ -12,7 +12,7 @@ import java.util.Map;
 @Controller
 public class MovieController {
 
-    @GetMapping
+    @GetMapping("/")
     String getMovie(Model model) {
         model.addAttribute("something", "Cinema E-booking System");
         model.addAttribute("movie", Arrays.asList(
