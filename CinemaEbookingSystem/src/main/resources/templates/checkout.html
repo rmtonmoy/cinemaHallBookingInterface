@@ -8,6 +8,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" th:href="@{/checkoutFormStyle.css}">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <style>
@@ -23,65 +24,74 @@
         <main class="container-fluid" role="main">
             <h1>Checkout</h1>
             
-            <form id="checkoutForm" method = "POST" action=""> <!-- TODO: form action -->
-                <h2> Billing Information </h2>
-                <label for = 'creditCard' class = 'form-label'>Credit Card Number: </label>
-                <input type = 'text' required id = 'creditCard' maxlength = '16' size = '16' pattern = '\d{16}' class = 'form-control'>
-                <span id="creditCardNote">*</span>
+            <section>
+                <h2>
+                    Cart
+                </h2>
+                <!-- some kind of table here idfk -->
+            </section>
+            
+            <section>
+                <form id="checkoutForm" method = "POST" action=""> <!-- TODO: form action -->
+                    <h2> Billing Information </h2>
+                    <label for = 'creditCard' class = 'form-label'>Credit Card Number: </label>
+                    <input type = 'text' required id = 'creditCard' maxlength = '16' size = '16' pattern = '\d{16}' class = 'form-control'>
+                    <span id="creditCardNote">*</span>
 
-                <label for = 'cvv' class = 'form-label'>CVV: </label>
-                <input type = 'text' required id = 'cvv' maxlength = '3' size = '3' pattern = '\d{3}' class = 'form-control'>
-                <span id="cvvNote">*</span>
+                    <label for = 'cvv' class = 'form-label'>CVV: </label>
+                    <input type = 'text' required id = 'cvv' maxlength = '3' size = '3' pattern = '\d{3}' class = 'form-control'>
+                    <span id="cvvNote">*</span>
 
-                <label for = 'date' class = 'form-label'>Expiration Date: </label>
-                <input type = 'text' required id = 'date' class = 'form-control'>
-                <span id="expirationDateNote">*</span>
+                    <label for = 'date' class = 'form-label'>Expiration Date: </label>
+                    <input type = 'text' required id = 'date' class = 'form-control'>
+                    <span id="expirationDateNote">*</span>
 
-                <label for = 'name' class = 'form-label'>Cardholder Name: </label>
-                <input type='text' id = 'name' required maxlength = '32' class = 'form-control'>
-                <span id="nameNote">*</span>
-                        
-                <h2> Billing Address </h2>
-                <label for = 'addressOne' class = 'form-label'>Address Line 1:</label>
-                <input type='text' id = 'addressOne' required maxlength = '32' class = 'form-control'>
-                <span id="addressOneNote">*</span>
+                    <label for = 'name' class = 'form-label'>Cardholder Name: </label>
+                    <input type='text' id = 'name' required maxlength = '32' class = 'form-control'>
+                    <span id="nameNote">*</span>
 
-                <label for = 'addressTwo' class = 'form-label'>Address Line 2: </label>
-                <input type='text' id = 'addressTwo' maxlength = '32' class = 'form-control'>
+                    <h2> Billing Address </h2>
+                    <label for = 'addressOne' class = 'form-label'>Address Line 1:</label>
+                    <input type='text' id = 'addressOne' required maxlength = '32' class = 'form-control'>
+                    <span id="addressOneNote">*</span>
 
-                <label for = 'city' class = 'form-label'>City:</label>
-                <input type='text' id = 'city' required maxlength = '32' class = 'form-control'>
-                <span id="cityNote">*</span>
+                    <label for = 'addressTwo' class = 'form-label'>Address Line 2: </label>
+                    <input type='text' id = 'addressTwo' maxlength = '32' class = 'form-control'>
 
-                <label for = 'state' class = 'form-label'>State:</label>
-                <input type='text' id = 'state' required maxlength = '2' size = '2' pattern = '[A-Za-z]{2}' class = 'form-control'>
-                <span id="stateNote">*</span>
+                    <label for = 'city' class = 'form-label'>City:</label>
+                    <input type='text' id = 'city' required maxlength = '32' class = 'form-control'>
+                    <span id="cityNote">*</span>
 
-                <label for = 'zip' class = 'form-label'>Zip Code:</label>
-                <input type='text' id = 'zip' required maxlength = '5' size = '5' pattern = '[0-9]{5}' class = 'form-control'>
-                <span id="zipNote">*</span>
-                
-                <h2> Shipping Address </h2>
-                <label for = 'addressOneShip' class = 'form-label'>Address Line 1:</label>
-                <input type='text' id = 'addressOneShip' required maxlength = '32' class = 'form-control'>
-                <span id="addressOneShipNote">*</span>
+                    <label for = 'state' class = 'form-label'>State:</label>
+                    <input type='text' id = 'state' required maxlength = '2' size = '2' pattern = '[A-Za-z]{2}' class = 'form-control'>
+                    <span id="stateNote">*</span>
 
-                <label for = 'addressTwoShip' class = 'form-label'>Address Line 2: </label>
-                <input type='text' id = 'addressTwoShip' maxlength = '32' class = 'form-control'>
+                    <label for = 'zip' class = 'form-label'>Zip Code:</label>
+                    <input type='text' id = 'zip' required maxlength = '5' size = '5' pattern = '[0-9]{5}' class = 'form-control'>
+                    <span id="zipNote">*</span>
 
-                <label for = 'cityShip' class = 'form-label'>City:</label>
-                <input type='text' id = 'cityShip' required maxlength = '32' class = 'form-control'>
-                <span id="cityShipNote">*</span>
+                    <h2> Shipping Address </h2>
+                    <label for = 'addressOneShip' class = 'form-label'>Address Line 1:</label>
+                    <input type='text' id = 'addressOneShip' required maxlength = '32' class = 'form-control'>
+                    <span id="addressOneShipNote">*</span>
 
-                <label for = 'stateShip' class = 'form-label'>State:</label>
-                <input type='text' id = 'stateShip' required maxlength = '2' size = '2' pattern = '[A-Za-z]{2}' class = 'form-control'>
-                <span id="stateShipNote">*</span>
+                    <label for = 'addressTwoShip' class = 'form-label'>Address Line 2: </label>
+                    <input type='text' id = 'addressTwoShip' maxlength = '32' class = 'form-control'>
 
-                <label for = 'zipShip' class = 'form-label'>Zip Code:</label>
-                <input type='text' id = 'zipShip' required maxlength = '5' size = '5' pattern = '[0-9]{5}' class = 'form-control'>
-                <span id="zipShipNote">*</span>
-                <button id="submitBtn" type='submit'>Submit Purchase Information</button>
-            </form>
+                    <label for = 'cityShip' class = 'form-label'>City:</label>
+                    <input type='text' id = 'cityShip' required maxlength = '32' class = 'form-control'>
+                    <span id="cityShipNote">*</span>
+
+                    <label for = 'stateShip' class = 'form-label'>State:</label>
+                    <input type='text' id = 'stateShip' required maxlength = '2' size = '2' pattern = '[A-Za-z]{2}' class = 'form-control'>
+                    <span id="stateShipNote">*</span>
+
+                    <label for = 'zipShip' class = 'form-label'>Zip Code:</label>
+                    <input type='text' id = 'zipShip' required maxlength = '5' size = '5' pattern = '[0-9]{5}' class = 'form-control'>
+                    <span id="zipShipNote">*</span>
+                    <button id="submitBtn" type='submit' class='btn btn-dark'>Submit Purchase Information</button>
+                </form>
+            </section>
         </main>
         
     </body>
