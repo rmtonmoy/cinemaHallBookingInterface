@@ -19,5 +19,28 @@ public class MovieController {
         ));
         return "movie";
     }
+    @GetMapping(path = "/signin")
+    String signin(Model model){
+        model.addAttribute("something", "Cinema E-booking System");
+        return "signin";
+    }
+
+    @GetMapping(path = "/adminHome")
+    String adminHome(Model model){
+        model.addAttribute("something", "Cinema E-booking System");
+        return "adminHome";
+    }
+
+    @GetMapping(path = "/manageMovies")
+    String manageMovies(Model model){
+        model.addAttribute("something", "Cinema E-booking System");
+        return "manageMovies";
+    }
+
+    @GetMapping(path = "/managePromo")
+    String managePromo(Model model){
+        model.addAttribute("something", "Cinema E-booking System");
+        return "managePromo";
+    }
 
 }
