@@ -2,26 +2,15 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
     
     <head>
-        <!-- TODO: Use th:insert to add in common head elements -->
-        
-        <title>Cinema E-booking System</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <link rel="stylesheet" th:href="@{/checkoutFormStyle.css}">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <style>
-            span.rqrd{
-                color: red;
-            }
-        </style>
+        <title>Checkout - Cinema E-Booking System</title>
+        <link rel="stylesheet" href="/checkoutFormStyle.css">
+        <span th:replace="fragments/head"></span>
     </head>
     
     <body>
-        <!-- TODO: th:insert for navbar -->
+        <nav th:replace="fragments/header"></nav>
         
-        <main class="container-fluid" role="main">
+        <main class="container" role="main">
             <h1>Checkout</h1>
             
             <section>
