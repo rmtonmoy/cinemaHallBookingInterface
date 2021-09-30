@@ -1,22 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<!DOCTYPE html>
-
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 
 <head>
-    <title>Cinema E-booking System</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Confirmation - Cinema E-booking System</title>
+    <span th:replace="fragments/head"></span>
 </head>
 
 <body>
-<div class="container">
-    <h2>Congratulations! Your account has been created successfully.</h2>
-    <button type="submit" class="btn btn-default">Log in</button>
-</div>
+    <nav th:replace="fragments/header"></nav>
+    
+    <main class="container">
+        <h2>Congratulations! Your account has been created successfully.</h2>
+        <button type="submit" class="btn btn-default">Log in</button>
+    </main>
 </body>
+
 </html>
