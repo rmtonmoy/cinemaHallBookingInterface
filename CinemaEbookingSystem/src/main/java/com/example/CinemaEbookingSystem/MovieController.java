@@ -40,6 +40,12 @@ public class MovieController {
         return "manageMovies";
     }
 
+    @GetMapping(path = "/paymentConfirmation")
+    String paymentConfirmation(Model model){
+        model.addAttribute("something", "Cinema E-booking System");
+        return "paymentConfirmation";
+    }
+
     @GetMapping(path = "/managePromo")
     String managePromo(Model model){
         model.addAttribute("something", "Cinema E-booking System");
