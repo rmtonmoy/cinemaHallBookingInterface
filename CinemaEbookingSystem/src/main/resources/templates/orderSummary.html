@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <title>Order Summary - Cinema E-Booking System</title>
+    <link rel="stylesheet" href="/checkoutFormStyle.css">
+    <span th:replace="fragments/head"></span>
+</head>
+
+<body>
+<nav th:replace="fragments/header"></nav>
+
+<main class="container" role="main">
+    <h1>Order Summary</h1>
+
+    <section>
+        <h2>
+            Cart
+        </h2>
+        <button id="edit" type='submit' class='btn btn-dark'>Edit</button>
+        <button id="delete" type='submit' class='btn btn-dark'>Delete</button>
+        <table>
+            <tr>
+                <th>Select</th>
+                <th>Item</th>
+                <th>Price</th>
+            </tr>
+            <tr>
+                <td><input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></td>
+                <td>Batman</td>
+                <td>$20</td>
+            </tr>
+            <tr>
+                <td>Subtotal:</td> <!-- TODO: Adjust gap with CSS -->
+                <td>$<span th:text="${subtotal}"></span></td>
+            </tr>
+            <tr>
+                <td>Tax:</td>
+                <td>$<span th:text="${tax}"></span></td>
+            </tr>
+            <tr>
+                <td><b>Total:</b></td>
+                <td>$<span th:text="${subtotal}"></span></td>
+            </tr>
+        </table>
+        <br/>
+    </section>
+    <a href="checkout" class="btn btn-info" role="button">Checkout</a>
+    <hr/>
+</main>
+
+</body>
+
+
+</html>

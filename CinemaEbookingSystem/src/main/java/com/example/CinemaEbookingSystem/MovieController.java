@@ -82,4 +82,11 @@ public class MovieController {
     String getOrderHistory() {
         return "Order-History";
     }
+
+    @GetMapping(path = "/orderSummary")
+    String orderSummary(Model model){
+        model.addAttribute("something", "Cinema E-booking System");
+        return "orderSummary";
+    }
+
 }
