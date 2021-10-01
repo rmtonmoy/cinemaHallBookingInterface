@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+    
+    <head>
+        <title>Checkout - Cinema E-Booking System</title>
+        <span th:replace="fragments/head"></span>
+        
+        <!-- TODO: Move to CSS file -->
+        <style>
+            .movieSelector span {
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <nav th:replace="fragments/header"></nav>
+        
+        <main class="container" role="main">
+            <form>
+                <section>
+                    <h2>Select Movie</h2>
+                    <div class="movieSelector" th:each="movie : ${movies}"> <!-- this is div abuse :( -->
+                        <input type="radio" name="movie" th:value="${movie.title}">
+                        <span th:text="${movie.title}"></span>
+                    </div>
+                    <br/>
+                    
+                    <label for="showTime">Showing Time:</label> <!-- Do this with JavaScript -->
+                    <select name="showTime" id="showTime">
+                        <option value="1200P">12:00 PM</option>
+                        <option value="0230P">2:30 PM</option>
+                        <option value="0500P">5:00 PM</option>
+                        <option value="0730P">7:30 PM</option>
+                        <option value="1000P">10:00 PM</option>
+                    </select>
+                </section>
+                <hr/>
+                <section>
+                    <h2>Select Tickets</h2>
+                    <button id="addTicket" type="button" class='btn btn-dark'>Add Ticket</button>
+                    <br/><br/>
+                    
+                    <div id="ticket1"> <!-- In the future, IDs will be used by JS to track what tickets are being added -->
+                        <label for="ticketType">Ticket Type:</label>
+                        <select name="ticketType" id="ticketType">
+                            <option value="adult">Adult</option>
+                            <option value="child">Child</option>
+                        </select>
+                        <br/>
+                        
+                        <!--
+                        <label for="qty">Quantity:</label>
+                        <input type="text" name="qty" id="qty" maxlength="2" pattern = "\d{2}" required />
+                        <br/>
+                        -->
+                        
+                        <label for="seat">Seat:</label>
+                        <input type="text" name="seat" id="seat" maxlength="3" pattern = "[a-zA-Z][0-9]+" required />
+                        <br/>
+                        
+                        <button id="removeTicket1" type="button" class='btn btn-dark'>Remove Ticket</button>
+                    </div>
+                </section>
+                <br/><br/>
+                <section>
+                    <button id="submitBtn" type='submit' class='btn btn-dark'>Add Tickets to Cart</button>
+                </section>
+                <hr/>
+                <section>
+                    <h3>Available Seating</h3> <!-- TODO: Dynamically build seating chart to display availability as well -->
+                    <img src="seatingChart.png" alt="Theater hall seating map" width="100%" />
+                </section>
+            </form>
+        </main>
+        
+        <footer>
+            <!-- TODO: Footer -->
+            <br/> <!-- Temporary measure -->
+        </footer>
+        
+    </body>
+    
+    
+</html>
