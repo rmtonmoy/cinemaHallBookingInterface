@@ -12,6 +12,9 @@ public class CheckoutController {
     
     @GetMapping(path = "/checkout")
     String getCheckout(Model model) {
+        model.addAttribute("subtotal", 0.00);
+        model.addAttribute("tax", 0.00);
+        model.addAttribute("total", 0.00);
         return "checkout";
     }
 }
