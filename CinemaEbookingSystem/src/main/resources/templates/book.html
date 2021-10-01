@@ -10,6 +10,10 @@
             .movieSelector span {
                 font-weight: bold;
             }
+            
+            form img {
+                width: 100%;
+            }
         </style>
     </head>
     
@@ -20,20 +24,22 @@
             <form>
                 <section>
                     <h2>Select Movie</h2>
-                    <div class="movieSelector" th:each="movie : ${movies}"> <!-- this is div abuse :( -->
-                        <input type="radio" name="movie" th:value="${movie.title}">
-                        <span th:text="${movie.title}"></span>
+                    <div class="movieSelector form-check" th:each="movie : ${movies}"> <!-- this is div abuse :( -->
+                        <input class="form-check-input" type="radio" name="movie" th:value="${movie.title}">
+                        <span class="form-check-label" th:text="${movie.title}"></span>
                     </div>
                     <br/>
                     
-                    <label for="showTime">Showing Time:</label> <!-- Do this with JavaScript -->
-                    <select name="showTime" id="showTime">
-                        <option value="1200P">12:00 PM</option>
-                        <option value="0230P">2:30 PM</option>
-                        <option value="0500P">5:00 PM</option>
-                        <option value="0730P">7:30 PM</option>
-                        <option value="1000P">10:00 PM</option>
-                    </select>
+                    <div class="form-group">
+                        <label for="showTime">Showing Time:</label> <!-- Do this with JavaScript -->
+                        <select name="showTime" id="showTime" class="form-control">
+                            <option value="1200P">12:00 PM</option>
+                            <option value="0230P">2:30 PM</option>
+                            <option value="0500P">5:00 PM</option>
+                            <option value="0730P">7:30 PM</option>
+                            <option value="1000P">10:00 PM</option>
+                        </select>
+                    </div>
                 </section>
                 <hr/>
                 <section>
@@ -42,12 +48,13 @@
                     <br/><br/>
                     
                     <div id="ticket1"> <!-- In the future, IDs will be used by JS to track what tickets are being added -->
-                        <label for="ticketType">Ticket Type:</label>
-                        <select name="ticketType" id="ticketType">
-                            <option value="adult">Adult</option>
-                            <option value="child">Child</option>
-                        </select>
-                        <br/>
+                        <div class="form-group">
+                            <label for="ticketType">Ticket Type:</label>
+                            <select name="ticketType" id="ticketType" class="form-control col-1">
+                                <option value="adult">Adult</option>
+                                <option value="child">Child</option>
+                            </select>
+                        </div>
                         
                         <!--
                         <label for="qty">Quantity:</label>
@@ -56,7 +63,7 @@
                         -->
                         
                         <label for="seat">Seat:</label>
-                        <input type="text" name="seat" id="seat" maxlength="3" pattern = "[a-zA-Z][0-9]+" required />
+                        <input type="text" name="seat" id="seat" maxlength="3" pattern = "[a-zA-Z][0-9]+" class="form-control" required />
                         <br/>
                         
                         <button id="removeTicket1" type="button" class='btn btn-dark'>Remove Ticket</button>
@@ -69,7 +76,7 @@
                 <hr/>
                 <section>
                     <h3>Available Seating</h3> <!-- TODO: Dynamically build seating chart to display availability as well -->
-                    <img src="seatingChart.png" alt="Theater hall seating map" width="100%" />
+                    <img src="seatingChart.png" alt="Theater hall seating map" />
                 </section>
             </form>
         </main>
