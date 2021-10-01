@@ -2,11 +2,7 @@
 <html xmlns:th="https://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Cinema E-booking System</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <span th:replace="fragments/head"></span>
     <style>
         .navbar-nav.navbar-center {
             position: absolute;
@@ -21,18 +17,7 @@
 </head>
 <body>
 <h1 th:text="${something}"></h1>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="myNavbar" >
-            <ul class="nav navbar-nav navbar-center">
-                <li class="active" style="font-size: x-large"><a href="http://localhost:8080/adminHome">Welcome Admin</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="http://localhost:8080/"><span class="glyphicon glyphicon-user"></span> Log out</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<nav th:replace="fragments/header"></nav>
 <div class="table _container">
 
     <h3>Offers and Promotions</h3>
