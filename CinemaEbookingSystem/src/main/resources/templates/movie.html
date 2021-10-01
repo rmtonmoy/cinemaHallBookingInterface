@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <title>Home - Cinema E-Booking System</title>
+    <link rel = "icon" href = "https://icon-library.com/images/film-icon-png/film-icon-png-24.jpg" type = "image/x-icon">
+    <h1 th:text="${something}">Cinema E-Booking System</h1>
+    <span th:replace="fragments/head"></span>
+</head>
+
+<body>
+    <nav th:replace="fragments/header"></nav>
+
+    <div id="trailerCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#trailerCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#trailerCarousel" data-slide-to="1"></li>
+            <li data-target="#trailerCarousel" data-slide-to="2"></li>
+            <li data-target="#trailerCarousel" data-slide-to="3"></li>
+            <li data-target="#trailerCarousel" data-slide-to="4"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <a href="https://www.youtube.com/watch?v=-FZ-pPFAjYY" target="_blank">
+                <img src="https://i.ytimg.com/vi/AY2RzayWqC8/maxresdefault.jpg" alt="batman trailer" style="width:100%;">
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="https://www.youtube.com/watch?v=8g18jFHCLXk&t=1s" target="_blank">
+                <img src="https://i.ytimg.com/vi/1EI-UrAweXE/maxresdefault.jpg" alt="dune trailer" style="width:100%;">
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="https://www.youtube.com/watch?v=-FmWuCgJmxo" target="_blank">
+                <img src="https://bgr.com/wp-content/uploads/2021/05/VENOM_-LET-THERE-BE-CARNAGE-Official-Trailer-HD-2-38-screenshot.jpg?quality=70&strip=all" alt="venom trailer" style="width:100%;">
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="https://www.youtube.com/watch?v=X2m-08cOAbc" target="_blank">
+                <img src="https://i.ytimg.com/vi/cttnRmcr_ME/maxresdefault.jpg" alt="free guy trailer" style="width:100%;">
+                </a>
+            </div>
+
+            <div class="item">
+                <a href="https://www.youtube.com/watch?v=8YjFbMbfXaQ" target="_blank">
+                <img src="https://i.ytimg.com/vi/jSnc8Mt_EEI/maxresdefault.jpg" alt="shang chi trailer" style="width:100%;">
+                </a>
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#trailerCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#trailerCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+<h2>
+    Book your movie today!
+</h2>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4">
+                <img src="https://i.ytimg.com/vi/AY2RzayWqC8/maxresdefault.jpg" alt="batman trailer" style="width:100%;">
+                <a href="book" class="btn btn-info" role="button">Book movie</a>
+            </div>
+            <div class="col-sm-4">
+                <img src="https://i.ytimg.com/vi/1EI-UrAweXE/maxresdefault.jpg" alt="dune trailer" style="width:100%;">
+                <a href="book" class="btn btn-info" role="button">Book movie</a>
+            </div>
+            <div class="col-sm-4">
+                <img src="https://bgr.com/wp-content/uploads/2021/05/VENOM_-LET-THERE-BE-CARNAGE-Official-Trailer-HD-2-38-screenshot.jpg?quality=70&strip=all" alt="venom trailer" style="width:100%;">
+                <a href="book" class="btn btn-info" role="button">Book movie</a>
+            </div>
+        </div>
+    </div>
+    <h3>
+        Coming soon!
+    </h3>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4">
+                <img src="https://i.ytimg.com/vi/cttnRmcr_ME/maxresdefault.jpg" alt="free guy trailer" style="width:100%;">
+            </div>
+            <div class="col-sm-4">
+                <img src="https://i.ytimg.com/vi/jSnc8Mt_EEI/maxresdefault.jpg" alt="shang chi trailer" style="width:100%;">
+            </div>
+            <div class="col-sm-4">
+                <img src="https://image.tmdb.org/t/p/original/wR8ejQR5zhal9UEARNbYR8yQnuL.jpg" alt="shang chi trailer" style="width:100%;">
+            </div>
+        </div>
+    </div>
+    <h3></h3>
+    <!-- Footer -->
+    <footer class="text-center text-lg-start bg-light text-muted">
+        <!-- Section: Social media -->
+        <section
+                class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+        >
+            <!-- Left -->
+            <div class="me-5 d-none d-lg-block">
+                <span>Get connected with us on social networks:</span>
+            </div>
+            <!-- Left -->
+
+            <!-- Right -->
+            <div>
+                <a href="" class="me-4 text-reset">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                    <i class="fab fa-google"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+            <!-- Right -->
+        </section>
+        <!-- Section: Social media -->
+
+        <!-- Section: Links  -->
+        <section class="">
+            <div class="container text-center text-md-start mt-5">
+                <!-- Grid row -->
+                <div class="row mt-3">
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                        <!-- Content -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            <i class="fas fa-gem me-3"></i>Company name
+                        </h6>
+                        <p>
+                            Here you can use rows and columns to organize your footer content. Lorem ipsum
+                            dolor sit amet, consectetur adipisicing elit.
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Products
+                        </h6>
+                        <p>
+                            <a href="#!" class="text-reset">Angular</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">React</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Vue</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Laravel</a>
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Useful links
+                        </h6>
+                        <p>
+                            <a href="#!" class="text-reset">Pricing</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Settings</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Orders</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Help</a>
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Contact
+                        </h6>
+                        <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+                        <p>
+                            <i class="fas fa-envelope me-3"></i>
+                            info@example.com
+                        </p>
+                        <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+                        <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+            </div>
+        </section>
+        <!-- Section: Links  -->
+
+        <!-- Copyright -->
+        <div class="text-center p-4" style="background-color: black;">
+            © 2021 Copyright:
+            <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+    </body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Order History</title>
+  <span th:replace="fragments/head"></span>
+  <style>
+    .navbar {
+      border-radius: 0;
+    }
+
+    .nav-pills .nav-link a{
+      color: rgb(43, 43, 43);
+    }
+
+    .nav-pills .nav-link.active a{
+      color: rgb(43, 43, 43);
+      background-color: lightgray;
+      font-weight: bold;
+    }
+
+    #navbar-pages {
+      margin-left: 1em;
+    }
+
+    #navbar-pages a {
+      font-weight: bold;
+    }
+
+    #shopping-cart {
+      margin-left: 1em;
+      padding-left: 1.5em;
+      padding-right: 1.5em;
+    }
+
+    #user-profile {
+      margin-left: 4em;
+    }
+
+    #sidebar {
+      margin-top: 1.5em;
+    }
+
+    #main {
+      margin-left: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <nav th:replace="fragments/header"></nav>
+
+  <div class="container-fluid">       
+    <div class="row">     
+      <div class="col-sm-3 col-md-2 sidebar" id="sidebar"> 
+        <div class="d-flex flex-column">
+            <ul class="nav nav-pills nav-stacked flex-column" role="tablist">
+              <li class="nav-link"><a href="editProfile">Personal Info</a></li>
+              <li class="nav-link"><a href="editPaymentInfo">Payment Info</a></li>
+              <li class="nav-link active"><a href="orderHistory">Order History</a></li>        
+            </ul>     
+        </div>       
+      </div>                       
+
+      <div class="col-sm-9" id="main">
+        <h1><b>Order History</b></h1><br><br>            
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Order #</th>
+              <th>Placed</th>
+              <th>Placed by</th>
+              <th>Status</th>
+              <th>Description</th>
+              <th>Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>9-20-2021</td>
+              <td>Oscar Magana-Rivera</td>
+              <td><button class="btn btn-success">Complete</button></td>
+              <td><a href="#">invoice</a></td>
+              <td>$15.89</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>09-27-2021</td>                            
+              <td>Oscar Magana-Rivera</td>
+              <td><button class="btn btn-success">Complete</button></td>
+              <td><a href="#">invoice</a></td>
+              <td>$21.11</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>09-30-2021</td>                            
+              <td>Oscar Magana-Rivera</td>
+              <td><button class="btn btn-success">Complete</button></td>
+              <td><a href="#">invoice</a></td>
+              <td>$25.45</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>10-01-2021</td>                            
+              <td>Oscar Magana-Rivera</td>
+              <td><button class="btn btn-danger">Cancelled</button></td>
+              <td><a href="#">invoice</a></td>
+              <td>$11.62</td>
+            </tr>
+          </tbody>
+        </table>
+      </div> 
+    </div> 
+  </div>
+</body>
+</html>

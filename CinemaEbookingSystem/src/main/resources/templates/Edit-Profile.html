@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Edit Profile</title>
+  <span th:replace="fragments/head"></span>
+  <style>
+    .navbar {
+      border-radius: 0;
+    }
+
+    .nav-pills .nav-link a{
+      color: rgb(43, 43, 43);
+    }
+
+    .nav-pills .nav-link.active a{
+      color: rgb(43, 43, 43);
+      background-color: lightgray;
+      font-weight: bold;
+    }
+
+    #navbar-pages {
+      margin-left: 1em;
+    }
+
+    #navbar-pages a {
+      font-weight: bold;
+    }
+
+    #shopping-cart {
+      margin-left: 1em;
+      padding-left: 1.5em;
+      padding-right: 1.5em;
+    }
+
+    #user-profile {
+      margin-left: 4em;
+    }
+
+    #sidebar {
+      margin-top: 1.5em;
+    }
+
+    #main h1{
+      margin-left: 1.5em;
+    }
+
+    #cancel {
+      margin-left: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <nav th:replace="fragments/header"></nav>
+
+  <div class="container-fluid">       
+    <div class="row">     
+      <div class="col-sm-3 col-md-2 sidebar" id="sidebar"> 
+        <div class="d-flex flex-column">
+          <ul class="nav nav-pills nav-stacked flex-column" role="tablist">
+            <li class="nav-link active"><a href="editProfile">Personal Info</a></li>
+            <li class="nav-link"><a href="editPaymentInfo">Payment Info</a></li>
+            <li class="nav-link"><a href="orderHistory">Order History</a></li>        
+          </ul>      
+        </div>       
+      </div>                       
+
+      <div class="col-sm-9 main" id="main">
+        <h1><b>Edit Profile</b></h1><br><br>
+        <form class="form-horizontal" action="#">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">First name</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="fname" value="Oscar" placeholder="Enter first name" name="fname">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Last name</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="lname" value="Magana-Rivera" placeholder="Enter last name" name="lname">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Email</label>
+            <div class="col-sm-9">
+              <input type="email" class="form-control" id="email" value="user@CES.com" name="email" readonly>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="pwd">Password</label>
+            <div class="col-sm-9">          
+              <input type="password" class="form-control" id="pwd" value="user" name="pwd" readonly>
+            </div>
+          </div>
+          <div class="form-group">
+            <a class="col-sm-offset-2 col-sm-2" href="#">Reset password</a>
+          </div>
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">Save Changes</button>
+              <a href="editProfile" id="cancel">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div> 
+    </div> 
+  </div>
+</body>
+</html>

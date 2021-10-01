@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Cinema E-booking System</title>
+    <span th:replace="fragments/head"></span>
+    <style>
+        .button {
+            display: inline-block;
+            padding: 15px 25px;
+            font-size: 40px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: white;
+            background-color: #8197f7;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+
+        .button:hover {background-color: #5c78f2}
+
+        .button:active {
+            background-color: #5c78f2;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+        .navbar-nav.navbar-center {
+            position: absolute;
+            left: 50%;
+            transform: translatex(-50%);
+        }
+
+    </style>
+</head>
+<body>
+    <h1 th:text="${something}"></h1>
+    <nav th:replace="fragments/header"></nav>
+    <div class="managebox" style="margin: auto; padding: 50px;background: rgba(92, 120, 242, 0.3);width: 60% ">
+        <p>
+        <div class="Manage movies" style="text-align: center; margin: auto;">
+            <a href="manageMovies"><button class="button" style="margin:5px;">Manage Movies</button></a>
+        </div>
+        </p>
+        <p>
+        <div class="Manage promotions" style="text-align: center;margin: auto;">
+        <a href="managePromo"><button class="button" style="margin: 5px">Manage Promotions</button></a>
+        </div>
+        </p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Order History</title>
+  <span th:replace="fragments/head"></span>
+  <style>
+    .navbar {
+      border-radius: 0;
+    }
+
+    .nav-pills .nav-link a{
+      color: rgb(43, 43, 43);
+    }
+
+    .nav-pills .nav-link.active a{
+      color: rgb(43, 43, 43);
+      background-color: lightgray;
+      font-weight: bold;
+    }
+
+    #navbar-pages {
+      margin-left: 1em;
+    }
+
+    #navbar-pages a {
+      font-weight: bold;
+    }
+
+    #shopping-cart {
+      margin-left: 1em;
+      padding-left: 1.5em;
+      padding-right: 1.5em;
+    }
+
+    #user-profile {
+      margin-left: 4em;
+    }
+
+    #sidebar {
+      margin-top: 1.5em;
+    }
+
+    #main {
+      margin-left: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <nav th:replace="fragments/header"></nav>
+
+  <div class="container-fluid">       
+    <div class="row">     
+      <div class="col-sm-3 col-md-2 sidebar" id="sidebar"> 
+        <div class="d-flex flex-column">
+            <ul class="nav nav-pills nav-stacked flex-column" role="tablist">
+              <li class="nav-link"><a href="editProfile">Personal Info</a></li>
+              <li class="nav-link active"><a href="editPaymentInfo">Payment Info</a></li>
+              <li class="nav-link"><a href="orderHistory">Order History</a></li>        
+            </ul>     
+        </div>       
+      </div>                       
+
+      <div class="col-sm-9" id="main">
+        <h1><b>Payment Info</b></h1><br><br>            
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Cardholder's Name</th>
+              <th>Card Number</th>
+              <th>Expiration Date</th>
+              <th>Type</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>John Doe</td>
+              <td>Ending in 1111</td>
+              <td>01/23</td>
+              <td>VISA</td>
+              <td>
+                <button class="btn btn-default" disabled>Make Default</button>
+                <button class="btn btn-primary">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>John Smith</td>
+              <td>Ending in 2222</td>
+              <td>02/23</td>
+              <td>VISA</td>
+              <td>
+                <button class="btn btn-default">Make Default</button>
+                <button class="btn btn-primary">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Jane Doe</td>
+              <td>Ending in 3333</td>
+              <td>03/23</td>
+              <td>DISCOVER</td>
+              <td>
+                <button class="btn btn-default">Make Default</button>
+                <button class="btn btn-primary">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <form class="form-horizontal" action="#">
+          <div class="form-group">        
+            <div class="col-sm-9">
+              <button type="submit" class="btn btn-default">Add New</button>
+            </div>
+          </div>
+        </form>
+      </div> 
+    </div> 
+  </div>
+</body>
+</html>

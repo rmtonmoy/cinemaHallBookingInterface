@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Cinema E-booking System</title>
+    <span th:replace="fragments/head"></span>
+    <style>
+        .navbar-nav.navbar-center {
+            position: absolute;
+            left: 50%;
+            transform: translatex(-50%);
+        }
+        .table {
+            margin: 0 auto;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+<h1 th:text="${something}"></h1>
+<nav th:replace="fragments/header"></nav>
+<div class="table _container">
+
+    <h3>Offers and Promotions</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr style="background-color: #5bbfde">
+            <th>Title</th>
+            <th>Description</th>
+            <th>Promotion Cover</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>$5 Tuesdays</td>
+            <td>Save EVERY WEEK on tickets to Tuesday showtimes!</td>
+            <td><img src="https://fatcatsfun.com/uploads/page_content_images/15271873660.jpeg" width="128" height="128"></td>
+            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal2">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
+        </tr>
+        <tr>
+            <td>30% off</td>
+            <td>Every day before 4pm, save 30% off the evening ticket prices!</td>
+            <td><img src="https://media.istockphoto.com/photos/render-red-text-30-percent-off-picture-id512215743?k=20&m=512215743&s=612x612&w=0&h=iq8HE2Rhs9SfN0pqWhbd0gYqEORRyeNudwBgS9zno80=" width="128" height="128"></td>
+            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal2">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal2">Add New Promotions</button>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Confirm Delete</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure that you want to delete this item?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="formModal2" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Edit Info
+                    </h4>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="titleM">Title</label>
+                            <input type="text" class="form-control"
+                                   id="titleM" placeholder="Enter title"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="DesM">Description</label>
+                            <input type="text" class="form-control"
+                                   id="DesM" placeholder="Enter description"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="imgM">Promo Cover</label>
+                            <input type="file" class="form-control"
+                                   id="imgM"/>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">
+                        Save changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

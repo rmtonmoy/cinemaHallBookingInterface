@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <title>Sign Up - Cinema E-booking System</title>
+    <style>
+        span.rqrd{
+            color: red;
+        }
+    </style>
+    <span th:replace="fragments/head"></span>
+</head>
+
+<body>
+    <nav th:replace="fragments/header"></nav>
+    <main class="container">
+        <h2>Sign Up With The Best Movie Theater</h2>
+
+        <form action="registration_confirmation">
+
+            <div class="required">
+                <label for="first_name">First Name: <span class="rqrd">*</span></label>
+                <input type="text" class="form-control" id="first_name" style="width: 370px" required>
+            </div>
+
+
+            <div class="form-group">
+                <label for="last_name">Last Name: <span class="rqrd">*</span></label>
+                <input type="text" class="form-control" id="last_name" style="width: 370px" required>
+            </div>
+
+            <div class="form-group"> <!-- TODO: Avoid using type "date" for browser compatibility -->
+                <label for="date_of_birth">Date of Birth:</label>
+                <input type="date" class="form-control" id="date_of_birth" style="width: 228px">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email address: <span class="rqrd">*</span></label>
+                <input type="email" class="form-control" id="email" style="width: 370px" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pwd">Password: <span class="rqrd">*</span></label>
+                <input type="password" class="form-control" id="pwd" style="width: 370px" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cpwd">Confirm Password: <span class="rqrd">*</span></label>
+                <input type="password" class="form-control" id="cpwd" style="width: 370px" required>
+            </div>
+
+            <div class="checkbox">
+                <label><input type="checkbox"> Remember me</label>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+
+    </main>
+</body>
+
+</html>
