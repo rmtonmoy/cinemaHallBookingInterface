@@ -62,7 +62,7 @@ public class MovieController {
         return "registrationconfirmation";
     }
 
-    @GetMapping(path = "/EditProfile")
+    @GetMapping(path = "/editProfile")
     String getEditProfile() {
         return "Edit-Profile";
     }
@@ -71,5 +71,15 @@ public class MovieController {
     String getSearchView(Model model){
         model.addAttribute("something", "Cinema E-booking System");
         return "search_view";
+    }
+    
+    @GetMapping(path = "/editPaymentInfo")
+    String getPaymentInfo() {
+        return "Edit-Payment-Info";
+    }
+
+    @GetMapping(path = "/orderHistory")
+    String getOrderHistory() {
+        return "Order-History";
     }
 }
