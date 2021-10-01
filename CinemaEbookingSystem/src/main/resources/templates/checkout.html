@@ -17,11 +17,40 @@
                 <h2>
                     Cart
                 </h2>
-                <!-- some kind of table here idfk -->
+                <table>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                    </tr>
+                    <tr th:each="item : ${cart}"> <!-- Placeholder -->
+                        <td th:text="${item.name}"></td>
+                        <td th:text="${item.price}"></td>
+                    </tr>
+                    <tr>
+                        <td>Subtotal:</td> <!-- TODO: Adjust gap with CSS -->
+                        <td>$<span th:text="${subtotal}"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Tax:</td>
+                        <td>$<span th:text="${tax}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><b>Total:</b></td>
+                        <td>$<span th:text="${subtotal}"></span></td>
+                    </tr>
+                </table>
+                <br/>
+                <form id="promoForm">
+                    <label for="promoCode" class="form-label">Enter a promotion code: </label>
+                    <input type="text" id="promoCode" class="form-control" />
+                    <button id="submitPromo" type='submit' class='btn btn-dark'>Apply</button>
+                </form>
             </section>
             
+            <hr/>
+            
             <section>
-                <form id="checkoutForm" method = "POST" action=""> <!-- TODO: form action -->
+                <form id="checkoutForm"> <!-- TODO: form action -->
                     <h2> Billing Information </h2>
                     <label for = 'creditCard' class = 'form-label'>Credit Card Number: </label>
                     <input type = 'text' required id = 'creditCard' maxlength = '16' size = '16' pattern = '\d{16}' class = 'form-control'>
@@ -58,30 +87,17 @@
                     <label for = 'zip' class = 'form-label'>Zip Code:</label>
                     <input type='text' id = 'zip' required maxlength = '5' size = '5' pattern = '[0-9]{5}' class = 'form-control'>
                     <span id="zipNote">*</span>
-
-                    <h2> Shipping Address </h2>
-                    <label for = 'addressOneShip' class = 'form-label'>Address Line 1:</label>
-                    <input type='text' id = 'addressOneShip' required maxlength = '32' class = 'form-control'>
-                    <span id="addressOneShipNote">*</span>
-
-                    <label for = 'addressTwoShip' class = 'form-label'>Address Line 2: </label>
-                    <input type='text' id = 'addressTwoShip' maxlength = '32' class = 'form-control'>
-
-                    <label for = 'cityShip' class = 'form-label'>City:</label>
-                    <input type='text' id = 'cityShip' required maxlength = '32' class = 'form-control'>
-                    <span id="cityShipNote">*</span>
-
-                    <label for = 'stateShip' class = 'form-label'>State:</label>
-                    <input type='text' id = 'stateShip' required maxlength = '2' size = '2' pattern = '[A-Za-z]{2}' class = 'form-control'>
-                    <span id="stateShipNote">*</span>
-
-                    <label for = 'zipShip' class = 'form-label'>Zip Code:</label>
-                    <input type='text' id = 'zipShip' required maxlength = '5' size = '5' pattern = '[0-9]{5}' class = 'form-control'>
-                    <span id="zipShipNote">*</span>
-                    <button id="submitBtn" type='submit' class='btn btn-dark'>Submit Purchase Information</button>
+                    
+                    <button id="submitBtn" type='submit' class='btn btn-dark'>Confirm Purchase</button>
+                    <button id="cancelBtn" type='button' class='btn btn-light'>Cancel Purchase</button>
                 </form>
             </section>
         </main>
+        
+        <footer>
+            <!-- TODO: Footer -->
+            <br/> <!-- Temporary measure -->
+        </footer>
         
     </body>
     
