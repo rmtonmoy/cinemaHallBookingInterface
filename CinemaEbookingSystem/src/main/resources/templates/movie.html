@@ -3,14 +3,13 @@
 
 <head>
     <title>Home - Cinema E-Booking System</title>
+    <h1 th:text="${something}">Cinema E-Booking System</h1>
     <span th:replace="fragments/head"></span>
 </head>
 
 <body>
     <nav th:replace="fragments/header"></nav>
-    
-    <h1 th:text="${something}">Cinema E-Booking System</h1>
-    
+
     <div id="trailerCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
@@ -90,6 +89,9 @@
             </div>
             <div class="col-sm-4">
                 <img src="https://i.ytimg.com/vi/jSnc8Mt_EEI/maxresdefault.jpg" alt="shang chi trailer" style="width:100%;">
+            </div>
+            <div class="col-sm-4">
+                <img src="https://image.tmdb.org/t/p/original/wR8ejQR5zhal9UEARNbYR8yQnuL.jpg" alt="shang chi trailer" style="width:100%;">
             </div>
         </div>
     </div>

@@ -9,8 +9,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1 th:text="${something}"/>
-<div class="container" style="text-align: center; margin: auto;width: 50%;padding: 50px;background-color: #8197f7;">
+<nav th:replace="fragments/header"></nav>
+<div class="container" style="text-align: center; margin: auto;width: 50%;padding: 50px;">
     <h2>Sign In</h2>
     <form action="http://localhost:8080/adminHome">
         <div class="form-group">
@@ -26,6 +26,7 @@
         </div>
 
         <button type="submit">Submit</button>
+        <a href="localhost8080/" class="btn btn-info" role="button">Link Button</a>
     </form>
 </div>
 </body>
