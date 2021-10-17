@@ -6,10 +6,6 @@ import javax.persistence.*;
 @Table(name = "customers")
 public class customer extends user {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
     public void editProfile() {}
 
     public void searchMovies() {}
