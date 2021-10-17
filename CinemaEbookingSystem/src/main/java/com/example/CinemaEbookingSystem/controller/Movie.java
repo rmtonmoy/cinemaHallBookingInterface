@@ -1,4 +1,4 @@
-package com.example.CinemaEbookingSystem;
+package com.example.CinemaEbookingSystem.controller;
 
 public class Movie {
     private String title;

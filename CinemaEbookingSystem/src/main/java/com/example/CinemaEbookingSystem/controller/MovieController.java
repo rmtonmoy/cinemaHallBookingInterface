@@ -1,13 +1,10 @@
-package com.example.CinemaEbookingSystem;
+package com.example.CinemaEbookingSystem.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.sql.SQLOutput;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 public class MovieController {

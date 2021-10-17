@@ -1,7 +1,7 @@
 // Checkout page controller by James Hyun
 // sorta dunno what i'm doing here but hey as long as it works B)
 
-package com.example.CinemaEbookingSystem;
+package com.example.CinemaEbookingSystem.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
