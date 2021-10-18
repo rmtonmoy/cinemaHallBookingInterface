@@ -1,4 +1,4 @@
-package com.example.CinemaEbookingSystem;
+package com.example.CinemaEbookingSystem.controller;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
