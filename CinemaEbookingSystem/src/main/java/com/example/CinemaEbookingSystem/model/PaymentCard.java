@@ -4,22 +4,17 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "paymentcards")
-public class paymentCard {
+public class PaymentCard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private int card_id;
     private int cardNumber;
 
-    public int getCard_id() {
-        return card_id;
-    }
+    private String expirationDate;
 
-    public void setCard_id(int card_id) {
-        this.card_id = card_id;
-    }
+    private String billingAddress;
 
     public int getCardNumber() {
         return cardNumber;
@@ -45,7 +40,5 @@ public class paymentCard {
         this.billingAddress = billingAddress;
     }
 
-    private String expirationDate;
-    private String billingAddress;
 
 }
