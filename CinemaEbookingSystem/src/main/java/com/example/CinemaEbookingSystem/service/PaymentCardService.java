@@ -8,5 +8,5 @@ import java.util.List;
 @Component
 public interface PaymentCardService {
     List<PaymentCard> getAllCard();
-    void SavepaymentCard(PaymentCard paymentCard);
+    void savePaymentCard(PaymentCard paymentCard);
 }

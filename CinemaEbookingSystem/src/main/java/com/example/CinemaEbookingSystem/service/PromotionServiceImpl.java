@@ -1,4 +1,4 @@
 package com.example.CinemaEbookingSystem.service;
 
-public class promotionService {
+public class PromotionServiceImpl {
 }

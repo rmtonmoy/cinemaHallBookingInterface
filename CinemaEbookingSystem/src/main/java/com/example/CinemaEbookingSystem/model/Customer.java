@@ -4,7 +4,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "customers")
-public class customer extends user {
+public class Customer extends User {
+
+    String user_status;
 
     public void editProfile() {}
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PaymentCardServiceImpl implements PaymentCardService{
+public class PaymentCardServiceImpl implements PaymentCardService {
 
     @Autowired
     private PaymentCardRepository paymentCardRepository;
@@ -19,7 +19,7 @@ public class PaymentCardServiceImpl implements PaymentCardService{
     }
 
     @Override
-    public void SavepaymentCard(PaymentCard paymentCard) {
+    public void savePaymentCard(PaymentCard paymentCard) {
         this.paymentCardRepository.save(paymentCard);
     }
 
