@@ -3,7 +3,7 @@ package com.example.CinemaEbookingSystem.model;
 import javax.persistence.*;
 
 @MappedSuperclass
-public class User {
+public abstract class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
