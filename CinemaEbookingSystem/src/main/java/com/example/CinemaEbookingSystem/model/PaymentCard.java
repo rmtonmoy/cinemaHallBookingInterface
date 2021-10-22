@@ -40,5 +40,7 @@ public class PaymentCard {
         this.billingAddress = billingAddress;
     }
 
-
+    @ManyToOne
+    @JoinColumn(name= "fk_CID")
+    private Customer customer;
 }

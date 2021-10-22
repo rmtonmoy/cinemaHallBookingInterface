@@ -1,12 +1,19 @@
 package com.example.CinemaEbookingSystem.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
 public class Customer extends User {
 
-    String user_status;
+    //String user_status;
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
+
+    @OneToMany( mappedBy = "customer")
+    private List<PaymentCard> cardlist = new ArrayList<>();
 
     public void editProfile() {}
 
