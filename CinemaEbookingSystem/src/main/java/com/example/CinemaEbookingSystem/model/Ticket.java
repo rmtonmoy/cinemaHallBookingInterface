@@ -36,7 +36,7 @@ public class Ticket {
 
     @OneToOne
     @JoinColumn(name = "promotion_id")
-    Promotion promotion; 
+    Promotion promotion;
 
     public Seat getSeat() {
         return seat;
