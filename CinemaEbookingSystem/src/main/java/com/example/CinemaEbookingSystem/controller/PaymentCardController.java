@@ -11,7 +11,7 @@ public class PaymentCardController {
     @Autowired
     private PaymentCardService paymentCardService;
 
-    @GetMapping(path = " ")
+    @GetMapping(path = "/dummy")
     public String dummyPage(Model model){
         model.addAttribute("listCards", paymentCardService.getAllCard());
         return "index";
