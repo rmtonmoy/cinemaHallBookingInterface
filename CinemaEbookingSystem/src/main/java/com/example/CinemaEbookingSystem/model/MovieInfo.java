@@ -1,6 +1,7 @@
 package com.example.CinemaEbookingSystem.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,11 +15,10 @@ public class MovieInfo {
 
     private String category;
 
-    @OneToMany( targetEntity= Reviews.class )
-    @JoinColumn(name = "fk_MID", referencedColumnName = "id")
-    private List<Reviews> reviewlist;
+    @OneToMany( mappedBy = "movie")
+    private List<Reviews> reviewlist = new ArrayList<>();
 
-    //private String[] cast;
+    private String cast;
 
     private String director;
 
@@ -27,6 +27,14 @@ public class MovieInfo {
     private String synopsis;
 
     private String MPAA_rating;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -44,13 +52,21 @@ public class MovieInfo {
         this.category = category;
     }
 
-    /* public String[] getCast() {
+    public List<Reviews> getReviewlist() {
+        return reviewlist;
+    }
+
+    public void setReviewlist(List<Reviews> reviewlist) {
+        this.reviewlist = reviewlist;
+    }
+
+    public String getCast() {
         return cast;
     }
 
-    public void setCast(String[] cast) {
+    public void setCast(String cast) {
         this.cast = cast;
-    }  */
+    }
 
     public String getDirector() {
         return director;
@@ -83,13 +99,4 @@ public class MovieInfo {
     public void setMPAA_rating(String MPAA_rating) {
         this.MPAA_rating = MPAA_rating;
     }
-
-    public List getReviewlist() {
-        return reviewlist;
-    }
-
-    public void setReviewlist(List<Reviews> reviewlist) {
-        this.reviewlist = reviewlist;
-    }
-
 }

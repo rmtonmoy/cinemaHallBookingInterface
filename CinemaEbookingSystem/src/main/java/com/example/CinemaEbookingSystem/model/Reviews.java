@@ -10,6 +10,10 @@ public class Reviews {
     private int rid;
     private String review;
 
+    @ManyToOne
+    @JoinColumn(name= "fk_MID")
+    private MovieInfo movie;
+
     public Reviews(int rid, String review) {
         super();
         this.rid = rid;
@@ -34,6 +38,14 @@ public class Reviews {
 
     public void setReview(String review) {
         this.review = review;
+    }
+
+    public MovieInfo getMovie() {
+        return movie;
+    }
+
+    public void setMovie(MovieInfo movie) {
+        this.movie = movie;
     }
 }
 
