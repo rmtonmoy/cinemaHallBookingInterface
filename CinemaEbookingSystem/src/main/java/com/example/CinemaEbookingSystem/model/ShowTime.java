@@ -20,7 +20,6 @@ public class ShowTime {
     int startingTime;
     Date date;
 
-
     public Long getId() {
         return id;
     }

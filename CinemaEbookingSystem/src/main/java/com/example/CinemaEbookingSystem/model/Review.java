@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Reviews")
-public class Reviews {
+public class Review {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private int rid;
@@ -14,13 +14,13 @@ public class Reviews {
     @JoinColumn(name= "fk_MID")
     private MovieInfo movie;
 
-    public Reviews(int rid, String review) {
+    public Review(int rid, String review) {
         super();
         this.rid = rid;
         this.review = review;
     }
 
-    public Reviews(){
+    public Review(){
         super();
     }
 

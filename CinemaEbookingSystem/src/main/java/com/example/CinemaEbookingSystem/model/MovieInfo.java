@@ -16,7 +16,7 @@ public class MovieInfo {
     private String category;
 
     @OneToMany( mappedBy = "movie")
-    private List<Reviews> reviewlist = new ArrayList<>();
+    private List<Review> reviewlist = new ArrayList<>();
 
     private String cast;
 
@@ -52,11 +52,11 @@ public class MovieInfo {
         this.category = category;
     }
 
-    public List<Reviews> getReviewlist() {
+    public List<Review> getReviewlist() {
         return reviewlist;
     }
 
-    public void setReviewlist(List<Reviews> reviewlist) {
+    public void setReviewlist(List<Review> reviewlist) {
         this.reviewlist = reviewlist;
     }
 
