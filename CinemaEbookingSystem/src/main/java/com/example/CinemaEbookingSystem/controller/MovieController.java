@@ -59,11 +59,6 @@ public class MovieController {
         return "registrationconfirmation";
     }
 
-    @GetMapping(path = "/editProfile")
-    String getEditProfile() {
-        return "Edit-Profile";
-    }
-
     @GetMapping(path = "/search")
     String getSearchView(Model model){
         model.addAttribute("something", "Cinema E-booking System");

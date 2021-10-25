@@ -8,19 +8,17 @@ public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    private int user_id;
     private String firstName;
     private String lastName;
     private String password;
     private String email;
 
-    public int getUser_id() {
-        return user_id;
+    public long getId() {
+        return id;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
