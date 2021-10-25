@@ -81,4 +81,12 @@ public class PaymentCard {
     @ManyToOne
     @JoinColumn(name = "fk_CID")
     private Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 }

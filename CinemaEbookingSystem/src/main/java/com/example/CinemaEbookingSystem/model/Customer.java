@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "customers")
+@Table(name = "customers", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class Customer extends User {
 
     //String user_status;
@@ -13,7 +13,45 @@ public class Customer extends User {
     private UserStatus status;
 
     @OneToMany( mappedBy = "customer")
-    private List<PaymentCard> cardList = new ArrayList<>();
+    private List<PaymentCard> cardlist = new ArrayList<>();
+
+    //@ManyToMany
+    //@JoinTable(name="OrderHistory",
+    //        joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
+    //inverseJoinColumns = @JoinColumn(name = "booking_id", referencedColumnName = "id"))
+
+    @OneToMany( mappedBy = "customer")
+    private List<Booking> booking = new ArrayList<>();
+
+    public Customer(UserStatus status, List<PaymentCard> cardlist) {
+        super();
+        this.status = status;
+        this.cardlist = cardlist;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
+    }
+
+    public List<PaymentCard> getCardlist() {
+        return cardlist;
+    }
+
+    public void setCardlist(List<PaymentCard> cardlist) {
+        this.cardlist = cardlist;
+    }
+
+    public List<Booking> getBooking() {
+        return booking;
+    }
+
+    public void setBooking(List<Booking> booking) {
+        this.booking = booking;
+    }
 
     public void editProfile() {}
 
