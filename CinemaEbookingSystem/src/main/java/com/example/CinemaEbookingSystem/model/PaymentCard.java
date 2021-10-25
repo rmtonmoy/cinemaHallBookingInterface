@@ -10,18 +10,56 @@ public class PaymentCard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private int cardNumber;
+    private long cardNumber;
+
+    private int securityCode;
+
+    private String cardHolder;
+
+    private String cardType;
 
     private String expirationDate;
 
     private String billingAddress;
 
-    public int getCardNumber() {
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+    
+    public long getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(int cardNumber) {
+    public void setCardNumber(long cardNumber) {
         this.cardNumber = cardNumber;
+    }
+
+    public int getSecurityCode() {
+        return securityCode;
+    }
+
+    public void setSecurityCode(int securityCode) {
+        this.securityCode = securityCode;
+    }
+
+    public String getCardHolder() {
+        return cardHolder;
+    }
+
+    public void setCardHolder(String cardHolder) {
+        this.cardHolder = cardHolder;
+    }
+
+    public String getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
     }
 
     public String getExpirationDate() {
@@ -41,6 +79,6 @@ public class PaymentCard {
     }
 
     @ManyToOne
-    @JoinColumn(name= "fk_CID")
+    @JoinColumn(name = "fk_CID")
     private Customer customer;
 }

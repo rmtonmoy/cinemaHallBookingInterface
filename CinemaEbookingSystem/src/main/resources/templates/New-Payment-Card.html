@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>New Payment Card - Cinema E-Booking System</title>
+  <span th:replace="fragments/head"></span>
+  <style>
+    .navbar {
+      border-radius: 0;
+    }
+
+    .nav-pills .nav-link a{
+      color: rgb(43, 43, 43);
+    }
+
+    .nav-pills .nav-link.active a{
+      color: rgb(43, 43, 43);
+      background-color: lightgray;
+      font-weight: bold;
+    }
+
+    #navbar-pages {
+      margin-left: 1em;
+    }
+
+    #navbar-pages a {
+      font-weight: bold;
+    }
+
+    #shopping-cart {
+      margin-left: 1em;
+      padding-left: 1.5em;
+      padding-right: 1.5em;
+    }
+
+    #user-profile {
+      margin-left: 4em;
+    }
+
+    #sidebar {
+      margin-top: 1.5em;
+    }
+
+    #main h1{
+      margin-left: 1.5em;
+    }
+
+    #cancel {
+      margin-left: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <nav th:replace="fragments/header"></nav>
+
+  <div class="container-fluid">       
+    <div class="row">     
+      <div class="col-sm-3 col-md-2 sidebar" id="sidebar"> 
+        <div class="d-flex flex-column">
+          <ul class="nav nav-pills nav-stacked flex-column" role="tablist">
+            <li class="nav-link"><a href="editProfile">Personal Info</a></li>
+            <li class="nav-link active"><a href="editPaymentInfo">Payment Info</a></li>
+            <li class="nav-link"><a href="orderHistory">Order History</a></li>        
+          </ul>      
+        </div>       
+      </div>                       
+
+      <div class="col-sm-9 main" id="main">
+        <h1><b>Add New Payment Card</b></h1><br><br>
+        <form th:action="@{/savePaymentCard}" th:object="${paymentCard}" method="POST" class="form-horizontal">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Cardholder's name</label>
+            <div class="col-sm-9">
+              <input type="text" th:field="*{cardHolder}" class="form-control" id="name" placeholder="Enter full name" name="name" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="cardNumber">Card number</label>
+            <div class="col-sm-9">
+              <input type="tel" th:field="*{cardNumber}" class="form-control" id="cardNumber" inputmode="numeric" pattern="[0-9\s]{16, 19}" 
+                minlength="16" maxlength="19" placeholder="XXXX XXXX XXXX XXXX" name="cardNumber" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="expDate">Expiry date</label>
+            <div class="col-sm-9">
+              <input type="text" th:field="*{expirationDate}" class="form-control" id="expDate" placeholder="MM/YY" name="expDate" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="CCV">Security code</label>
+            <div class="col-sm-9">
+              <input type="text" th:field="*{securityCode}" class="form-control" id="CCV" minlength="3" maxlength="3" placeholder="Back of card, 3 digits" 
+                name="CCV" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="cardType">Card type</label>
+            <div class="col-sm-9">          
+              <input type="text" th:field="*{cardType}" class="form-control" id="cardType" placeholder="Enter card type (e.g., VISA, Discover, etc.)" 
+                name="cardType" required>
+            </div>
+          </div>
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">Save Payment Card</button>
+              <a href="editPaymentInfo" id="cancel">Cancel</a>
+            </div>
+          </div>
+        </form>
+      </div> 
+    </div> 
+  </div>
+</body>
+</html>

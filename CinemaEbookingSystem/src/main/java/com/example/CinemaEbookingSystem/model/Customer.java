@@ -13,7 +13,7 @@ public class Customer extends User {
     private UserStatus status;
 
     @OneToMany( mappedBy = "customer")
-    private List<PaymentCard> cardlist = new ArrayList<>();
+    private List<PaymentCard> cardList = new ArrayList<>();
 
     public void editProfile() {}
 

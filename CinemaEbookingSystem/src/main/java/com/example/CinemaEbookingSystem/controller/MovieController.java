@@ -69,11 +69,6 @@ public class MovieController {
         model.addAttribute("something", "Cinema E-booking System");
         return "search_view";
     }
-    
-    @GetMapping(path = "/editPaymentInfo")
-    String getPaymentInfo() {
-        return "Edit-Payment-Info";
-    }
 
     @GetMapping(path = "/orderHistory")
     String getOrderHistory() {
