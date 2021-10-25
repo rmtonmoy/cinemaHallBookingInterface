@@ -14,6 +14,14 @@ public class Promotion {
     private String promoCode;
     private int discountAmount;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public int getPromotion_id() {
         return promotion_id;
     }
