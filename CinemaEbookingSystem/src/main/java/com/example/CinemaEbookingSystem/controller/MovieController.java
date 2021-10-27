@@ -49,10 +49,10 @@ public class MovieController {
         return "managePromo";
     }
 
-    @GetMapping(path = "/signup")
-    String signUp(Model model){
-        return "signup";
-    }
+    // @GetMapping(path = "/signup")
+    //String signUp(Model model){
+    //    return "signup";
+    //}
 
     @GetMapping(path = "/registration_confirmation")
     String registrationConfirmationMessage(Model model){

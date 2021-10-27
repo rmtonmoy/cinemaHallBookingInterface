@@ -15,43 +15,46 @@
     <nav th:replace="fragments/header"></nav>
     <main class="container">
         <h2>Sign Up With The Best Movie Theater</h2>
-
-        <form action="registration_confirmation">
+        <!-- success message -->
+        <div th:if="${param.success}">
+            <div class="alert alert-info">You've successfully registered to E-Cinema</div>
+        </div>
+        <form th:action="@{/signup}" method="post" th:object="${customer}">
 
             <div class="required">
-                <label for="first_name">First Name: <span class="rqrd">*</span></label>
-                <input type="text" class="form-control" id="first_name" style="width: 370px" required>
+                <label for="firstname">First Name: <span class="rqrd">*</span></label>
+                <input id="firstName" class="form-control" th:field="*{firstName}" autofocus="autofocus"  style="width: 370px" required>
             </div>
 
 
             <div class="form-group">
-                <label for="last_name">Last Name: <span class="rqrd">*</span></label>
-                <input type="text" class="form-control" id="last_name" style="width: 370px" required>
+                <label for="lastName">Last Name: <span class="rqrd">*</span></label>
+                <input id="lastName" class="form-control" th:field="*{lastName}" autofocus="autofocus" style="width: 370px" required>
             </div>
 
             <div class="form-group"> <!-- TODO: Avoid using type "date" for browser compatibility -->
                 <label for="date_of_birth">Date of Birth:</label>
-                <input type="date" class="form-control" id="date_of_birth" style="width: 228px">
+                <input type="text" class="form-control" id="date_of_birth" th:field="*{dob}" autofocus="autofocus" style="width: 228px">
             </div>
 
             <div class="form-group">
                 <label for="email">Email address: <span class="rqrd">*</span></label>
-                <input type="email" class="form-control" id="email" style="width: 370px" required>
+                <input type="email" class="form-control" id="email" th:field="*{email}" autofocus="autofocus" style="width: 370px" required>
             </div>
 
             <div class="form-group">
                 <label for="pwd">Password: <span class="rqrd">*</span></label>
-                <input type="password" class="form-control" id="pwd" style="width: 370px" required>
+                <input type="password" class="form-control" id="pwd" th:field="*{password}" autofocus="autofocus" style="width: 370px" required>
             </div>
 
-            <div class="form-group">
-                <label for="cpwd">Confirm Password: <span class="rqrd">*</span></label>
-                <input type="password" class="form-control" id="cpwd" style="width: 370px" required>
-            </div>
+<!--            <div class="form-group">-->
+<!--                <label for="cpwd">Confirm Password: <span class="rqrd">*</span></label>-->
+<!--                <input type="password" class="form-control" id="cpwd" style="width: 370px" required>-->
+<!--            </div>-->
 
-            <div class="checkbox">
-                <label><input type="checkbox"> Remember me</label>
-            </div>
+<!--            <div class="checkbox">-->
+<!--                <label><input type="checkbox"> Remember me</label>-->
+<!--            </div>-->
             <button type="submit" class="btn btn-default">Submit</button>
         </form>
 

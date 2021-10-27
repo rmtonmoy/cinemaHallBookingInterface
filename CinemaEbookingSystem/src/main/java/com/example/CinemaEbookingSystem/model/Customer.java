@@ -2,6 +2,7 @@ package com.example.CinemaEbookingSystem.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -27,6 +28,9 @@ public class Customer extends User {
         super();
         this.status = status;
         this.cardlist = cardlist;
+    }
+    public Customer(String firstName, String lastName, String password, String email, String dob) {
+        super(firstName, lastName, password, email, dob);
     }
 
     public UserStatus getStatus() {
