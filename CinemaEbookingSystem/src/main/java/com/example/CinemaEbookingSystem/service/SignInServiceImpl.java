@@ -55,4 +55,15 @@ public class SignInServiceImpl implements SignInService {
         }
         return false;
     }
+
+    @Override
+    public String getAdminName(UserSignInDto userSignInDto) {
+        Admin admin = adminRepository.findByEmail(userSignInDto.getEmail());
+        return admin.getFirstName()+" "+admin.getLastName();
+    }
+    @Override
+    public String getName(UserSignInDto userSignInDto) {
+        Customer customer = customerRepository.findByEmail(userSignInDto.getEmail());
+        return customer.getFirstName()+" "+customer.getLastName();
+    }
 }

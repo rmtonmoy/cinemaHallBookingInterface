@@ -1,6 +1,7 @@
 package com.example.CinemaEbookingSystem.dto;
 
 public class UserSignInDto {
+    private String name;
     private String email;
     private String password;
 

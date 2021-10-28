@@ -32,9 +32,12 @@ public class SignInController {
     String signin(@ModelAttribute("user") UserSignInDto userSignInDto, HttpServletRequest request){
         if(signInService.isAdminWithRightPassword(userSignInDto)){
             request.getSession().setAttribute("email", userSignInDto.getEmail());
+            request.getSession().setAttribute("name", signInService.getAdminName(userSignInDto));
             return "redirect:/adminHome?Admin";
         }
         else if(signInService.isActiveCustomerWithRightPassword(userSignInDto)){
+            request.getSession().setAttribute("email", userSignInDto.getEmail());
+            request.getSession().setAttribute("name", signInService.getName(userSignInDto));
             return "redirect:/movie?ActiveCustomer";
         }
         else if (signInService.isInactiveCustomerWithRightPassword(userSignInDto)) {

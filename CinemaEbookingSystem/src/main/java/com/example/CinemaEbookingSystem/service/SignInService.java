@@ -9,4 +9,7 @@ public interface SignInService {
     boolean isAdminWithRightPassword(UserSignInDto userSignInDto);
     boolean isActiveCustomerWithRightPassword(UserSignInDto userSignInDto);
     boolean isInactiveCustomerWithRightPassword(UserSignInDto userSignInDto);
+    String getAdminName(UserSignInDto userSignInDto);
+    String getName(UserSignInDto userSignInDto);
+
 }

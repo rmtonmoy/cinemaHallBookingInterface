@@ -24,8 +24,19 @@ public class MovieController {
     @GetMapping(path = "/adminHome")
     String adminHome(Model model, HttpSession session){
         System.out.println(session.getAttribute("email"));
+        System.out.println(session.getAttribute("name"));
         model.addAttribute("something", "Cinema E-booking System");
+        model.addAttribute("userName", session.getAttribute("name") );
         return "adminHome";
+    }
+
+    @GetMapping(path = "/movie")
+    String homepage(Model model, HttpSession session){
+        System.out.println(session.getAttribute("email"));
+        System.out.println(session.getAttribute("name"));
+        model.addAttribute("something", "Cinema E-booking System");
+        model.addAttribute("userName", session.getAttribute("name") );
+        return "movie";
     }
 
     @GetMapping(path = "/manageMovies")
