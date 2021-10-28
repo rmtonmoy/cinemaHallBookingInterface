@@ -1,9 +1,7 @@
 package com.example.CinemaEbookingSystem.controller;
 
 import com.example.CinemaEbookingSystem.dto.UserSignInDto;
-import com.example.CinemaEbookingSystem.model.User;
 import com.example.CinemaEbookingSystem.service.SignInService;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 
 @Controller
 public class SignInController {
@@ -33,17 +30,17 @@ public class SignInController {
 
     @PostMapping(path = "/signin")
     String signin(@ModelAttribute("user") UserSignInDto userSignInDto, HttpServletRequest request){
-        if(signInService.isAdmin(userSignInDto)){
+        if(signInService.isAdminWithRightPassword(userSignInDto)){
             request.getSession().setAttribute("email", userSignInDto.getEmail());
             return "redirect:/adminHome?Admin";
         }
-        else if(signInService.isActiveCustomer(userSignInDto)){
+        else if(signInService.isActiveCustomerWithRightPassword(userSignInDto)){
             return "redirect:/movie?ActiveCustomer";
         }
-        else if (signInService.isInactiveCustomer(userSignInDto)) {
+        else if (signInService.isInactiveCustomerWithRightPassword(userSignInDto)) {
             return "redirect:/signin?InactiveCustomer";
         }
 
-        return "redirect:/signin?ErrorInCoding";
+        return "redirect:/signin?WrongPassword";
     }
 }

@@ -1,13 +1,16 @@
 package com.example.CinemaEbookingSystem.service;
 
+import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
 
 import com.example.CinemaEbookingSystem.dto.UserRegistrationDto;
 import com.example.CinemaEbookingSystem.model.Customer;
 import com.example.CinemaEbookingSystem.repository.CustomerRepository;
+import org.apache.logging.log4j.util.Base64Util;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
+import java.util.Base64;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -30,7 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer foundCustomer = customerRepository.findByEmail(userRegistrationDto.getEmail());
         if(foundCustomer == null) {
             Customer customer = new Customer(userRegistrationDto.getFirstName(), userRegistrationDto.getLastName(),
-                    userRegistrationDto.getPassword(), userRegistrationDto.getEmail(), userRegistrationDto.getDob(), userRegistrationDto.getStatus());
+                    (userRegistrationDto.getPassword()), userRegistrationDto.getEmail(), userRegistrationDto.getDob(), userRegistrationDto.getStatus());
             customerRepository.save(customer);
             return true;
         }

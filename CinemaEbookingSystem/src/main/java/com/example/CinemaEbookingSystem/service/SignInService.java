@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface SignInService {
-    boolean isAdmin(UserSignInDto userSignInDto);
-    boolean isActiveCustomer(UserSignInDto userSignInDto);
-    boolean isInactiveCustomer(UserSignInDto userSignInDto);
+    boolean isAdminWithRightPassword(UserSignInDto userSignInDto);
+    boolean isActiveCustomerWithRightPassword(UserSignInDto userSignInDto);
+    boolean isInactiveCustomerWithRightPassword(UserSignInDto userSignInDto);
 }

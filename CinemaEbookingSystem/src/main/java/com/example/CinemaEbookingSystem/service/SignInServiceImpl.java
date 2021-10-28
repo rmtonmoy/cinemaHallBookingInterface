@@ -6,8 +6,12 @@ import com.example.CinemaEbookingSystem.model.Customer;
 import com.example.CinemaEbookingSystem.model.UserStatus;
 import com.example.CinemaEbookingSystem.repository.AdminRepository;
 import com.example.CinemaEbookingSystem.repository.CustomerRepository;
+import org.apache.logging.log4j.util.Base64Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 @Service
 public class SignInServiceImpl implements SignInService {
@@ -18,34 +22,36 @@ public class SignInServiceImpl implements SignInService {
     private CustomerRepository customerRepository;
 
     @Override
-    public boolean isAdmin(UserSignInDto userSignInDto) {
+    public boolean isAdminWithRightPassword(UserSignInDto userSignInDto) {
         Admin admin = adminRepository.findByEmail(userSignInDto.getEmail());
-        return (admin != null);
+        return (admin != null && admin.getPassword().equals(userSignInDto.getPassword()));
     }
 
     @Override
-    public boolean isActiveCustomer(UserSignInDto userSignInDto) {
+    public boolean isActiveCustomerWithRightPassword(UserSignInDto userSignInDto) {
         Customer customer = customerRepository.findByEmail(userSignInDto.getEmail());
 
         if(customer == null){
             return  false;
         }
 
-        if(customer.getStatus() == UserStatus.Active){
+
+        if(customer.getPassword().equals(userSignInDto.getPassword()) && customer.getStatus() == UserStatus.Active){
             return true;
         }
         return false;
     }
 
     @Override
-    public boolean isInactiveCustomer(UserSignInDto userSignInDto) {
+    public boolean isInactiveCustomerWithRightPassword(UserSignInDto userSignInDto) {
         Customer customer = customerRepository.findByEmail(userSignInDto.getEmail());
 
         if(customer == null){
             return false;
         }
 
-        if(customer.getStatus() == UserStatus.Inactive){
+
+        if(customer.getPassword().equals(userSignInDto.getPassword()) && customer.getStatus() == UserStatus.Inactive){
             return true;
         }
         return false;
