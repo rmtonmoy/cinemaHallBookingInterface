@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 
 @Controller
@@ -21,7 +22,8 @@ public class MovieController {
 //    }
 
     @GetMapping(path = "/adminHome")
-    String adminHome(Model model){
+    String adminHome(Model model, HttpSession session){
+        System.out.println(session.getAttribute("email"));
         model.addAttribute("something", "Cinema E-booking System");
         return "adminHome";
     }

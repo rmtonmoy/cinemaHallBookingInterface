@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+
 @Controller
 public class SignInController {
 
@@ -29,8 +32,9 @@ public class SignInController {
     }
 
     @PostMapping(path = "/signin")
-    String signin(@ModelAttribute("user") UserSignInDto userSignInDto){
+    String signin(@ModelAttribute("user") UserSignInDto userSignInDto, HttpServletRequest request){
         if(signInService.isAdmin(userSignInDto)){
+            request.getSession().setAttribute("email", userSignInDto.getEmail());
             return "redirect:/adminHome?Admin";
         }
         else if(signInService.isActiveCustomer(userSignInDto)){
