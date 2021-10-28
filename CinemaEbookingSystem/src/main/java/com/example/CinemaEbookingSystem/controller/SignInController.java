@@ -41,6 +41,7 @@ public class SignInController {
             return "redirect:/movie?ActiveCustomer";
         }
         else if (signInService.isInactiveCustomerWithRightPassword(userSignInDto)) {
+            request.getSession().setAttribute("email", userSignInDto.getEmail());
             return "redirect:/signin?InactiveCustomer";
         }
 
