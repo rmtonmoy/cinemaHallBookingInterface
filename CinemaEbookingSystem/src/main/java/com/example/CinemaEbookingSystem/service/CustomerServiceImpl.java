@@ -13,6 +13,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import java.util.Base64;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -43,4 +46,24 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
+    public void saveCustomer(Customer customer) {
+        this.customerRepository.save(customer);
+    }
+
+    @Override
+    public Customer getCustomerById(long id) {
+        Optional<Customer> optional = customerRepository.findById(id);
+        Customer customer = null;
+        if (optional.isPresent()) {
+            customer = optional.get();
+        } else {
+            throw new RuntimeException("Customer not found for id: " + id);
+        }
+        return customer;
+    }
+
+    @Override 
+    public void deleteCustomerById(long id) {
+        this.customerRepository.deleteById(id);
+    }
 }

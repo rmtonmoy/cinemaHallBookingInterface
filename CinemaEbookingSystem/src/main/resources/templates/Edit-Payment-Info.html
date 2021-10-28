@@ -54,9 +54,9 @@
       <div class="col-sm-3 col-md-2 sidebar" id="sidebar"> 
         <div class="d-flex flex-column">
             <ul class="nav nav-pills nav-stacked flex-column" role="tablist">
-              <li class="nav-link"><a href="editProfile">Personal Info</a></li>
-              <li class="nav-link active"><a href="editPaymentInfo">Payment Info</a></li>
-              <li class="nav-link"><a href="orderHistory">Order History</a></li>        
+              <li class="nav-link"><a th:href="@{/editProfile/1}">Personal Info</a></li>
+              <li class="nav-link active"><a th:href="@{/editPaymentInfo}">Payment Info</a></li>
+              <li class="nav-link"><a th:href="@{/orderHistory}">Order History</a></li>        
             </ul>     
         </div>       
       </div>                       
@@ -70,20 +70,21 @@
               <th>Card Number</th>
               <th>Expiration Date</th>
               <th>Type</th>
+              <th>Billing Address</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr th:each="paymentCard : ${listCards}">
-              <td th:text="${paymentCard.getCardHolder()}"></td>
-              <td th:text="${paymentCard.getCardNumber()}"></td>
-              <td th:text="${paymentCard.getExpirationDate()}"></td>
-              <td th:text="${paymentCard.getCardType()}"></td>
+              <td th:text="${paymentCard.cardHolder}"></td>
+              <td th:text="${paymentCard.cardNumber}"></td>
+              <td th:text="${paymentCard.expirationDate}"></td>
+              <td th:text="${paymentCard.cardType}"></td>
+              <td th:text="${paymentCard.billingAddress}"></td>
               <td>
-                <button class="btn btn-default" disabled>Make Default</button>
+                <!-- <button class="btn btn-default" disabled>Make Default</button> -->
                 <a th:href = "@{/updatePaymentCardForm/{id}(id=${paymentCard.getId})}" class="btn btn-info">Edit</a>
                 <a th:href = "@{/deletePaymentCard/{id}(id=${paymentCard.getId})}" class="btn btn-danger">Delete</a>
-                <!-- <button class="btn btn-danger">Delete</button> -->
               </td>
             </tr>
           </tbody>

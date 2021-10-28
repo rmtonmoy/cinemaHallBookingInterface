@@ -58,7 +58,7 @@
       <div class="col-sm-3 col-md-2 sidebar" id="sidebar"> 
         <div class="d-flex flex-column">
           <ul class="nav nav-pills nav-stacked flex-column" role="tablist">
-            <li class="nav-link"><a th:href="@{/editProfile}">Personal Info</a></li>
+            <li class="nav-link"><a th:href="@{/editProfile/1}">Personal Info</a></li>
             <li class="nav-link active"><a th:href="@{/editPaymentInfo}">Payment Info</a></li>
             <li class="nav-link"><a th:href="@{/orderHistory}">Order History</a></li>        
           </ul>      
@@ -100,6 +100,13 @@ z
             <div class="col-sm-9">          
               <input type="text" th:field="*{cardType}" class="form-control" id="cardType" placeholder="Enter card type (e.g., VISA, Discover, etc.)" 
                 name="cardType" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="billingAddress">Billing address</label>
+            <div class="col-sm-9">          
+              <input type="text" th:field="*{billingAddress}" class="form-control" id="billingAddress" placeholder="Enter billing address" 
+                name="billingAddress" required>
             </div>
           </div>
           <div class="form-group">        

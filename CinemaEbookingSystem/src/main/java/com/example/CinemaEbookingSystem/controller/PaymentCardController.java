@@ -1,6 +1,11 @@
 package com.example.CinemaEbookingSystem.controller;
 
+import javax.servlet.http.HttpSession;
+
 import com.example.CinemaEbookingSystem.model.PaymentCard;
+import com.example.CinemaEbookingSystem.model.Customer;
+import com.example.CinemaEbookingSystem.repository.CustomerRepository;
+import com.example.CinemaEbookingSystem.repository.PaymentCardRepository;
 import com.example.CinemaEbookingSystem.service.PaymentCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -18,11 +22,21 @@ public class PaymentCardController {
     @Autowired
     private PaymentCardService paymentCardService;
 
+    @Autowired
+    private PaymentCardRepository paymentCardRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
     @GetMapping(path = "/editPaymentInfo")
-    public String editPaymentInfo(Model model){
+    public String editPaymentInfo(Model model, HttpSession session){
+        System.out.println(session.getAttribute("email"));
+        System.out.println(session.getAttribute("email").toString());
+        long customerID = customerRepository.findCustomerId(session.getAttribute("email").toString());
+
 
         // Display list of payment cards
-        model.addAttribute("listCards", paymentCardService.getAllCards());
+        model.addAttribute("listCards", paymentCardRepository.findPaymentCardsById(customerID));
         return "Edit-Payment-Info";
     }
 

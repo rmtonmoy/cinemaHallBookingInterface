@@ -58,9 +58,9 @@
       <div class="col-sm-3 col-md-2 sidebar" id="sidebar"> 
         <div class="d-flex flex-column">
           <ul class="nav nav-pills nav-stacked flex-column" role="tablist">
-            <li class="nav-link"><a href="editProfile">Personal Info</a></li>
-            <li class="nav-link active"><a href="editPaymentInfo">Payment Info</a></li>
-            <li class="nav-link"><a href="orderHistory">Order History</a></li>        
+            <li class="nav-link"><a th:href="@{/editProfile/1}">Personal Info</a></li>
+            <li class="nav-link active"><a th:href="@{/editPaymentInfo}">Payment Info</a></li>
+            <li class="nav-link"><a th:href="@{/orderHistory}">Order History</a></li>        
           </ul>      
         </div>       
       </div>                       
@@ -68,6 +68,7 @@
       <div class="col-sm-9 main" id="main">
         <h1><b>Add New Payment Card</b></h1><br><br>
         <form th:action="@{/savePaymentCard}" th:object="${paymentCard}" method="POST" class="form-horizontal">
+          <!-- <input type="hidden" th:field="*{customerId}"> -->
           <div class="form-group">
             <label class="control-label col-sm-2" for="name">Cardholder's name</label>
             <div class="col-sm-9">
@@ -78,7 +79,7 @@
             <label class="control-label col-sm-2" for="cardNumber">Card number</label>
             <div class="col-sm-9">
               <input type="tel" th:field="*{cardNumber}" class="form-control" id="cardNumber" inputmode="numeric" pattern="[0-9\s]{16, 19}" 
-                minlength="16" maxlength="19" placeholder="XXXX XXXX XXXX XXXX" name="cardNumber" required>
+                minlength="16" maxlength="19" th:placeholder="'XXXX XXXX XXXX XXXX'" name="cardNumber" required>
             </div>
           </div>
           <div class="form-group">
@@ -101,10 +102,17 @@
                 name="cardType" required>
             </div>
           </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="billingAddress">Billing address</label>
+            <div class="col-sm-9">          
+              <input type="text" th:field="*{billingAddress}" class="form-control" id="billingAddress" placeholder="Enter billing address" 
+                name="billingAddress" required>
+            </div>
+          </div>
           <div class="form-group">        
             <div class="col-sm-offset-2 col-sm-10">
               <button type="submit" class="btn btn-default">Save Payment Card</button>
-              <a href="editPaymentInfo" id="cancel">Cancel</a>
+              <a th:href="@{/editPaymentInfo}" id="cancel">Cancel</a>
             </div>
           </div>
         </form>

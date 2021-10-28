@@ -9,7 +9,6 @@ public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private String firstName;
     private String lastName;
     private String password;
@@ -30,12 +29,12 @@ public abstract class User {
 
     }
 
-    public String getDob() {
-        return dob;
+    public long getId() {
+        return id;
     }
 
-    public void setDob(String dob) {
-        this.dob = dob;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -70,15 +69,11 @@ public abstract class User {
         this.email = email;
     }
 
-    protected void login() {}
-
-    protected void logout() {}
-
-    public long getId() {
-        return id;
+    public String getDob() {
+        return dob;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 }
