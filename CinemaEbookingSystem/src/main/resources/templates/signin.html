@@ -8,7 +8,13 @@
 <nav th:replace="fragments/header"></nav>
 <div class="container" style="text-align: center; margin: auto;width: 50%;padding: 50px;">
     <h2>Sign In</h2>
-    <form action="http://localhost:8080/adminHome">
+
+    <!-- failure message -->
+    <div th:if="${param.InactiveCustomer}">
+        <div class="alert alert-info">Please be a good customer and verify your e-mail address to login</div>
+    </div>
+
+    <form th:action = "@{/signin}" method="post" th:object = "${user}">
         <div class="form-group">
             <label for="email">Email:</label>
             <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">

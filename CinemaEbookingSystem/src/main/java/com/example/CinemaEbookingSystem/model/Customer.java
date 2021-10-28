@@ -37,6 +37,12 @@ public class Customer extends User {
         super(firstName, lastName, password, email, dob);
     }
 
+
+    public Customer(String firstName, String lastName, String password, String email, String dob, UserStatus userStatus) {
+        super(firstName, lastName, password, email, dob);
+        this.status = userStatus;
+    }
+
     public UserStatus getStatus() {
         return status;
     }

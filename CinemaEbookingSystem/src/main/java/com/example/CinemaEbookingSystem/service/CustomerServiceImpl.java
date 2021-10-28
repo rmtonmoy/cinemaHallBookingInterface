@@ -27,10 +27,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public boolean save(UserRegistrationDto userRegistrationDto) {
 
-        Collection customerCollection = customerRepository.findAllByEmail(userRegistrationDto.getEmail());
-        if(customerCollection.isEmpty()) {
+        Customer foundCustomer = customerRepository.findByEmail(userRegistrationDto.getEmail());
+        if(foundCustomer == null) {
             Customer customer = new Customer(userRegistrationDto.getFirstName(), userRegistrationDto.getLastName(),
-                    userRegistrationDto.getPassword(), userRegistrationDto.getEmail(), userRegistrationDto.getDob());
+                    userRegistrationDto.getPassword(), userRegistrationDto.getEmail(), userRegistrationDto.getDob(), userRegistrationDto.getStatus());
             customerRepository.save(customer);
             return true;
         }

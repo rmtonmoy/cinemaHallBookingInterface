@@ -8,6 +8,10 @@ import java.util.Date;
 @Entity
 public class Admin extends User{
 
+    public Admin(){
+
+    }
+
     public Admin(String firstName, String lastName, String password, String email, String dob) {
         super(firstName, lastName, password, email, dob);
     }

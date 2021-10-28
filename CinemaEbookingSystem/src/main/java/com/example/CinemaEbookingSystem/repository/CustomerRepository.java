@@ -12,10 +12,9 @@ import java.util.List;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long>{
 
-
     @Query(
-            value = "SELECT * FROM customers WHERE email = ?1",
+            value = "SELECT * FROM customer WHERE email = ?1",
             nativeQuery = true)
-    Collection<Customer> findAllByEmail(String email);
+    Customer findByEmail(String email);
 
 }

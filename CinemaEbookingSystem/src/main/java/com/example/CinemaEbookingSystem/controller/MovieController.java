@@ -19,11 +19,6 @@ public class MovieController {
 //        ));
 //        return "movie";
 //    }
-    @GetMapping(path = "/signin")
-    String signin(Model model){
-        model.addAttribute("something", "Cinema E-booking System");
-        return "signin";
-    }
 
     @GetMapping(path = "/adminHome")
     String adminHome(Model model){
