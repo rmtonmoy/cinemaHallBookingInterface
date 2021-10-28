@@ -1,5 +1,6 @@
 package com.example.CinemaEbookingSystem.service;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
@@ -33,7 +34,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer foundCustomer = customerRepository.findByEmail(userRegistrationDto.getEmail());
         if(foundCustomer == null) {
             Customer customer = new Customer(userRegistrationDto.getFirstName(), userRegistrationDto.getLastName(),
-                    (userRegistrationDto.getPassword()), userRegistrationDto.getEmail(), userRegistrationDto.getDob(), userRegistrationDto.getStatus());
+                    Base64.getEncoder().encodeToString(userRegistrationDto.getPassword().getBytes()), userRegistrationDto.getEmail(), userRegistrationDto.getDob(), userRegistrationDto.getStatus());
             customerRepository.save(customer);
             return true;
         }

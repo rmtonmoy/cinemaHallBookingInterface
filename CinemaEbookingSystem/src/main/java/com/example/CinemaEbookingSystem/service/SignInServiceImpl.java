@@ -24,7 +24,7 @@ public class SignInServiceImpl implements SignInService {
     @Override
     public boolean isAdminWithRightPassword(UserSignInDto userSignInDto) {
         Admin admin = adminRepository.findByEmail(userSignInDto.getEmail());
-        return (admin != null && admin.getPassword().equals(userSignInDto.getPassword()));
+        return (admin != null && userSignInDto.getPassword().equals(admin.getPassword()));
     }
 
     @Override
@@ -36,7 +36,7 @@ public class SignInServiceImpl implements SignInService {
         }
 
 
-        if(customer.getPassword().equals(userSignInDto.getPassword()) && customer.getStatus() == UserStatus.Active){
+        if(Base64.getEncoder().encodeToString(userSignInDto.getPassword().getBytes()).equals(customer.getPassword()) && customer.getStatus() == UserStatus.Active){
             return true;
         }
         return false;
@@ -50,8 +50,7 @@ public class SignInServiceImpl implements SignInService {
             return false;
         }
 
-
-        if(customer.getPassword().equals(userSignInDto.getPassword()) && customer.getStatus() == UserStatus.Inactive){
+        if(Base64.getEncoder().encodeToString(userSignInDto.getPassword().getBytes()).equals(customer.getPassword()) && customer.getStatus() == UserStatus.Inactive){
             return true;
         }
         return false;
