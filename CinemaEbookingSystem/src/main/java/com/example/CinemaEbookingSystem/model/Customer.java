@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "customers", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table
 public class Customer extends User {
 
     //String user_status;
@@ -23,6 +23,10 @@ public class Customer extends User {
 
     @OneToMany( mappedBy = "customer")
     private List<Booking> booking = new ArrayList<>();
+
+    public Customer(){
+
+    }
 
     public Customer(UserStatus status, List<PaymentCard> cardlist) {
         super();

@@ -19,6 +19,10 @@
         <div th:if="${param.success}">
             <div class="alert alert-info">You've successfully registered to E-Cinema</div>
         </div>
+        <!-- failure message -->
+        <div th:if="${param.failure}">
+            <div class="alert alert-info">This email already exists</div>
+        </div>
         <form th:action="@{/signup}" method="post" th:object="${customer}">
 
             <div class="required">

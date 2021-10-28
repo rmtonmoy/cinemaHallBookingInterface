@@ -1,12 +1,12 @@
 package com.example.CinemaEbookingSystem.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.example.CinemaEbookingSystem.dto.UserRegistrationDto;
 import com.example.CinemaEbookingSystem.model.Customer;
-import com.example.CinemaEbookingSystem.model.User;
 import com.example.CinemaEbookingSystem.repository.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,11 +25,18 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer save(UserRegistrationDto userRegistrationDto) {
-        Customer customer = new Customer(userRegistrationDto.getFirstName(), userRegistrationDto.getLastName(),
-                userRegistrationDto.getPassword(), userRegistrationDto.getEmail(), userRegistrationDto.getDob());
-        return customerRepository.save(customer);
-    }
+    public boolean save(UserRegistrationDto userRegistrationDto) {
 
+        Collection customerCollection = customerRepository.findAllByEmail(userRegistrationDto.getEmail());
+        if(customerCollection.isEmpty()) {
+            Customer customer = new Customer(userRegistrationDto.getFirstName(), userRegistrationDto.getLastName(),
+                    userRegistrationDto.getPassword(), userRegistrationDto.getEmail(), userRegistrationDto.getDob());
+            customerRepository.save(customer);
+            return true;
+        }
+        else
+            return false;
+
+    }
 
 }

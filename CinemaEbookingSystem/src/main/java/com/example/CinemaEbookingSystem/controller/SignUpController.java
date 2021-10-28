@@ -33,7 +33,10 @@ public class SignUpController {
     @PostMapping(path = "/signup")
     public String registerUserAccount(@ModelAttribute("customer") UserRegistrationDto registrationDto) {
         System.out.print(registrationDto.getFirstName());
-        customerService.save(registrationDto);
-        return "redirect:/signup?success";
+        boolean newCustomer = customerService.save(registrationDto);
+        if(newCustomer == true)
+            return "redirect:/signup?success";
+        else
+            return "redirect:/signup?failure";
     }
 }
