@@ -1,6 +1,7 @@
 package com.example.CinemaEbookingSystem.model;
 
 import javax.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,8 @@ public class Customer extends User {
         this.status = status;
         this.cardlist = cardlist;
     }
+
+    public Customer() {}
 
     public UserStatus getStatus() {
         return status;
