@@ -14,9 +14,8 @@
         <nav th:replace="fragments/loggedInHeader"></nav>
     </div>
 
-    <div th:if="${param.InactiveCustomer}">
-        <nav th:replace="fragments/header"></nav>
-    </div>
+    <div th:else ><nav th:replace="fragments/header"></nav></div>
+    
 
     <div id="trailerCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
