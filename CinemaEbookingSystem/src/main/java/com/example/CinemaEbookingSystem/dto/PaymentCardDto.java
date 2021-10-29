@@ -1,52 +1,29 @@
-package com.example.CinemaEbookingSystem.model;
+package com.example.CinemaEbookingSystem.dto;
 
-import javax.persistence.*;
+import com.example.CinemaEbookingSystem.model.Customer;
 
-@Entity
-@Table(name = "paymentcards")
-public class PaymentCard {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
+public class PaymentCardDto {
     private long cardNumber;
-
     private int securityCode;
-
     private String cardHolder;
-
     private String cardType;
-
     private String expirationDate;
-
     private String billingAddress;
+    private Customer customer;
 
-    public PaymentCard() {
+    public PaymentCardDto(){
+
     }
-
-    public PaymentCard(Customer customer) {
-        this.customer = customer;
-    }
-
-    public PaymentCard(long cardNumber, int securityCode, String cardHolder, String cardType, String expirationDate, String billingAddress, Customer customer) {
+    public PaymentCardDto(long cardNumber, int securityCode, String cardHolder, String cardType, String expirationDate, String billingAddress) {
+        super();
         this.cardNumber = cardNumber;
         this.securityCode = securityCode;
         this.cardHolder = cardHolder;
         this.cardType = cardType;
         this.expirationDate = expirationDate;
         this.billingAddress = billingAddress;
-        this.customer = customer;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-    
     public long getCardNumber() {
         return cardNumber;
     }
@@ -94,8 +71,4 @@ public class PaymentCard {
     public void setBillingAddress(String billingAddress) {
         this.billingAddress = billingAddress;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "fk_CID")
-    private Customer customer;
 }

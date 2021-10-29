@@ -1,5 +1,7 @@
 package com.example.CinemaEbookingSystem.service;
 
+import com.example.CinemaEbookingSystem.dto.PaymentCardDto;
+import com.example.CinemaEbookingSystem.model.Customer;
 import com.example.CinemaEbookingSystem.repository.PaymentCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.CinemaEbookingSystem.model.PaymentCard;
@@ -21,6 +23,14 @@ public class PaymentCardServiceImpl implements PaymentCardService {
 
     @Override
     public void savePaymentCard(PaymentCard paymentCard) {
+        this.paymentCardRepository.save(paymentCard);
+    }
+
+    @Override
+    public void save(PaymentCardDto paymentCardDto, Customer customer) {
+        PaymentCard paymentCard = new PaymentCard(paymentCardDto.getCardNumber(),paymentCardDto.getSecurityCode(),
+                paymentCardDto.getCardHolder(),paymentCardDto.getCardType(), paymentCardDto.getExpirationDate(),
+                paymentCardDto.getBillingAddress(), customer);
         this.paymentCardRepository.save(paymentCard);
     }
 

@@ -16,4 +16,6 @@ public interface PaymentCardRepository extends JpaRepository<PaymentCard, Long> 
         value = "SELECT * FROM paymentcards WHERE fk_cid = :customerID",
         nativeQuery = true)
     List<PaymentCard> findPaymentCardsById(@Param("customerID") long customerID);
+
+
 }

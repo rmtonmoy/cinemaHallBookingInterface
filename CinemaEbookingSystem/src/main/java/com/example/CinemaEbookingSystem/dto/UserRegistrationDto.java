@@ -4,7 +4,6 @@ import com.example.CinemaEbookingSystem.model.UserStatus;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import java.util.Date;
 
 public class UserRegistrationDto {
     private String firstName;
@@ -14,19 +13,21 @@ public class UserRegistrationDto {
     private String dob;
     @Enumerated(EnumType.STRING)
     private UserStatus status;
+    private boolean isRegistered;
 
 
     public UserRegistrationDto(){
         this.status = UserStatus.Inactive;
     }
 
-    public UserRegistrationDto(String firstName, String lastName, String password, String email, String dob) {
+    public UserRegistrationDto(String firstName, String lastName, String password, String email, String dob, boolean ifRegistered) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.dob = dob;
+        this.isRegistered = ifRegistered;
         this.status = UserStatus.Inactive;
     }
 
@@ -36,6 +37,15 @@ public class UserRegistrationDto {
 
     public void setStatus(UserStatus status) {
         this.status = status;
+    }
+
+
+    public boolean isIsRegistered() {
+        return isRegistered;
+    }
+
+    public void setIsRegistered(boolean isRegistered) {
+        this.isRegistered = isRegistered;
     }
 
     public String getDob() {

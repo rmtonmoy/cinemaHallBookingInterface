@@ -17,6 +17,8 @@ public class Customer extends User {
     @OneToMany( mappedBy = "customer")
     private List<PaymentCard> cardlist = new ArrayList<>();
 
+    private boolean isRegistered;
+
     //@ManyToMany
     //@JoinTable(name="OrderHistory",
     //        joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
@@ -29,19 +31,21 @@ public class Customer extends User {
 
     }
 
-    public Customer(UserStatus status, List<PaymentCard> cardlist) {
+    public Customer(UserStatus status, List<PaymentCard> cardlist, boolean isRegistered) {
         super();
         this.status = status;
         this.cardlist = cardlist;
+        this.isRegistered = isRegistered;
     }
     public Customer(String firstName, String lastName, String password, String email, String dob) {
         super(firstName, lastName, password, email, dob);
     }
 
 
-    public Customer(String firstName, String lastName, String password, String email, String dob, UserStatus userStatus) {
+    public Customer(String firstName, String lastName, String password, String email, String dob, UserStatus userStatus, boolean isRegistered) {
         super(firstName, lastName, password, email, dob);
         this.status = userStatus;
+        this.isRegistered = isRegistered;
     }
 
     public UserStatus getStatus() {

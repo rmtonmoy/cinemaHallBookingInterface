@@ -5,9 +5,12 @@ import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
 
+import com.example.CinemaEbookingSystem.dto.PaymentCardDto;
 import com.example.CinemaEbookingSystem.dto.UserRegistrationDto;
 import com.example.CinemaEbookingSystem.model.Customer;
+import com.example.CinemaEbookingSystem.model.PaymentCard;
 import com.example.CinemaEbookingSystem.repository.CustomerRepository;
+import com.example.CinemaEbookingSystem.repository.PaymentCardRepository;
 import org.apache.logging.log4j.util.Base64Util;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
@@ -20,10 +23,12 @@ import java.util.Optional;
 public class CustomerServiceImpl implements CustomerService {
 
     private CustomerRepository customerRepository;
+    private PaymentCardService paymentCardService;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    public CustomerServiceImpl(CustomerRepository customerRepository, PaymentCardService paymentCardService) {
         super();
         this.customerRepository = customerRepository;
+        this.paymentCardService = paymentCardService;
     }
 
     @Override
@@ -32,13 +37,19 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean save(UserRegistrationDto userRegistrationDto) {
+    public boolean save(UserRegistrationDto userRegistrationDto, PaymentCardDto paymentCardDto) {
 
         Customer foundCustomer = customerRepository.findByEmail(userRegistrationDto.getEmail());
         if(foundCustomer == null) {
             Customer customer = new Customer(userRegistrationDto.getFirstName(), userRegistrationDto.getLastName(),
-                    Base64.getEncoder().encodeToString(userRegistrationDto.getPassword().getBytes()), userRegistrationDto.getEmail(), userRegistrationDto.getDob(), userRegistrationDto.getStatus());
-            customerRepository.save(customer);
+                    Base64.getEncoder().encodeToString(userRegistrationDto.getPassword().getBytes()), userRegistrationDto.getEmail(),
+                    userRegistrationDto.getDob(), userRegistrationDto.getStatus(), userRegistrationDto.isIsRegistered());
+
+            Customer customer2 = customerRepository.save(customer);
+            if(paymentCardDto.getCardHolder()!= null)
+            {
+                paymentCardService.save(paymentCardDto,customer2);
+            }
             return true;
         }
         else

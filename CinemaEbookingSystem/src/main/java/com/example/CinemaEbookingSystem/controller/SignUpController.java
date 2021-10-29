@@ -1,5 +1,6 @@
 package com.example.CinemaEbookingSystem.controller;
 
+import com.example.CinemaEbookingSystem.dto.PaymentCardDto;
 import com.example.CinemaEbookingSystem.dto.UserRegistrationDto;
 import com.example.CinemaEbookingSystem.model.Customer;
 import com.example.CinemaEbookingSystem.service.CustomerService;
@@ -25,18 +26,29 @@ public class SignUpController {
         return new UserRegistrationDto();
     }
 
+    @ModelAttribute("customer_payment_card")
+    public PaymentCardDto paymentCardDto() {
+        return new PaymentCardDto();
+    }
+
     @GetMapping(path = "/signup")
     public String showRegistrationForm() {
         return "signup";
     }
 
     @PostMapping(path = "/signup")
-    public String registerUserAccount(@ModelAttribute("customer") UserRegistrationDto registrationDto) {
+    public String registerUserAccount(@ModelAttribute("customer") UserRegistrationDto registrationDto, @ModelAttribute("customer_payment_card") PaymentCardDto paymentCardDto) {
         System.out.print(registrationDto.getFirstName());
-        boolean newCustomer = customerService.save(registrationDto);
+        System.out.println(registrationDto.isIsRegistered());
+        System.out.println(paymentCardDto.getCardHolder());
+        boolean newCustomer = customerService.save(registrationDto, paymentCardDto);
         if(newCustomer == true)
+        {
             return "redirect:/signup?success";
+        }
         else
+        {
             return "redirect:/signup?failure";
+        }
     }
 }
