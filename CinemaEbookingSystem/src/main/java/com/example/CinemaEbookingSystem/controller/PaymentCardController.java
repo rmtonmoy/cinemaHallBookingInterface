@@ -33,6 +33,9 @@ public class PaymentCardController {
 
     @GetMapping(path = "/editPaymentInfo")
     public String editPaymentInfo(Model model, HttpSession session){
+        model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("userName", session.getAttribute("name"));
+        
         long customerID = customerRepository.findCustomerId(session.getAttribute("email").toString());
         Customer customer = customerService.getCustomerById(customerID);
 
@@ -43,6 +46,8 @@ public class PaymentCardController {
 
     @GetMapping(path = "/addPaymentCardForm")
     public String addPaymentCardForm(Model model, HttpSession session) {
+        model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("userName", session.getAttribute("name"));
 
         // Create model attribute to bind form data
         PaymentCard paymentCard = new PaymentCard();
@@ -60,7 +65,9 @@ public class PaymentCardController {
     }
     
     @GetMapping(path = "/updatePaymentCardForm/{id}")
-    public String updatePaymentCardForm(@PathVariable(value = "id") long id, Model model) {
+    public String updatePaymentCardForm(@PathVariable(value = "id") long id, Model model, HttpSession session) {
+        model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("userName", session.getAttribute("name"));
 
         // Get payment card from the service
         PaymentCard paymentCard = paymentCardService.getPaymentCardById(id);

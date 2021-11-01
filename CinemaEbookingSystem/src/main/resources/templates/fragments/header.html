@@ -13,6 +13,8 @@
                 <li><a href="http://localhost:8080/">Home</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                
+                <li th:if="${email != null}"><a href="#" th:text = "${userName}">></a></li>
                 <li><form class="navbar-form" role="search">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
@@ -22,8 +24,10 @@
                     </div>
                 </form>
                 </li>
-                <li><a href="signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a href="signin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li th:if="${email == null}"><a href="signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li th:if="${email == null}"><a href="signin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li th:if="${email != null}"><a href="editProfile"><span class="glyphicon glyphicon-user"></span> Edit Profile</a></li>
+                <li th:if="${email != null}"><a href="logout"><span class="glyphicon glyphicon-user"></span> Log Out</a></li>
             </ul>
         </div>
     </div>

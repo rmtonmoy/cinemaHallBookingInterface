@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 
 @Controller
@@ -44,9 +45,11 @@ public class SignUpController {
     }
 
     @GetMapping(path = "/signup")
-    public String showRegistrationForm(Model model) {
+    public String showRegistrationForm(Model model, HttpSession session) {
         PaymentCardDto cardsForm = new PaymentCardDto();
         model.addAttribute("form", cardsForm);
+        model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("userName", session.getAttribute("name"));
         return "signup";
     }
 
@@ -54,23 +57,6 @@ public class SignUpController {
     public String registerUserAccount(@ModelAttribute("customer") UserRegistrationDto registrationDto,
         @ModelAttribute("customer_payment_card") PaymentCardDto paymentCardDto) {
         
-        System.out.println(registrationDto.getFirstName());
-        System.out.println(registrationDto.isIsRegistered());
-        
-        // stupid code inbound, but it's 2:38 am and i really cba -james
-        /*List<PaymentCardDto> cards = new ArrayList<>(3);
-        if (!isCardInvalid(paymentCardDto1)) {
-            cards.add(paymentCardDto1);
-        }
-        if (!isCardInvalid(paymentCardDto2)) {
-            cards.add(paymentCardDto2);
-        }
-        if (!isCardInvalid(paymentCardDto2)) {
-            cards.add(paymentCardDto3);
-        }*/
-        for (PaymentCard card : paymentCardDto.getCards()) {
-            System.out.println(card.getCardHolder() + " " + !isCardInvalid(card));
-        }
         List<PaymentCard> cards = paymentCardDto.getCards();
         for (int i = 2; i >= 0; i--) {
             PaymentCard card = cards.get(i);
