@@ -37,11 +37,15 @@ public class SignUpController {
     }
 
     @PostMapping(path = "/signup")
-    public String registerUserAccount(@ModelAttribute("customer") UserRegistrationDto registrationDto, @ModelAttribute("customer_payment_card") PaymentCardDto paymentCardDto) {
+    public String registerUserAccount(@ModelAttribute("customer") UserRegistrationDto registrationDto,
+        @ModelAttribute("customer_payment_card") PaymentCardDto paymentCardDto1,
+        @ModelAttribute("customer_payment_card") PaymentCardDto paymentCardDto2,
+        @ModelAttribute("customer_payment_card") PaymentCardDto paymentCardDto3) {
+        
         System.out.print(registrationDto.getFirstName());
         System.out.println(registrationDto.isIsRegistered());
-        System.out.println(paymentCardDto.getCardHolder());
-        boolean newCustomer = customerService.save(registrationDto, paymentCardDto);
+        System.out.println(paymentCardDto1.getCardHolder());
+        boolean newCustomer = customerService.save(registrationDto, paymentCardDto1);
         if(newCustomer == true)
         {
             return "redirect:/signup?success";
