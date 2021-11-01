@@ -11,6 +11,7 @@ import java.util.List;
 public interface PaymentCardService {
     List<PaymentCard> getAllCards();
     void save(PaymentCard paymentCard, Customer customer);
+    void updatePaymentCard(PaymentCard paymentCard, Customer customer);
     PaymentCard getPaymentCardById(long id);
     void deletePaymentCardById(long id);
 }
