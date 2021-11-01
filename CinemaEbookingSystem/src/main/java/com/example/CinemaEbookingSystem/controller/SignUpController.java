@@ -32,7 +32,7 @@ public class SignUpController {
     public PaymentCardDto paymentCardDto() {
         return new PaymentCardDto();
     }
-    @ModelAttribute("customer_payment_card_2") // why can't i just reuse these? >:^| -james
+    @ModelAttribute("customer_payment_card_2") // why can't i just reuse the original method? >:^| -james
     public PaymentCardDto paymentCardDto2() {
         return new PaymentCardDto();
     }

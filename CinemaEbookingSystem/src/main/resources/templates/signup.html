@@ -29,32 +29,32 @@
 
             <div class="required">
                 <label for="firstname">First Name: <span class="rqrd">*</span></label>
-                <input id="firstName" class="form-control" th:field="*{firstName}" autofocus="autofocus"  style="width: 370px" required>
+                <input id="firstName" class="form-control" th:field="${customer.firstName}" autofocus="autofocus"  style="width: 370px" required>
             </div>
 
 
             <div class="form-group">
                 <label for="lastName">Last Name: <span class="rqrd">*</span></label>
-                <input id="lastName" class="form-control" th:field="*{lastName}" autofocus="autofocus" style="width: 370px" required>
+                <input id="lastName" class="form-control" th:field="${customer.lastName}" autofocus="autofocus" style="width: 370px" required>
             </div>
 
             <div class="form-group"> <!-- TODO: Avoid using type "date" for browser compatibility -->
                 <label for="date_of_birth">Date of Birth:</label>
-                <input type="text" class="form-control" id="date_of_birth" th:field="*{dob}" autofocus="autofocus" style="width: 228px">
+                <input type="text" class="form-control" id="date_of_birth" th:field="${customer.dob}" autofocus="autofocus" style="width: 228px">
             </div>
 
             <div class="form-group">
                 <label for="email">Email address: <span class="rqrd">*</span></label>
-                <input type="email" class="form-control" id="email" th:field="*{email}" autofocus="autofocus" style="width: 370px" required>
+                <input type="email" class="form-control" id="email" th:field="${customer.email}" autofocus="autofocus" style="width: 370px" required>
             </div>
 
             <div class="form-group">
                 <label for="pwd">Password: <span class="rqrd">*</span></label>
-                <input type="password" class="form-control" id="pwd" th:field="*{password}" autofocus="autofocus" style="width: 370px" required>
+                <input type="password" class="form-control" id="pwd" th:field="${customer.password}" autofocus="autofocus" style="width: 370px" required>
             </div>
 
             <div class="checkbox">
-                <label for="reg"><input type="checkbox" id="reg" th:field = "*{isRegistered}" value="true" autofocus="autofocus" > Register for promotion</label>
+                <label for="reg"><input type="checkbox" id="reg" th:field = "${customer.isRegistered}" value="true" autofocus="autofocus" > Register for promotion</label>
             </div>
             <br>
             <!-- ***************************************** -->
@@ -63,51 +63,97 @@
                 <h5><b><u>Card 1</u></b></h5>
                 <div class="form-group">
                     <label for="name">Cardholder's name</label>
-                    <input type="text" th:field="*{cardHolder}" class="form-control" id="name" placeholder="Enter full name" name="name">
-
+                    <input type="text" th:field="${customer_payment_card_1.cardHolder}" class="form-control" id="name" placeholder="Enter full name" name="name">
                 </div>
                 <div class="form-group">
                     <label for="cardNumber">Card number</label>
-                    <input type="tel" th:field="*{cardNumber}" class="form-control" id="cardNumber" inputmode="numeric" pattern="[0-9\s]{16, 19}"
+                    <input type="tel" th:field="${customer_payment_card_1.cardNumber}" class="form-control" id="cardNumber" inputmode="numeric" pattern="[0-9\s]{16, 19}"
                         minlength="16" maxlength="19" placeholder="'XXXX XXXX XXXX XXXX'" name="cardNumber">
-
                 </div>
                 <div class="form-group">
                     <label for="expDate">Expiry date</label>
-                    <input type="text" th:field="*{expirationDate}" class="form-control" id="expDate" placeholder="MM/YY" name="expDate">
-
+                    <input type="text" th:field="${customer_payment_card_1.expirationDate}" class="form-control" id="expDate" placeholder="MM/YY" name="expDate">
                 </div>
                 <div class="form-group">
                     <label for="CCV">Security code</label>
-                    <input type="text" th:field="*{securityCode}" class="form-control" id="CCV" minlength="3" maxlength="3" placeholder="Back of card, 3 digits"
+                    <input type="text" th:field="${customer_payment_card_1.securityCode}" class="form-control" id="CCV" minlength="3" maxlength="3" placeholder="Back of card, 3 digits"
                         name="CCV" >
-
                 </div>
                 <div class="form-group">
                     <label for="cardType">Card type</label>
-                    <input type="text" th:field="*{cardType}" class="form-control" id="cardType" placeholder="Enter card type (e.g., VISA, Discover, etc.)"
+                    <input type="text" th:field="${customer_payment_card_1.cardType}" class="form-control" id="cardType" placeholder="Enter card type (e.g., VISA, Discover, etc.)"
                         name="cardType">
-
                 </div>
                 <div class="form-group">
                     <label for="billingAddress">Billing address</label>
-                    <input type="text" th:field="*{billingAddress}" class="form-control" id="billingAddress" placeholder="Enter billing address"
+                    <input type="text" th:field="${customer_payment_card_1.billingAddress}" class="form-control" id="billingAddress" placeholder="Enter billing address"
                         name="billingAddress">
                 </div>
             </div>
-            
-            <!--
             <div id="card2" th:object="${customer_payment_card_2}" style="width:370px" hidden>
                 <br/>
                 <h5><b><u>Card 2</u></b></h5>
-                <span th:replace="fragments/signupFormCreditCard"></span>
+                <div class="form-group">
+                    <label for="name">Cardholder's name</label>
+                    <input type="text" th:field="${customer_payment_card_2.cardHolder}" class="form-control" id="name" placeholder="Enter full name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="cardNumber">Card number</label>
+                    <input type="tel" th:field="${customer_payment_card_2.cardNumber}" class="form-control" id="cardNumber" inputmode="numeric" pattern="[0-9\s]{16, 19}"
+                        minlength="16" maxlength="19" placeholder="'XXXX XXXX XXXX XXXX'" name="cardNumber">
+                </div>
+                <div class="form-group">
+                    <label for="expDate">Expiry date</label>
+                    <input type="text" th:field="${customer_payment_card_2.expirationDate}" class="form-control" id="expDate" placeholder="MM/YY" name="expDate">
+                </div>
+                <div class="form-group">
+                    <label for="CCV">Security code</label>
+                    <input type="text" th:field="${customer_payment_card_2.securityCode}" class="form-control" id="CCV" minlength="3" maxlength="3" placeholder="Back of card, 3 digits"
+                        name="CCV" >
+                </div>
+                <div class="form-group">
+                    <label for="cardType">Card type</label>
+                    <input type="text" th:field="${customer_payment_card_2.cardType}" class="form-control" id="cardType" placeholder="Enter card type (e.g., VISA, Discover, etc.)"
+                        name="cardType">
+                </div>
+                <div class="form-group">
+                    <label for="billingAddress">Billing address</label>
+                    <input type="text" th:field="${customer_payment_card_2.billingAddress}" class="form-control" id="billingAddress" placeholder="Enter billing address"
+                        name="billingAddress">
+                </div>
             </div>
             <div id="card3" th:object="${customer_payment_card_3}" style="width:370px" hidden>
                 <br/>
                 <h5><b><u>Card 3</u></b></h5>
-                <span th:replace="fragments/signupFormCreditCard"></span>
+                <div class="form-group">
+                    <label for="name">Cardholder's name</label>
+                    <input type="text" th:field="${customer_payment_card_3.cardHolder}" class="form-control" id="name" placeholder="Enter full name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="cardNumber">Card number</label>
+                    <input type="tel" th:field="${customer_payment_card_3.cardNumber}" class="form-control" id="cardNumber" inputmode="numeric" pattern="[0-9\s]{16, 19}"
+                        minlength="16" maxlength="19" placeholder="'XXXX XXXX XXXX XXXX'" name="cardNumber">
+                </div>
+                <div class="form-group">
+                    <label for="expDate">Expiry date</label>
+                    <input type="text" th:field="${customer_payment_card_3.expirationDate}" class="form-control" id="expDate" placeholder="MM/YY" name="expDate">
+                </div>
+                <div class="form-group">
+                    <label for="CCV">Security code</label>
+                    <input type="text" th:field="${customer_payment_card_3.securityCode}" class="form-control" id="CCV" minlength="3" maxlength="3" placeholder="Back of card, 3 digits"
+                        name="CCV" >
+                </div>
+                <div class="form-group">
+                    <label for="cardType">Card type</label>
+                    <input type="text" th:field="${customer_payment_card_3.cardType}" class="form-control" id="cardType" placeholder="Enter card type (e.g., VISA, Discover, etc.)"
+                        name="cardType">
+                </div>
+                <div class="form-group">
+                    <label for="billingAddress">Billing address</label>
+                    <input type="text" th:field="${customer_payment_card_3.billingAddress}" class="form-control" id="billingAddress" placeholder="Enter billing address"
+                        name="billingAddress">
+                </div>
             </div>
-            -->
             
             <button id="addCardBtn" type="button" class="btn btn-primary">Add Card</button>
             <button id="rmCardBtn" type="button" class="btn btn-danger invisible">Remove Card</button>
