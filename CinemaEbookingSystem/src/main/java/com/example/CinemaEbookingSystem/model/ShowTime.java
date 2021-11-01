@@ -11,6 +11,22 @@ public class ShowTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public int getStartingTime() {
+        return startingTime;
+    }
+
+    public void setStartingTime(int startingTime) {
+        this.startingTime = startingTime;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     // Denotes a particular minute of the day
     // Example:
     // 12am     -> 0

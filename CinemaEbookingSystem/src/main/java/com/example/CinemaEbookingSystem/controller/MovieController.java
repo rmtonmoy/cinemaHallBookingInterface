@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 
 @Controller
@@ -19,16 +20,23 @@ public class MovieController {
 //        ));
 //        return "movie";
 //    }
-    @GetMapping(path = "/signin")
-    String signin(Model model){
-        model.addAttribute("something", "Cinema E-booking System");
-        return "signin";
-    }
 
     @GetMapping(path = "/adminHome")
-    String adminHome(Model model){
+    String adminHome(Model model, HttpSession session){
+        System.out.println(session.getAttribute("email"));
+        System.out.println(session.getAttribute("name"));
         model.addAttribute("something", "Cinema E-booking System");
+        model.addAttribute("userName", session.getAttribute("name") );
         return "adminHome";
+    }
+
+    @GetMapping(path = "/movie")
+    String homepage(Model model, HttpSession session){
+        System.out.println(session.getAttribute("email"));
+        System.out.println(session.getAttribute("name"));
+        model.addAttribute("something", "Cinema E-booking System");
+        model.addAttribute("userName", session.getAttribute("name") );
+        return "movie";
     }
 
     @GetMapping(path = "/manageMovies")
@@ -49,30 +57,20 @@ public class MovieController {
         return "managePromo";
     }
 
-    @GetMapping(path = "/signup")
-    String signUp(Model model){
-        return "signup";
-    }
+    // @GetMapping(path = "/signup")
+    //String signUp(Model model){
+    //    return "signup";
+    //}
 
     @GetMapping(path = "/registration_confirmation")
     String registrationConfirmationMessage(Model model){
         return "registrationconfirmation";
     }
 
-    @GetMapping(path = "/editProfile")
-    String getEditProfile() {
-        return "Edit-Profile";
-    }
-
     @GetMapping(path = "/search")
     String getSearchView(Model model){
         model.addAttribute("something", "Cinema E-booking System");
         return "search_view";
-    }
-    
-    @GetMapping(path = "/editPaymentInfo")
-    String getPaymentInfo() {
-        return "Edit-Payment-Info";
     }
 
     @GetMapping(path = "/orderHistory")

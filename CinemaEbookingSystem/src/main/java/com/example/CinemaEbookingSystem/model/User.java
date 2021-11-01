@@ -1,6 +1,7 @@
 package com.example.CinemaEbookingSystem.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @MappedSuperclass
 public abstract class User {
@@ -8,19 +9,32 @@ public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    private int user_id;
     private String firstName;
     private String lastName;
     private String password;
+    @Column(unique = true)
     private String email;
+    private String dob;
 
-    public int getUser_id() {
-        return user_id;
+    public User(String firstName, String lastName, String password, String email, String dob) {
+        super();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.dob = dob;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public User() {
+
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -55,7 +69,11 @@ public abstract class User {
         this.email = email;
     }
 
-    protected void login() {}
+    public String getDob() {
+        return dob;
+    }
 
-    protected void logout() {}
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
 }

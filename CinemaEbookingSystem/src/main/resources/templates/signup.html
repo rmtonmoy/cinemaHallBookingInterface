@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- TODO: Relative widths for the form inputs -->
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
 <head>
@@ -9,50 +10,165 @@
         }
     </style>
     <span th:replace="fragments/head"></span>
+    <script src="/signup.js"></script>
 </head>
 
 <body>
     <nav th:replace="fragments/header"></nav>
     <main class="container">
         <h2>Sign Up With The Best Movie Theater</h2>
-
-        <form action="registration_confirmation">
+        <!-- success message -->
+        <div th:if="${param.success}">
+            <div class="alert alert-info">You've successfully registered to E-Cinema</div>
+        </div>
+        <!-- failure message -->
+        <div th:if="${param.failure}">
+            <div class="alert alert-info">This email already exists</div>
+        </div>
+        <form th:action="@{/signup}" method="post" th:object="${customer}">
 
             <div class="required">
-                <label for="first_name">First Name: <span class="rqrd">*</span></label>
-                <input type="text" class="form-control" id="first_name" style="width: 370px" required>
+                <label for="firstname">First Name: <span class="rqrd">*</span></label>
+                <input id="firstName" class="form-control" th:field="${customer.firstName}" autofocus="autofocus"  style="width: 370px" required>
             </div>
 
 
             <div class="form-group">
-                <label for="last_name">Last Name: <span class="rqrd">*</span></label>
-                <input type="text" class="form-control" id="last_name" style="width: 370px" required>
+                <label for="lastName">Last Name: <span class="rqrd">*</span></label>
+                <input id="lastName" class="form-control" th:field="${customer.lastName}" autofocus="autofocus" style="width: 370px" required>
             </div>
 
             <div class="form-group"> <!-- TODO: Avoid using type "date" for browser compatibility -->
                 <label for="date_of_birth">Date of Birth:</label>
-                <input type="date" class="form-control" id="date_of_birth" style="width: 228px">
+                <input type="text" class="form-control" id="date_of_birth" th:field="${customer.dob}" autofocus="autofocus" style="width: 228px">
             </div>
 
             <div class="form-group">
                 <label for="email">Email address: <span class="rqrd">*</span></label>
-                <input type="email" class="form-control" id="email" style="width: 370px" required>
+                <input type="email" class="form-control" id="email" th:field="${customer.email}" autofocus="autofocus" style="width: 370px" required>
             </div>
 
             <div class="form-group">
                 <label for="pwd">Password: <span class="rqrd">*</span></label>
-                <input type="password" class="form-control" id="pwd" style="width: 370px" required>
-            </div>
-
-            <div class="form-group">
-                <label for="cpwd">Confirm Password: <span class="rqrd">*</span></label>
-                <input type="password" class="form-control" id="cpwd" style="width: 370px" required>
+                <input type="password" class="form-control" id="pwd" th:field="${customer.password}" autofocus="autofocus" style="width: 370px" required>
             </div>
 
             <div class="checkbox">
-                <label><input type="checkbox"> Remember me</label>
+                <label for="reg"><input type="checkbox" id="reg" th:field = "${customer.isRegistered}" value="true" autofocus="autofocus" > Register for promotion</label>
             </div>
-            <button type="submit" class="btn btn-default">Submit</button>
+            <br>
+            <!-- ***************************************** -->
+            <h4><b>Payment Card Information</b></h4>
+            <div id="card1" th:object="${form}" style="width:370px" hidden>
+                <h5><b><u>Card 1</u></b></h5>
+                <div class="form-group">
+                    <label for="name">Cardholder's name</label>
+                    <input type="text" th:field="*{cards[0].cardHolder}" class="form-control" id="name" placeholder="Enter full name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="cardNumber">Card number</label>
+                    <input type="tel" th:field="*{cards[0].cardNumber}" class="form-control" id="cardNumber" inputmode="numeric" pattern="[0-9\s]{16, 19}"
+                        minlength="16" maxlength="19" placeholder="'XXXX XXXX XXXX XXXX'" name="cardNumber">
+                </div>
+                <div class="form-group">
+                    <label for="expDate">Expiry date</label>
+                    <input type="text" th:field="*{cards[0].expirationDate}" class="form-control" id="expDate" placeholder="MM/YY" name="expDate">
+                </div>
+                <div class="form-group">
+                    <label for="CCV">Security code</label>
+                    <input type="text" th:field="*{cards[0].securityCode}" class="form-control" id="CCV" minlength="3" maxlength="3" placeholder="Back of card, 3 digits"
+                        name="CCV" >
+                </div>
+                <div class="form-group">
+                    <label for="cardType">Card type</label>
+                    <input type="text" th:field="*{cards[0].cardType}" class="form-control" id="cardType" placeholder="Enter card type (e.g., VISA, Discover, etc.)"
+                        name="cardType">
+                </div>
+                <div class="form-group">
+                    <label for="billingAddress">Billing address</label>
+                    <input type="text" th:field="*{cards[0].billingAddress}" class="form-control" id="billingAddress" placeholder="Enter billing address"
+                        name="billingAddress">
+                </div>
+            </div>
+            <div id="card2" th:object="${form}" style="width:370px" hidden>
+                <br/>
+                <h5><b><u>Card 2</u></b></h5>
+                <div class="form-group">
+                    <label for="name">Cardholder's name</label>
+                    <input type="text" th:field="*{cards[1].cardHolder}" class="form-control" id="name" placeholder="Enter full name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="cardNumber">Card number</label>
+                    <input type="tel" th:field="*{cards[1].cardNumber}" class="form-control" id="cardNumber" inputmode="numeric" pattern="[0-9\s]{16, 19}"
+                        minlength="16" maxlength="19" placeholder="'XXXX XXXX XXXX XXXX'" name="cardNumber">
+                </div>
+                <div class="form-group">
+                    <label for="expDate">Expiry date</label>
+                    <input type="text" th:field="*{cards[1].expirationDate}" class="form-control" id="expDate" placeholder="MM/YY" name="expDate">
+                </div>
+                <div class="form-group">
+                    <label for="CCV">Security code</label>
+                    <input type="text" th:field="*{cards[1].securityCode}" class="form-control" id="CCV" minlength="3" maxlength="3" placeholder="Back of card, 3 digits"
+                        name="CCV" >
+                </div>
+                <div class="form-group">
+                    <label for="cardType">Card type</label>
+                    <input type="text" th:field="*{cards[1].cardType}" class="form-control" id="cardType" placeholder="Enter card type (e.g., VISA, Discover, etc.)"
+                        name="cardType">
+                </div>
+                <div class="form-group">
+                    <label for="billingAddress">Billing address</label>
+                    <input type="text" th:field="*{cards[1].billingAddress}" class="form-control" id="billingAddress" placeholder="Enter billing address"
+                        name="billingAddress">
+                </div>
+            </div>
+            <div id="card3" th:object="${form}" style="width:370px" hidden>
+                <br/>
+                <h5><b><u>Card 3</u></b></h5>
+                <div class="form-group">
+                    <label for="name">Cardholder's name</label>
+                    <input type="text" th:field="*{cards[2].cardHolder}" class="form-control" id="name" placeholder="Enter full name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="cardNumber">Card number</label>
+                    <input type="tel" th:field="*{cards[2].cardNumber}" class="form-control" id="cardNumber" inputmode="numeric" pattern="[0-9\s]{16, 19}"
+                        minlength="16" maxlength="19" placeholder="'XXXX XXXX XXXX XXXX'" name="cardNumber">
+                </div>
+                <div class="form-group">
+                    <label for="expDate">Expiry date</label>
+                    <input type="text" th:field="*{cards[2].expirationDate}" class="form-control" id="expDate" placeholder="MM/YY" name="expDate">
+                </div>
+                <div class="form-group">
+                    <label for="CCV">Security code</label>
+                    <input type="text" th:field="*{cards[2].securityCode}" class="form-control" id="CCV" minlength="3" maxlength="3" placeholder="Back of card, 3 digits"
+                        name="CCV" >
+                </div>
+                <div class="form-group">
+                    <label for="cardType">Card type</label>
+                    <input type="text" th:field="*{cards[2].cardType}" class="form-control" id="cardType" placeholder="Enter card type (e.g., VISA, Discover, etc.)"
+                        name="cardType">
+                </div>
+                <div class="form-group">
+                    <label for="billingAddress">Billing address</label>
+                    <input type="text" th:field="*{cards[2].billingAddress}" class="form-control" id="billingAddress" placeholder="Enter billing address"
+                        name="billingAddress">
+                </div>
+            </div>
+            
+            <button id="addCardBtn" type="button" class="btn btn-primary">Add Card</button>
+            <button id="rmCardBtn" type="button" class="btn btn-danger invisible">Remove Card</button>
+            <br/>
+            <!-- ***************************************** -->
+<!--            <div class="form-group">-->
+<!--                <label for="cpwd">Confirm Password: <span class="rqrd">*</span></label>-->
+<!--                <input type="password" class="form-control" id="cpwd" style="width: 370px" required>-->
+<!--            </div>-->
+
+<!--            <div class="checkbox">-->
+<!--                <label><input type="checkbox"> Remember me</label>-->
+<!--            </div>-->
+            <br>
+            <button type="submit" class="btn btn-success">Submit</button>
         </form>
 
     </main>

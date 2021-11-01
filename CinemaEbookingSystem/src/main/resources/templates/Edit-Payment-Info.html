@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Order History</title>
+  <title>Order History - Cinema E-Booking System</title>
   <span th:replace="fragments/head"></span>
   <style>
     .navbar {
@@ -54,9 +54,9 @@
       <div class="col-sm-3 col-md-2 sidebar" id="sidebar"> 
         <div class="d-flex flex-column">
             <ul class="nav nav-pills nav-stacked flex-column" role="tablist">
-              <li class="nav-link"><a href="editProfile">Personal Info</a></li>
-              <li class="nav-link active"><a href="editPaymentInfo">Payment Info</a></li>
-              <li class="nav-link"><a href="orderHistory">Order History</a></li>        
+              <li class="nav-link"><a th:href="@{/editProfile}">Personal Info</a></li>
+              <li class="nav-link active"><a th:href="@{/editPaymentInfo}">Payment Info</a></li>
+              <li class="nav-link"><a th:href="@{/orderHistory}">Order History</a></li>        
             </ul>     
         </div>       
       </div>                       
@@ -70,53 +70,28 @@
               <th>Card Number</th>
               <th>Expiration Date</th>
               <th>Type</th>
+              <th>Billing Address</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>John Doe</td>
-              <td>Ending in 1111</td>
-              <td>01/23</td>
-              <td>VISA</td>
+            <tr th:each="paymentCard : ${listCards}" th:with="decodedCardNumber=${paymentCard.decodeCardNumber(paymentCard.cardNumber)}, 
+              length=${#strings.length(decodedCardNumber)}">
+              <td th:text="${paymentCard.cardHolder}"></td>
+              <td th:text="${'Ending in ' + #strings.substring(decodedCardNumber, length - 4, length)}"></td>
+              <td th:text="${paymentCard.expirationDate}"></td>
+              <td th:text="${paymentCard.cardType}"></td>
+              <td th:text="${paymentCard.billingAddress}"></td>
               <td>
-                <button class="btn btn-default" disabled>Make Default</button>
-                <button class="btn btn-primary">Edit</button>
-                <button class="btn btn-danger">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>John Smith</td>
-              <td>Ending in 2222</td>
-              <td>02/23</td>
-              <td>VISA</td>
-              <td>
-                <button class="btn btn-default">Make Default</button>
-                <button class="btn btn-primary">Edit</button>
-                <button class="btn btn-danger">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Jane Doe</td>
-              <td>Ending in 3333</td>
-              <td>03/23</td>
-              <td>DISCOVER</td>
-              <td>
-                <button class="btn btn-default">Make Default</button>
-                <button class="btn btn-primary">Edit</button>
-                <button class="btn btn-danger">Delete</button>
+                <!-- <button class="btn btn-default" disabled>Make Default</button> -->
+                <a th:href = "@{/updatePaymentCardForm/{id}(id=${paymentCard.getId})}" class="btn btn-info">Edit</a>
+                <a th:href = "@{/deletePaymentCard/{id}(id=${paymentCard.getId})}" class="btn btn-danger">Delete</a>
               </td>
             </tr>
           </tbody>
         </table>
 
-        <form class="form-horizontal" action="#">
-          <div class="form-group">        
-            <div class="col-sm-9">
-              <button type="submit" class="btn btn-default">Add New</button>
-            </div>
-          </div>
-        </form>
+        <a th:href = "@{/addPaymentCardForm}" class="btn btn-default">Add Payment Card</a>
       </div> 
     </div> 
   </div>
