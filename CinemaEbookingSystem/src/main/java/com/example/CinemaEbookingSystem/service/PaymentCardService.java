@@ -10,7 +10,6 @@ import java.util.List;
 @Component
 public interface PaymentCardService {
     List<PaymentCard> getAllCards();
-    void savePaymentCard(PaymentCard paymentCard, long customerID);
     void save(PaymentCardDto paymentCardDto, Customer customer);
     PaymentCard getPaymentCardById(long id);
     void deletePaymentCardById(long id);

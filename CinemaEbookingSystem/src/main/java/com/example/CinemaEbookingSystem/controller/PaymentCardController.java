@@ -1,5 +1,6 @@
 package com.example.CinemaEbookingSystem.controller;
 
+import com.example.CinemaEbookingSystem.dto.PaymentCardDto;
 import java.util.Base64;
 
 import javax.servlet.http.HttpSession;
@@ -51,10 +52,10 @@ public class PaymentCardController {
 
     @PostMapping(path = "/savePaymentCard")
     public String savePaymentCard(@ModelAttribute("paymentCard") PaymentCard paymentCard, HttpSession session) {
-        long customerID = customerRepository.findCustomerId(session.getAttribute("email").toString());
+        Customer customer = customerRepository.findByEmail(session.getAttribute("email").toString());
         
         // Save payment card to database
-        paymentCardService.savePaymentCard(paymentCard, customerID);
+        paymentCardService.save(new PaymentCardDto(paymentCard), customer);
         return "redirect:/editPaymentInfo";
     }
     

@@ -19,20 +19,9 @@ public class PaymentCardServiceImpl implements PaymentCardService {
     @Autowired
     private PaymentCardRepository paymentCardRepository;
 
-    @Autowired
-    private CustomerService customerService;
-
     @Override
     public List<PaymentCard> getAllCards(){
         return paymentCardRepository.findAll();
-    }
-
-    @Override
-    public void savePaymentCard(PaymentCard paymentCard, long customerID) {
-        Customer customer = customerService.getCustomerById(customerID);
-        paymentCard.assignToCustomer(customer);
-        paymentCard.setCardNumber(Base64.getEncoder().encodeToString(paymentCard.getCardNumber().getBytes()));
-        paymentCardRepository.save(paymentCard);
     }
 
     @Override

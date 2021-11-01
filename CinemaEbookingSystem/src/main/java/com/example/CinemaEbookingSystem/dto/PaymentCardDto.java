@@ -1,6 +1,7 @@
 package com.example.CinemaEbookingSystem.dto;
 
 import com.example.CinemaEbookingSystem.model.Customer;
+import com.example.CinemaEbookingSystem.model.PaymentCard;
 
 public class PaymentCardDto {
     private String cardNumber;
@@ -22,6 +23,15 @@ public class PaymentCardDto {
         this.cardType = cardType;
         this.expirationDate = expirationDate;
         this.billingAddress = billingAddress;
+    }
+    public PaymentCardDto(PaymentCard card) {
+        cardNumber     = card.getCardNumber();
+        securityCode   = card.getSecurityCode();
+        cardHolder     = card.getCardHolder();
+        cardType       = card.getCardType();
+        expirationDate = card.getExpirationDate();
+        billingAddress = card.getBillingAddress();
+        customer       = card.getCustomer();
     }
 
     public String getCardNumber() {
