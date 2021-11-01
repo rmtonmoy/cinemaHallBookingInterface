@@ -3,6 +3,8 @@ package com.example.CinemaEbookingSystem.service;
 import com.example.CinemaEbookingSystem.dto.PaymentCardDto;
 import com.example.CinemaEbookingSystem.model.Customer;
 import com.example.CinemaEbookingSystem.repository.PaymentCardRepository;
+import com.fasterxml.jackson.databind.JsonSerializable.Base;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.CinemaEbookingSystem.model.Customer;
@@ -28,6 +30,13 @@ public class PaymentCardServiceImpl implements PaymentCardService {
     public void save(PaymentCard paymentCard, Customer customer) {
         paymentCard.setCustomer(customer); // safety; needed for signup form
         this.paymentCardRepository.save(paymentCard);
+    }
+
+    @Override
+    public void updatePaymentCard(PaymentCard paymentCard, Customer customer) {
+        paymentCard.assignToCustomer(customer);
+        paymentCard.setCardNumber(Base64.getEncoder().encodeToString(paymentCard.getCardNumber().getBytes()));
+        paymentCardRepository.save(paymentCard);
     }
 
     @Override
