@@ -37,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean save(UserRegistrationDto userRegistrationDto, List<PaymentCardDto> paymentCards) {
+    public boolean save(UserRegistrationDto userRegistrationDto, PaymentCardDto paymentCards) {
 
         Customer foundCustomer = customerRepository.findByEmail(userRegistrationDto.getEmail());
         if(foundCustomer == null) {
@@ -46,10 +46,10 @@ public class CustomerServiceImpl implements CustomerService {
                     userRegistrationDto.getDob(), userRegistrationDto.getStatus(), userRegistrationDto.isIsRegistered());
 
             Customer customer2 = customerRepository.save(customer);
-            for (PaymentCardDto paymentCardDto : paymentCards) {
-                if(paymentCardDto.getCardHolder() != null)
+            for (PaymentCard paymentCard : paymentCards.getCards()) {
+                if(paymentCard.getCardHolder() != null)
                 {
-                    paymentCardService.save(paymentCardDto,customer2);
+                    paymentCardService.save(paymentCard,customer2);
                 }
             }
             return true;

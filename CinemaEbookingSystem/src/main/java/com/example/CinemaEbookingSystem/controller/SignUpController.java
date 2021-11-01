@@ -3,6 +3,7 @@ package com.example.CinemaEbookingSystem.controller;
 import com.example.CinemaEbookingSystem.dto.PaymentCardDto;
 import com.example.CinemaEbookingSystem.dto.UserRegistrationDto;
 import com.example.CinemaEbookingSystem.model.Customer;
+import com.example.CinemaEbookingSystem.model.PaymentCard;
 import com.example.CinemaEbookingSystem.service.CustomerService;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
+import org.springframework.ui.Model;
 
 @Controller
 public class SignUpController {
@@ -42,22 +44,21 @@ public class SignUpController {
     }
 
     @GetMapping(path = "/signup")
-    public String showRegistrationForm() {
+    public String showRegistrationForm(Model model) {
+        PaymentCardDto cardsForm = new PaymentCardDto();
+        model.addAttribute("form", cardsForm);
         return "signup";
     }
 
     @PostMapping(path = "/signup")
     public String registerUserAccount(@ModelAttribute("customer") UserRegistrationDto registrationDto,
-        @ModelAttribute("customer_payment_card_1") PaymentCardDto paymentCardDto1,
-        @ModelAttribute("customer_payment_card_2") PaymentCardDto paymentCardDto2,
-        @ModelAttribute("customer_payment_card_3") PaymentCardDto paymentCardDto3) {
+        @ModelAttribute("customer_payment_card") PaymentCardDto paymentCardDto) {
         
         System.out.println(registrationDto.getFirstName());
         System.out.println(registrationDto.isIsRegistered());
-        System.out.println(paymentCardDto1.getCardHolder());
         
         // stupid code inbound, but it's 2:38 am and i really cba -james
-        List<PaymentCardDto> cards = new ArrayList<>(3);
+        /*List<PaymentCardDto> cards = new ArrayList<>(3);
         if (!isCardInvalid(paymentCardDto1)) {
             cards.add(paymentCardDto1);
         }
@@ -66,9 +67,19 @@ public class SignUpController {
         }
         if (!isCardInvalid(paymentCardDto2)) {
             cards.add(paymentCardDto3);
+        }*/
+        for (PaymentCard card : paymentCardDto.getCards()) {
+            System.out.println(card.getCardHolder() + " " + !isCardInvalid(card));
+        }
+        List<PaymentCard> cards = paymentCardDto.getCards();
+        for (int i = 2; i >= 0; i--) {
+            PaymentCard card = cards.get(i);
+            if (isCardInvalid(card)) {
+                cards.remove(i);
+            }
         }
         
-        boolean newCustomer = customerService.save(registrationDto, cards);
+        boolean newCustomer = customerService.save(registrationDto, paymentCardDto);
         if(newCustomer == true)
         {
             return "redirect:/signup?success";
@@ -79,7 +90,7 @@ public class SignUpController {
         }
     }
     
-    private boolean isCardInvalid(PaymentCardDto card) {
+    private boolean isCardInvalid(PaymentCard card) {
         String cardNumber     = card.getCardNumber();
         String securityCode   = card.getSecurityCode();
         String cardHolder     = card.getCardHolder();

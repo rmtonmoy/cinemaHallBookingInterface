@@ -25,10 +25,8 @@ public class PaymentCardServiceImpl implements PaymentCardService {
     }
 
     @Override
-    public void save(PaymentCardDto paymentCardDto, Customer customer) {
-        PaymentCard paymentCard = new PaymentCard(paymentCardDto.getCardNumber(),paymentCardDto.getSecurityCode(),
-                paymentCardDto.getCardHolder(),paymentCardDto.getCardType(), paymentCardDto.getExpirationDate(),
-                paymentCardDto.getBillingAddress(), customer);
+    public void save(PaymentCard paymentCard, Customer customer) {
+        paymentCard.setCustomer(customer); // safety; needed for signup form
         this.paymentCardRepository.save(paymentCard);
     }
 

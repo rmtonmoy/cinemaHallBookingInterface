@@ -55,7 +55,7 @@ public class PaymentCardController {
         Customer customer = customerRepository.findByEmail(session.getAttribute("email").toString());
         
         // Save payment card to database
-        paymentCardService.save(new PaymentCardDto(paymentCard), customer);
+        paymentCardService.save(paymentCard, customer);
         return "redirect:/editPaymentInfo";
     }
     
