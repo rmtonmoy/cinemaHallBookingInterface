@@ -1,33 +1,33 @@
 <div class="form-group">
     <label for="name">Cardholder's name</label>
-    <input type="text" field="*{cardHolder}" class="form-control" id="name" placeholder="Enter full name" name="name">
+    <input type="text" th:field="*{cardHolder}" class="form-control" id="name" placeholder="Enter full name" name="name">
 
 </div>
 <div class="form-group">
     <label for="cardNumber">Card number</label>
-    <input type="tel" field="*{cardNumber}" class="form-control" id="cardNumber" inputmode="numeric" pattern="[0-9\s]{16, 19}"
+    <input type="tel" th:field="*{cardNumber}" class="form-control" id="cardNumber" inputmode="numeric" pattern="[0-9\s]{16, 19}"
         minlength="16" maxlength="19" placeholder="'XXXX XXXX XXXX XXXX'" name="cardNumber">
 
 </div>
 <div class="form-group">
     <label for="expDate">Expiry date</label>
-    <input type="text" field="*{expirationDate}" class="form-control" id="expDate" placeholder="MM/YY" name="expDate">
+    <input type="text" th:field="*{expirationDate}" class="form-control" id="expDate" placeholder="MM/YY" name="expDate">
 
 </div>
 <div class="form-group">
     <label for="CCV">Security code</label>
-    <input type="text" field="*{securityCode}" class="form-control" id="CCV" minlength="3" maxlength="3" placeholder="Back of card, 3 digits"
+    <input type="text" th:field="*{securityCode}" class="form-control" id="CCV" minlength="3" maxlength="3" placeholder="Back of card, 3 digits"
         name="CCV" >
 
 </div>
 <div class="form-group">
     <label for="cardType">Card type</label>
-    <input type="text" field="*{cardType}" class="form-control" id="cardType" placeholder="Enter card type (e.g., VISA, Discover, etc.)"
+    <input type="text" th:field="*{cardType}" class="form-control" id="cardType" placeholder="Enter card type (e.g., VISA, Discover, etc.)"
         name="cardType">
 
 </div>
 <div class="form-group">
     <label for="billingAddress">Billing address</label>
-    <input type="text" field="*{billingAddress}" class="form-control" id="billingAddress" placeholder="Enter billing address"
+    <input type="text" th:field="*{billingAddress}" class="form-control" id="billingAddress" placeholder="Enter billing address"
         name="billingAddress">
 </div>
