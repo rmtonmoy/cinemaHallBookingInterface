@@ -22,7 +22,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>{
 
 
     @Query(
-        value = "SELECT id FROM customer c WHERE c.email = ?1",
+        value = "SELECT id FROM customer WHERE email = ?1",
         nativeQuery = true)
     long findCustomerId(String customerEmail);
 }

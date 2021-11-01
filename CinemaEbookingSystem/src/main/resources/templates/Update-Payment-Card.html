@@ -58,13 +58,12 @@
       <div class="col-sm-3 col-md-2 sidebar" id="sidebar"> 
         <div class="d-flex flex-column">
           <ul class="nav nav-pills nav-stacked flex-column" role="tablist">
-            <li class="nav-link"><a th:href="@{/editProfile/1}">Personal Info</a></li>
+            <li class="nav-link"><a th:href="@{/editProfile}">Personal Info</a></li>
             <li class="nav-link active"><a th:href="@{/editPaymentInfo}">Payment Info</a></li>
             <li class="nav-link"><a th:href="@{/orderHistory}">Order History</a></li>        
           </ul>      
         </div>       
       </div>                       
-z
       <div class="col-sm-9 main" id="main">
         <h1><b>Update Payment Card</b></h1><br><br>
         <form th:action="@{/savePaymentCard}" th:object="${paymentCard}" method="POST" class="form-horizontal">
@@ -110,7 +109,7 @@ z
             </div>
           </div>
           <div class="form-group">        
-            <div class="col-sm-offset-2 col-sm-10">
+            <div class="col-sm-offset-2 col-sm-10"><br>
               <button type="submit" class="btn btn-default">Update Payment Card</button>
               <a th:href="@{/editPaymentInfo}" id="cancel">Cancel</a>
             </div>

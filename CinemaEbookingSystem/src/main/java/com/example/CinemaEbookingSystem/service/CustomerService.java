@@ -16,7 +16,6 @@ import java.util.List;
 public interface CustomerService {
     List<Customer> getAllCustomers();
     boolean save(UserRegistrationDto userRegistrationDto, PaymentCardDto paymentCardDto);
-
     void saveCustomer(Customer customer);
     Customer getCustomerById(long id);
     void deleteCustomerById(long id);

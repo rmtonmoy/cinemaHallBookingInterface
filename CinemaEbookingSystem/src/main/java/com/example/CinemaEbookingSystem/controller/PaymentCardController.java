@@ -1,11 +1,13 @@
 package com.example.CinemaEbookingSystem.controller;
 
+import java.util.Base64;
+
 import javax.servlet.http.HttpSession;
 
 import com.example.CinemaEbookingSystem.model.PaymentCard;
 import com.example.CinemaEbookingSystem.model.Customer;
 import com.example.CinemaEbookingSystem.repository.CustomerRepository;
-import com.example.CinemaEbookingSystem.repository.PaymentCardRepository;
+import com.example.CinemaEbookingSystem.service.CustomerService;
 import com.example.CinemaEbookingSystem.service.PaymentCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,25 +25,23 @@ public class PaymentCardController {
     private PaymentCardService paymentCardService;
 
     @Autowired
-    private PaymentCardRepository paymentCardRepository;
+    private CustomerService customerService;
 
     @Autowired
     private CustomerRepository customerRepository;
 
     @GetMapping(path = "/editPaymentInfo")
     public String editPaymentInfo(Model model, HttpSession session){
-        System.out.println(session.getAttribute("email"));
-        System.out.println(session.getAttribute("email").toString());
         long customerID = customerRepository.findCustomerId(session.getAttribute("email").toString());
-
+        Customer customer = customerService.getCustomerById(customerID);
 
         // Display list of payment cards
-        model.addAttribute("listCards", paymentCardRepository.findPaymentCardsById(customerID));
+        model.addAttribute("listCards", customer.getCardlist());
         return "Edit-Payment-Info";
     }
 
     @GetMapping(path = "/addPaymentCardForm")
-    public String addPaymentCardForm(Model model) {
+    public String addPaymentCardForm(Model model, HttpSession session) {
 
         // Create model attribute to bind form data
         PaymentCard paymentCard = new PaymentCard();
@@ -50,25 +50,28 @@ public class PaymentCardController {
     }
 
     @PostMapping(path = "/savePaymentCard")
-    public String savePaymentCard(@ModelAttribute("paymentCard") PaymentCard paymentCard) {
-
+    public String savePaymentCard(@ModelAttribute("paymentCard") PaymentCard paymentCard, HttpSession session) {
+        long customerID = customerRepository.findCustomerId(session.getAttribute("email").toString());
+        
         // Save payment card to database
-        paymentCardService.savePaymentCard(paymentCard);
+        paymentCardService.savePaymentCard(paymentCard, customerID);
         return "redirect:/editPaymentInfo";
     }
     
     @GetMapping(path = "/updatePaymentCardForm/{id}")
     public String updatePaymentCardForm(@PathVariable(value = "id") long id, Model model) {
-        
+
         // Get payment card from the service
         PaymentCard paymentCard = paymentCardService.getPaymentCardById(id);
+        String cardNumber = paymentCard.getCardNumber();
+        paymentCard.setCardNumber(paymentCard.decodeCardNumber(cardNumber));
         
         // Set payment card as a model attribute to pre-populate the form
         model.addAttribute("paymentCard", paymentCard);
         return "Update-Payment-Card";
     }
 
-    @GetMapping(path = "/deletePaymentCard/{id}")
+    @GetMapping(path = "/deletePaymentCard/{sessionID}/{id}")
     public String deletePaymentCard(@PathVariable(value = "id") long id) {
         
         // Call delete payment card method

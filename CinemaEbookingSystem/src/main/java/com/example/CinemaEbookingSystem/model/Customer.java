@@ -14,7 +14,7 @@ public class Customer extends User {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
-    @OneToMany( mappedBy = "customer")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     private List<PaymentCard> cardlist = new ArrayList<>();
 
     private boolean isRegistered;
@@ -24,7 +24,7 @@ public class Customer extends User {
     //        joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
     //inverseJoinColumns = @JoinColumn(name = "booking_id", referencedColumnName = "id"))
 
-    @OneToMany( mappedBy = "customer")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     private List<Booking> booking = new ArrayList<>();
 
     public Customer(){
@@ -62,6 +62,10 @@ public class Customer extends User {
 
     public void setCardlist(List<PaymentCard> cardlist) {
         this.cardlist = cardlist;
+    }
+
+    public void addPaymentCard(PaymentCard paymentCard) {
+        this.cardlist.add(paymentCard);
     }
 
     public List<Booking> getBooking() {

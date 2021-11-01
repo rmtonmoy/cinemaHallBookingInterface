@@ -1,5 +1,7 @@
 package com.example.CinemaEbookingSystem.model;
 
+import java.util.Base64;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,7 +12,7 @@ public class PaymentCard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long cardNumber;
+    private String cardNumber;
 
     private int securityCode;
 
@@ -47,12 +49,17 @@ public class PaymentCard {
         this.id = id;
     }
     
-    public long getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(long cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
+    }
+
+    public String decodeCardNumber(String cardNumber) {
+        String decodedCardNumber = new String(Base64.getDecoder().decode(cardNumber));
+        return decodedCardNumber;
     }
 
     public int getSecurityCode() {
@@ -95,7 +102,20 @@ public class PaymentCard {
         this.billingAddress = billingAddress;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "fk_CID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_CID", nullable = false)
     private Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void assignToCustomer(Customer customer) {
+        customer.addPaymentCard(this);
+        this.customer = customer;
+    }
 }

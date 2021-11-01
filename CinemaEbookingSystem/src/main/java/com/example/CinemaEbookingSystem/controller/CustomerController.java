@@ -1,6 +1,9 @@
 package com.example.CinemaEbookingSystem.controller;
 
+import javax.servlet.http.HttpSession;
+
 import com.example.CinemaEbookingSystem.model.Customer;
+import com.example.CinemaEbookingSystem.repository.CustomerRepository;
 import com.example.CinemaEbookingSystem.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,9 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private CustomerRepository customerRepository;
+
     // For admin use
     @GetMapping(path = "")
     public String editCustomers(Model model) {
@@ -27,19 +33,20 @@ public class CustomerController {
 
     @PostMapping(path = "/saveCustomerInfo")
     public String saveCustomerInfo(@ModelAttribute("customer") Customer customer) {
-
+        
         // Save customer to database
         customerService.saveCustomer(customer);
 
-        // Return to Edit-Profile.html and display customer with id 1
-        return "redirect:/editProfile/1";
+        // Return to Edit-Profile.html 
+        return "redirect:/editProfile";
     }
     
-    @GetMapping(path = "/editProfile/{id}")
-    public String editProfile(@PathVariable(value = "id") long id, Model model) {
-        
+    @GetMapping(path = "/editProfile")
+    public String editProfile(Model model, HttpSession session) {
+        long customerID = customerRepository.findCustomerId(session.getAttribute("email").toString());
+
         // Get customer from the service
-        Customer customer = customerService.getCustomerById(id);
+        Customer customer = customerService.getCustomerById(customerID);
         
         // Set customer as a model attribute to pre-populate the form
         model.addAttribute("customer", customer);
