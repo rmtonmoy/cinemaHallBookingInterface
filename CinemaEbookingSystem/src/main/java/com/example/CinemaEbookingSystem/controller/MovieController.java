@@ -4,84 +4,79 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 
 @Controller
 public class MovieController {
 
-    @GetMapping("/")
-    String getMovie(Model model) {
-        model.addAttribute("something", "Cinema E-booking System");
-        model.addAttribute("movie", Arrays.asList(
-                new Movie("Movie1"),
-                new Movie("Movie2"),
-                new Movie("Movie3")
-        ));
-        return "movie";
-    }
-    @GetMapping(path = "/signin")
-    String signin(Model model){
-        model.addAttribute("something", "Cinema E-booking System");
-        return "signin";
-    }
-
     @GetMapping(path = "/adminHome")
-    String adminHome(Model model){
+    String adminHome(Model model, HttpSession session){
+        System.out.println(session.getAttribute("email"));
+        System.out.println(session.getAttribute("name"));
         model.addAttribute("something", "Cinema E-booking System");
+        model.addAttribute("userName", session.getAttribute("name"));
+        model.addAttribute("email", session.getAttribute("email"));
         return "adminHome";
     }
 
+    @GetMapping(path = "/")
+    String homepage(Model model, HttpSession session){
+        System.out.println(session.getAttribute("email"));
+        System.out.println(session.getAttribute("name"));
+        model.addAttribute("something", "Cinema E-booking System");
+        model.addAttribute("userName", session.getAttribute("name"));
+        model.addAttribute("email", session.getAttribute("email"));
+        return "movie";
+    }
+
     @GetMapping(path = "/manageMovies")
-    String manageMovies(Model model){
+    String manageMovies(Model model, HttpSession session){
         model.addAttribute("something", "Cinema E-booking System");
         return "manageMovies";
     }
 
     @GetMapping(path = "/paymentConfirmation")
-    String paymentConfirmation(Model model){
+    String paymentConfirmation(Model model, HttpSession session){
         model.addAttribute("something", "Cinema E-booking System");
         return "paymentConfirmation";
     }
 
     @GetMapping(path = "/managePromo")
-    String managePromo(Model model){
+    String managePromo(Model model, HttpSession session){
         model.addAttribute("something", "Cinema E-booking System");
         return "managePromo";
     }
 
-    @GetMapping(path = "/signup")
-    String signUp(Model model){
-        return "signup";
-    }
+    // @GetMapping(path = "/signup")
+    //String signUp(Model model){
+    //    return "signup";
+    //}
 
     @GetMapping(path = "/registration_confirmation")
-    String registrationConfirmationMessage(Model model){
+    String registrationConfirmationMessage(Model model, HttpSession session){
         return "registrationconfirmation";
     }
 
-    @GetMapping(path = "/editProfile")
-    String getEditProfile() {
-        return "Edit-Profile";
-    }
-
     @GetMapping(path = "/search")
-    String getSearchView(Model model){
+    String getSearchView(Model model, HttpSession session){
         model.addAttribute("something", "Cinema E-booking System");
+        model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("userName", session.getAttribute("name"));
         return "search_view";
-    }
-    
-    @GetMapping(path = "/editPaymentInfo")
-    String getPaymentInfo() {
-        return "Edit-Payment-Info";
     }
 
     @GetMapping(path = "/orderHistory")
-    String getOrderHistory() {
+    String getOrderHistory(Model model, HttpSession session) {
+        model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("userName", session.getAttribute("name"));
         return "Order-History";
     }
 
     @GetMapping(path = "/orderSummary")
-    String orderSummary(Model model){
+    String orderSummary(Model model, HttpSession session){
+        model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("userName", session.getAttribute("name"));
         model.addAttribute("something", "Cinema E-booking System");
         return "orderSummary";
     }
