@@ -14,7 +14,7 @@ public class PaymentCard {
 
     private String cardNumber;
 
-    private int securityCode;
+    private String securityCode;
 
     private String cardHolder;
 
@@ -31,7 +31,7 @@ public class PaymentCard {
         this.customer = customer;
     }
 
-    public PaymentCard(long cardNumber, int securityCode, String cardHolder, String cardType, String expirationDate, String billingAddress, Customer customer) {
+    public PaymentCard(String cardNumber, String securityCode, String cardHolder, String cardType, String expirationDate, String billingAddress, Customer customer) {
         this.cardNumber = cardNumber;
         this.securityCode = securityCode;
         this.cardHolder = cardHolder;
@@ -62,11 +62,11 @@ public class PaymentCard {
         return decodedCardNumber;
     }
 
-    public int getSecurityCode() {
+    public String getSecurityCode() {
         return securityCode;
     }
 
-    public void setSecurityCode(int securityCode) {
+    public void setSecurityCode(String securityCode) {
         this.securityCode = securityCode;
     }
 

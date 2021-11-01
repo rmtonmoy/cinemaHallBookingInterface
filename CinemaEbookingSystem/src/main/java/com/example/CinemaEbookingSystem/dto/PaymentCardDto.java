@@ -3,8 +3,8 @@ package com.example.CinemaEbookingSystem.dto;
 import com.example.CinemaEbookingSystem.model.Customer;
 
 public class PaymentCardDto {
-    private long cardNumber;
-    private int securityCode;
+    private String cardNumber;
+    private String securityCode;
     private String cardHolder;
     private String cardType;
     private String expirationDate;
@@ -14,7 +14,7 @@ public class PaymentCardDto {
     public PaymentCardDto(){
 
     }
-    public PaymentCardDto(long cardNumber, int securityCode, String cardHolder, String cardType, String expirationDate, String billingAddress) {
+    public PaymentCardDto(String cardNumber, String securityCode, String cardHolder, String cardType, String expirationDate, String billingAddress) {
         super();
         this.cardNumber = cardNumber;
         this.securityCode = securityCode;
@@ -24,19 +24,19 @@ public class PaymentCardDto {
         this.billingAddress = billingAddress;
     }
 
-    public long getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(long cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
-    public int getSecurityCode() {
+    public String getSecurityCode() {
         return securityCode;
     }
 
-    public void setSecurityCode(int securityCode) {
+    public void setSecurityCode(String securityCode) {
         this.securityCode = securityCode;
     }
 
