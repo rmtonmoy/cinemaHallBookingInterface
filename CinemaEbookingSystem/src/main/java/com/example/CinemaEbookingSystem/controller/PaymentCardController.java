@@ -55,7 +55,7 @@ public class PaymentCardController {
         Customer customer = customerRepository.findByEmail(session.getAttribute("email").toString());
         
         // Save payment card to database
-        paymentCardService.save(paymentCard, customer);
+        paymentCardService.updatePaymentCard(paymentCard, customer);
         return "redirect:/editPaymentInfo";
     }
     
@@ -72,7 +72,7 @@ public class PaymentCardController {
         return "Update-Payment-Card";
     }
 
-    @GetMapping(path = "/deletePaymentCard/{sessionID}/{id}")
+    @GetMapping(path = "/deletePaymentCard/{id}")
     public String deletePaymentCard(@PathVariable(value = "id") long id) {
         
         // Call delete payment card method
