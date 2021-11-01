@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class SignInController {
@@ -23,8 +24,10 @@ public class SignInController {
     }
 
     @GetMapping(path = "/signin")
-    String signin(Model model){
+    String signin(Model model, HttpSession session){
         model.addAttribute("something", "Cinema E-booking System");
+        model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("userName", session.getAttribute("name"));
         return "signin";
     }
 
@@ -33,12 +36,12 @@ public class SignInController {
         if(signInService.isAdminWithRightPassword(userSignInDto)){
             request.getSession().setAttribute("email", userSignInDto.getEmail());
             request.getSession().setAttribute("name", signInService.getAdminName(userSignInDto));
-            return "redirect:/adminHome?Admin";
+            return "redirect:/adminHome";
         }
         else if(signInService.isActiveCustomerWithRightPassword(userSignInDto)){
             request.getSession().setAttribute("email", userSignInDto.getEmail());
             request.getSession().setAttribute("name", signInService.getName(userSignInDto));
-            return "redirect:/movie?ActiveCustomer";
+            return "redirect:/";
         }
         else if (signInService.isInactiveCustomerWithRightPassword(userSignInDto)) {
             request.getSession().setAttribute("email", userSignInDto.getEmail());
