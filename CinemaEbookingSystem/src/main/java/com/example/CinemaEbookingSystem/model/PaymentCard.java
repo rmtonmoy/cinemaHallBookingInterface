@@ -1,8 +1,9 @@
 package com.example.CinemaEbookingSystem.model;
 
 import java.util.Base64;
-
+import java.util.regex.Pattern;
 import javax.persistence.*;
+
 
 @Entity
 @Table(name = "paymentcards")
@@ -60,6 +61,25 @@ public class PaymentCard {
     public String decodeCardNumber(String cardNumber) {
         String decodedCardNumber = new String(Base64.getDecoder().decode(cardNumber));
         return decodedCardNumber;
+    }
+
+    public String encodeCardNumber(String cardNumber) {
+        String encodedCardNumber = new String(Base64.getEncoder().encodeToString(cardNumber.getBytes()));
+        return encodedCardNumber;
+    }
+
+    public boolean isEncoded(String cardNumber) {
+
+        /* Provided by: https://stackoverflow.com/questions/8571501/how-to-check-whether-a-string-is-base64-encoded-or-not#comment102629097_8571501
+         * Used to check if a string is Base64 encoded
+         */ 
+        String regex = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$";
+
+        if (Pattern.matches(regex, cardNumber)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public String getSecurityCode() {

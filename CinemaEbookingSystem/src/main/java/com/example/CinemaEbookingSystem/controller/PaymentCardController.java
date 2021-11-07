@@ -1,10 +1,7 @@
 package com.example.CinemaEbookingSystem.controller;
 
 import com.example.CinemaEbookingSystem.dto.PaymentCardDto;
-import java.util.Base64;
-
 import javax.servlet.http.HttpSession;
-
 import com.example.CinemaEbookingSystem.model.PaymentCard;
 import com.example.CinemaEbookingSystem.model.Customer;
 import com.example.CinemaEbookingSystem.repository.CustomerRepository;
@@ -17,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 
 @Controller
@@ -38,9 +37,19 @@ public class PaymentCardController {
         
         long customerID = customerRepository.findCustomerId(session.getAttribute("email").toString());
         Customer customer = customerService.getCustomerById(customerID);
+        List<PaymentCard> cardList = customer.getCardlist();
+        
+        for (int i = 0; i < cardList.size(); i++) {
+            PaymentCard paymentCard = cardList.get(i);
+            String cardNumber = paymentCard.getCardNumber();
+
+            if (!(paymentCard.isEncoded(cardNumber))) {
+                paymentCard.setCardNumber(paymentCard.encodeCardNumber(cardNumber));
+            }
+        }
 
         // Display list of payment cards
-        model.addAttribute("listCards", customer.getCardlist());
+        model.addAttribute("listCards", cardList);
         return "Edit-Payment-Info";
     }
 
