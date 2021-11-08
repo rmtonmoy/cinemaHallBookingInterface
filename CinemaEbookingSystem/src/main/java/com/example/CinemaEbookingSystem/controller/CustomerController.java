@@ -74,6 +74,7 @@ public class CustomerController {
     public String changePassword(Model model, HttpSession session) {
         model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("userName", session.getAttribute("name"));
+        model.addAttribute("passwordDto", new PasswordDto());
         
         return "changePassword";
     }

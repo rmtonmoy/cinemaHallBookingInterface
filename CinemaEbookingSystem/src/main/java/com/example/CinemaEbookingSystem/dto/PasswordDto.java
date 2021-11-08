@@ -4,7 +4,14 @@ public class PasswordDto {
     private String oldPassword;
     private String newPassword;
 
-
+    
+    public PasswordDto() {
+        
+    }
+    public PasswordDto(String oldPassword, String newPassword) {
+        this.oldPassword = oldPassword;
+        this.newPassword = newPassword;
+    }
     public String getOldPassword() {
         return oldPassword;
     }
