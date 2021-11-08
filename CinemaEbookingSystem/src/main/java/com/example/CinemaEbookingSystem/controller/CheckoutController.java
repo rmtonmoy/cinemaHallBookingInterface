@@ -3,6 +3,7 @@
 
 package com.example.CinemaEbookingSystem.controller;
 
+import com.example.CinemaEbookingSystem.model.MovieInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,12 +28,12 @@ public class CheckoutController {
     
     @GetMapping(path = "/book")
     String getBook(Model model, HttpSession session) {
-        List<Movie> movies = Arrays.asList( // TODO: Read from some external file for the list of movies
-            new Movie("Batman"),
-            new Movie("Dune"),
-            new Movie("Venom"),
-            new Movie("Free Guy"),
-            new Movie("Shang-Chi")
+        List<MovieInfo> movies = Arrays.asList( // TODO: Read from some external file for the list of movies
+            new MovieInfo("Batman"),
+            new MovieInfo("Dune"),
+            new MovieInfo("Venom"),
+            new MovieInfo("Free Guy"),
+            new MovieInfo("Shang-Chi")
         );
         model.addAttribute("movies", movies);
         

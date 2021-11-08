@@ -27,6 +27,14 @@ public class MovieInfo {
     private String synopsis;
 
     private String MPAA_rating;
+    
+    // TODO - Constructor
+    public MovieInfo() {};
+    
+    // temp constructor for demo use in CheckoutController
+    public MovieInfo(String title) {
+        this.title = title;
+    }
 
     public int getId() {
         return id;
