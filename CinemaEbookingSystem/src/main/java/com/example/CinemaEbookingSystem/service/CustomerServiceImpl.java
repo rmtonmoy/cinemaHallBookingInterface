@@ -56,6 +56,8 @@ public class CustomerServiceImpl implements CustomerService {
                     paymentCardService.save(paymentCard,customer2);
                 }
             }
+            EmailService emailService = new EmailServiceImpl();
+            emailService.sendEmail(customer);
             return true;
         }
         else

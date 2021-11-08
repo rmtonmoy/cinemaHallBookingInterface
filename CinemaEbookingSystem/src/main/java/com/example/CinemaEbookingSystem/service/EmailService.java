@@ -16,4 +16,5 @@ import javax.mail.internet.MimeMessage;
 @Component
 public interface EmailService {
     public boolean sendEmail(User user);
+    public String createVerificationCode(String password);
 }
