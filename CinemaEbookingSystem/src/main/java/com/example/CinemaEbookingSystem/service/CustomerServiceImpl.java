@@ -5,6 +5,7 @@ import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
 
+import com.example.CinemaEbookingSystem.dto.PasswordDto;
 import com.example.CinemaEbookingSystem.dto.PaymentCardDto;
 import com.example.CinemaEbookingSystem.dto.UserRegistrationDto;
 import com.example.CinemaEbookingSystem.model.Customer;
@@ -82,5 +83,17 @@ public class CustomerServiceImpl implements CustomerService {
     @Override 
     public void deleteCustomerById(long id) {
         this.customerRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean isCorrectPassword(long id, PasswordDto passwordDto) {
+        Customer customer = getCustomerById(id);
+
+        if (Base64.getEncoder().encodeToString(passwordDto.getOldPassword().getBytes()).equals(customer.getPassword())) {
+            customer.setPassword(Base64.getEncoder().encodeToString(passwordDto.getNewPassword().getBytes()));
+            return true;
+        } else {
+            return false;
+        }
     }
 }
