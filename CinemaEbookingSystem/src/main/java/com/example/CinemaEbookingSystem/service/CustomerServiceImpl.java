@@ -29,10 +29,14 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private PaymentCardService paymentCardService;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository, PaymentCardService paymentCardService) {
+    @Autowired
+    private EmailService emailService;
+
+    public CustomerServiceImpl(CustomerRepository customerRepository, PaymentCardService paymentCardService, EmailService emailService) {
         super();
         this.customerRepository = customerRepository;
         this.paymentCardService = paymentCardService;
+        this.emailService = emailService;
     }
 
     @Override
@@ -43,10 +47,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public boolean save(UserRegistrationDto userRegistrationDto, PaymentCardDto paymentCards) {
 
-        Customer foundCustomer = customerRepository.findByEmail(userRegistrationDto.getEmail());
+        String CustomerEmailAddress = userRegistrationDto.getEmail();
+        Customer foundCustomer = customerRepository.findByEmail(CustomerEmailAddress);
         if(foundCustomer == null) {
             Customer customer = new Customer(userRegistrationDto.getFirstName(), userRegistrationDto.getLastName(),
-                    Base64.getEncoder().encodeToString(userRegistrationDto.getPassword().getBytes()), userRegistrationDto.getEmail(),
+                    Base64.getEncoder().encodeToString(userRegistrationDto.getPassword().getBytes()), CustomerEmailAddress,
                     userRegistrationDto.getDob(), userRegistrationDto.getStatus(), userRegistrationDto.isIsRegistered());
 
             Customer customer2 = customerRepository.save(customer);
@@ -56,8 +61,7 @@ public class CustomerServiceImpl implements CustomerService {
                     paymentCardService.save(paymentCard,customer2);
                 }
             }
-            EmailService emailService = new EmailServiceImpl();
-            emailService.sendEmail(customer);
+            emailService.sendEmail(CustomerEmailAddress);
             return true;
         }
         else
