@@ -1,27 +1,26 @@
 package com.example.CinemaEbookingSystem.controller;
 
-import com.example.CinemaEbookingSystem.model.User;
-import com.example.CinemaEbookingSystem.service.EmailService;
-import com.example.CinemaEbookingSystem.service.EmailServiceImpl;
+import com.example.CinemaEbookingSystem.model.Mail;
+import com.example.CinemaEbookingSystem.service.MailService;
+import com.example.CinemaEbookingSystem.service.MailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
-
-import java.util.Properties;
-import java.util.Random;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 @Controller
 public class EmailController {
 
     @Autowired
-    EmailService emailService;
+    Mail mail = new Mail();
+    mail.setMailFrom("yashwantchavan@gmail.com");
+    mail.setMailTo("yashwantchavan@gmail.com");
+    mail.setMailSubject("Spring Boot - Email Example");
+    mail.setMailContent("Learn How to send Email using Spring Boot!!!\n\nThanks\nwww.technicalkeeda.com");
 
+    @Autowired
+    MailService mailService;
+    mailService.sendEmail(mail);
     
 
 }

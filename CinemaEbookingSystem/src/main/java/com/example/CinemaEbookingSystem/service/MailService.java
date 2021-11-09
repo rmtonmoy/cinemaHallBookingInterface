@@ -1,5 +1,6 @@
 package com.example.CinemaEbookingSystem.service;
 
+import com.example.CinemaEbookingSystem.model.Mail;
 import com.example.CinemaEbookingSystem.model.User;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +15,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 @Component
-public interface EmailService {
-    public boolean sendEmail(User user);
-    public String createVerificationCode(String password);
+public interface MailService {
+    public void sendEmail(Mail mail);
 }
