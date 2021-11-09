@@ -1,5 +1,7 @@
 package com.example.CinemaEbookingSystem.model;
 
+import com.example.CinemaEbookingSystem.dto.MovieInfoDto;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,23 +12,29 @@ public class MovieInfo {
     @Id
     @GeneratedValue( strategy=GenerationType.AUTO )
     private int id;
-
     private String title;
-
     private String category;
 
     @OneToMany( mappedBy = "movie")
     private List<Review> reviewlist = new ArrayList<>();
 
     private String cast;
-
     private String director;
-
     private String producer;
-
     private String synopsis;
-
     private String MPAA_rating;
+    private String linkToTrailer;
+
+    public MovieInfo(MovieInfoDto movieInfoDto) {
+        this.title = movieInfoDto.getTitle();
+        this.category = movieInfoDto.getCategory();
+        this.cast = movieInfoDto.getCast();
+        this.director = movieInfoDto.getDirector();
+        this.producer = movieInfoDto.getProducer();
+        this.synopsis = movieInfoDto.getSynopsis();
+        this.MPAA_rating = movieInfoDto.getMPAA_rating();
+        this.linkToTrailer = movieInfoDto.getLinkToTrailer();
+    }
 
     public int getId() {
         return id;
