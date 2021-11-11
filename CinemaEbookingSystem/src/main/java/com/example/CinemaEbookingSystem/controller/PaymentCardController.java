@@ -37,16 +37,7 @@ public class PaymentCardController {
         
         long customerID = customerRepository.findCustomerId(session.getAttribute("email").toString());
         Customer customer = customerService.getCustomerById(customerID);
-        List<PaymentCard> cardList = customer.getCardlist();
-        
-        for (int i = 0; i < cardList.size(); i++) {
-            PaymentCard paymentCard = cardList.get(i);
-            String cardNumber = paymentCard.getCardNumber();
-
-            if (!(paymentCard.isEncoded(cardNumber))) {
-                paymentCard.setCardNumber(paymentCard.encodeCardNumber(cardNumber));
-            }
-        }
+        List<PaymentCard> cardList = paymentCardService.encodePaymentCards(customer);
 
         // Display list of payment cards
         model.addAttribute("listCards", cardList);
@@ -80,8 +71,7 @@ public class PaymentCardController {
 
         // Get payment card from the service
         PaymentCard paymentCard = paymentCardService.getPaymentCardById(id);
-        String cardNumber = paymentCard.getCardNumber();
-        paymentCard.setCardNumber(paymentCard.decodeCardNumber(cardNumber));
+        paymentCardService.decodePaymentCard(paymentCard);
         
         // Set payment card as a model attribute to pre-populate the form
         model.addAttribute("paymentCard", paymentCard);

@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import com.example.CinemaEbookingSystem.dto.PasswordDto;
 import com.example.CinemaEbookingSystem.dto.PaymentCardDto;
@@ -11,15 +12,10 @@ import com.example.CinemaEbookingSystem.dto.UserRegistrationDto;
 import com.example.CinemaEbookingSystem.model.Customer;
 import com.example.CinemaEbookingSystem.model.PaymentCard;
 import com.example.CinemaEbookingSystem.repository.CustomerRepository;
-import com.example.CinemaEbookingSystem.repository.PaymentCardRepository;
-import org.apache.logging.log4j.util.Base64Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
-import java.util.Base64;
 
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
