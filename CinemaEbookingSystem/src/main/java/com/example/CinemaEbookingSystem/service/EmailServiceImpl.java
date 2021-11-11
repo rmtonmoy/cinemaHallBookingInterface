@@ -1,6 +1,7 @@
 package com.example.CinemaEbookingSystem.service;
 
 import com.example.CinemaEbookingSystem.dto.VerificationDto;
+import com.example.CinemaEbookingSystem.model.Promotion;
 import com.example.CinemaEbookingSystem.model.User;
 import com.example.CinemaEbookingSystem.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void sendEmail(String toEmail){
+    public void sendVerificationEmail(String toEmail){
 
         String subject = "User Email Verification";
         String verificationCode = createVerificationCode(toEmail);
@@ -71,6 +72,22 @@ public class EmailServiceImpl implements EmailService {
         else{
             return false;
         }
+    }
+
+    public void sendPromotionalEmail(String toEmail, Promotion promotion) {
+
+        String subject = promotion.getPromoTitle();
+        String body = promotion.getPromoDescription();
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("se.projectgroupc4@gmail.com");
+        message.setTo(toEmail);
+        message.setText(body);
+        message.setSubject(subject);
+
+        mailSender.send(message);
+
+        System.out.println("Mail sent successfully\n");
+
     }
 
 }

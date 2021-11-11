@@ -9,4 +9,12 @@ import java.util.List;
 @Service
 public class PromotionServiceImpl {
 
+    public void sendPromoEmail(String toMail, Promotion promotion) {
+
+    }
+
+    public void discontinuePromo(Promotion promotion) {
+
+    }
+
 }
