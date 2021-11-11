@@ -23,17 +23,6 @@ public class CustomerController {
     @Autowired
     private CustomerRepository customerRepository;
 
-    // For admin use
-    // @GetMapping(path = "")
-    // public String editCustomers(Model model, HttpSession session) {
-    //     model.addAttribute("email", session.getAttribute("email"));
-    //     model.addAttribute("userName", session.getAttribute("name"));
-
-    //     // Display list of customers
-    //     model.addAttribute("listCustomers", customerService.getAllCustomers());
-    //     return "Edit-Customers";
-    // }
-
     @PostMapping(path = "/saveCustomerInfo")
     public String saveCustomerInfo(@ModelAttribute("customer") Customer customer) {
        
