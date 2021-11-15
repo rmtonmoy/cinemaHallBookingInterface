@@ -49,7 +49,9 @@ public class SignInServiceImpl implements SignInService {
         if(customer == null){
             return false;
         }
-
+        if(userSignInDto.getPassword().equals(customer.getPassword()) && customer.getStatus() == UserStatus.Inactive){
+            return true;
+        }
         if(Base64.getEncoder().encodeToString(userSignInDto.getPassword().getBytes()).equals(customer.getPassword()) && customer.getStatus() == UserStatus.Inactive){
             return true;
         }

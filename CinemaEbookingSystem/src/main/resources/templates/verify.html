@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Cinema E-booking System</title>
+    <span th:replace="fragments/head"></span>
+</head>
+<body>
+<nav th:replace="fragments/header"></nav>
+<div class="container" style="text-align: center; margin: auto;width: 50%;padding: 50px;">
+    <h2>Sign In</h2>
+
+    <!-- failure message -->
+    <div th:if="${param.VerifiedCustomer}">
+        <div class="alert alert-info">You are successfully verified</div>
+    </div>
+
+    <div th:if="${param.UnverifiedCustomer}">
+        <div class="alert alert-info">Sorry, you could not be verified. Please try again.</div>
+    </div>
+
+    <form th:action = "@{/verify}" method="post" th:object = "${verifyUser}">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="vcode">Verification Code:</label>
+            <input type="text" th:field="*{vcode}" class="form-control" id="vcode" placeholder="Enter verfication code" name="vcode">
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>
