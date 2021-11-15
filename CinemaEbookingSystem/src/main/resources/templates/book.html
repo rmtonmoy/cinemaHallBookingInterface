@@ -14,7 +14,17 @@
             form img {
                 width: 100%;
             }
+            .btn-circle.btn-xl {
+            width: 70px;
+            height: 70px;
+            padding: 10px 16px;
+            border-radius: 35px;
+            font-size: 12px;
+            text-align: center;
+        }
+
         </style>
+
     </head>
     
     <body>
@@ -76,7 +86,47 @@
                 <hr/>
                 <section>
                     <h3>Available Seating</h3> <!-- TODO: Dynamically build seating chart to display availability as well -->
-                    <img src="seatingChart.png" alt="Theater hall seating map" />
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope = "col">      </th>
+                            <th scope = "col">A</th>
+                            <th scope = "col">B</th>
+                            <th scope = "col">C</th>
+                            <th scope = "col">D</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope = "row">1</th>
+                            <td><button type="button" class="btn btn-primary btn-circle btn-xl">A1</button></td>
+                            <td><button type="button" class="btn btn-primary btn-circle btn-xl">B1</button></td>
+                            <td><button type="button" class="btn btn-primary btn-circle btn-xl">C1</button></td>
+                            <td><button type="button" class="btn btn-primary btn-circle btn-xl">D1</button></td>
+                        </tr>
+                        <tr>
+                            <th scope = "row">2</th>
+                            <td><button type="button" class="btn btn-primary btn-circle btn-xl">A2</button></td>
+                            <td><button type="button" class="btn btn-primary btn-circle btn-xl">B2</button></td>
+                            <td><button type="button" class="btn btn-primary btn-circle btn-xl">C2</button></td>
+                            <td><button type="button" class="btn btn-primary btn-circle btn-xl">D2</button></td>
+                        </tr>
+                        <tr>
+                            <th scope = "row">3</th>
+                            <td><button type="button" class="btn btn-primary btn-circle btn-xl">A3</button></td>
+                            <td><button type="button" class="btn btn-primary btn-circle btn-xl">B3</button></td>
+                            <td><button type="button" class="btn btn-primary btn-circle btn-xl">C3</button></td>
+                            <td><button type="button" class="btn btn-primary btn-circle btn-xl">D3</button></td>
+                        </tr>
+                        <tr>
+                            <th scope = "row">4</th>
+                            <td><button type="button" class="btn btn-primary btn-circle btn-xl">A4</button></td>
+                            <td><button type="button" class="btn btn-primary btn-circle btn-xl">B4</button></td>
+                            <td><button type="button" class="btn btn-primary btn-circle btn-xl">C4</button></td>
+                            <td><button type="button" class="btn btn-primary btn-circle btn-xl">D4</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </section>
             </form>
         </main>
