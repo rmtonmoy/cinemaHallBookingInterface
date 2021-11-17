@@ -76,4 +76,9 @@ public abstract class User {
     public void setDob(String dob) {
         this.dob = dob;
     }
+    
+    public String getCode() {
+        return ""; // Temporary definition to avoid compiletime errors.
+                   // Overwrite with proper implementation when appropriate.
+    }
 }

@@ -24,16 +24,18 @@ public class MovieInfo {
     private String synopsis;
     private String MPAA_rating;
     private String linkToTrailer;
+    private String linkToPoster;
 
     public MovieInfo(MovieInfoDto movieInfoDto) {
-        this.title = movieInfoDto.getTitle();
-        this.category = movieInfoDto.getCategory();
-        this.cast = movieInfoDto.getCast();
-        this.director = movieInfoDto.getDirector();
-        this.producer = movieInfoDto.getProducer();
-        this.synopsis = movieInfoDto.getSynopsis();
-        this.MPAA_rating = movieInfoDto.getMPAA_rating();
-        this.linkToTrailer = movieInfoDto.getLinkToTrailer();
+        title = movieInfoDto.getTitle();
+        category = movieInfoDto.getCategory();
+        cast = movieInfoDto.getCast();
+        director = movieInfoDto.getDirector();
+        producer = movieInfoDto.getProducer();
+        synopsis = movieInfoDto.getSynopsis();
+        MPAA_rating = movieInfoDto.getMPAA_rating();
+        linkToTrailer = movieInfoDto.getLinkToTrailer();
+        linkToPoster = movieInfoDto.getLinkToPoster();
     }
 
     public int getId() {
