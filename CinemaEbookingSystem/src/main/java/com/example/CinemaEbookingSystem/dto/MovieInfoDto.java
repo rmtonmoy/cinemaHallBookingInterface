@@ -18,6 +18,7 @@ public class MovieInfoDto {
     private String synopsis;
     private String MPAA_rating;
     private String linkToTrailer;
+    private String linkToPoster;
 
     public String getLinkToTrailer() {
         return linkToTrailer;
@@ -81,5 +82,13 @@ public class MovieInfoDto {
 
     public void setMPAA_rating(String MPAA_rating) {
         this.MPAA_rating = MPAA_rating;
+    }
+    
+    public String getLinkToPoster() {
+        return linkToPoster;
+    }
+    
+    public void setLinkToPoster(String url) {
+        linkToPoster = url;
     }
 }

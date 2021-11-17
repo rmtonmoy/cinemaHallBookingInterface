@@ -1,14 +1,26 @@
 package com.example.CinemaEbookingSystem.controller;
 
+import com.example.CinemaEbookingSystem.model.MovieInfo;
+import com.example.CinemaEbookingSystem.service.MovieInfoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class MovieController {
+    
+    @Autowired
+    MovieInfoService movieInfoService;
+    
+    public MovieController(MovieInfoService mis) {
+        super();
+        movieInfoService = mis;
+    }
 
     @GetMapping(path = "/adminHome")
     String adminHome(Model model, HttpSession session){
@@ -81,7 +93,8 @@ public class MovieController {
         model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("userName", session.getAttribute("name"));
         
-        
+        List<MovieInfo> movies = movieInfoService.getAllMovieInfo();
+        model.addAttribute("movies", movies);
         return "search";
     }
 
