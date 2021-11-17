@@ -10,16 +10,6 @@ import java.util.Arrays;
 @Controller
 public class MovieController {
 
-    @GetMapping(path = "/adminHome")
-    String adminHome(Model model, HttpSession session){
-        System.out.println(session.getAttribute("email"));
-        System.out.println(session.getAttribute("name"));
-        model.addAttribute("something", "Cinema E-booking System");
-        model.addAttribute("userName", session.getAttribute("name"));
-        model.addAttribute("email", session.getAttribute("email"));
-        return "adminHome";
-    }
-
     @GetMapping(path = "/")
     String homepage(Model model, HttpSession session){
         System.out.println(session.getAttribute("email"));
@@ -30,22 +20,11 @@ public class MovieController {
         return "movie";
     }
 
-    @GetMapping(path = "/manageMovies")
-    String manageMovies(Model model, HttpSession session){
-        model.addAttribute("something", "Cinema E-booking System");
-        return "manageMovies";
-    }
 
     @GetMapping(path = "/paymentConfirmation")
     String paymentConfirmation(Model model, HttpSession session){
         model.addAttribute("something", "Cinema E-booking System");
         return "paymentConfirmation";
-    }
-
-    @GetMapping(path = "/managePromo")
-    String managePromo(Model model, HttpSession session){
-        model.addAttribute("something", "Cinema E-booking System");
-        return "managePromo";
     }
 
     // @GetMapping(path = "/signup")

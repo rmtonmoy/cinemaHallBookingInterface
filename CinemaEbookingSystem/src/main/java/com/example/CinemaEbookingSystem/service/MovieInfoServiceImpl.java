@@ -23,4 +23,26 @@ public class MovieInfoServiceImpl implements MovieInfoService{
     {
         this.MovieInfoRepository.save(movieInfo);
     }
+
+    @Override
+    public boolean hasMovie(String title){
+        List<MovieInfo> movieInfoList = getAllMovieInfo();
+        for(MovieInfo movieInfo : movieInfoList){
+            if(movieInfo.getTitle().equals(title) == true){
+                return true;
+            }
+        }
+        return  false;
+    }
+
+    @Override
+    public MovieInfo findByTitle(String title) {
+        List<MovieInfo> movieInfoList = getAllMovieInfo();
+        for(MovieInfo movieInfo : movieInfoList){
+            if(movieInfo.getTitle().equals(title) == true){
+                return movieInfo;
+            }
+        }
+        return null;
+    }
 }
