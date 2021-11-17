@@ -13,22 +13,21 @@ public class UserRegistrationDto {
     private String dob;
     @Enumerated(EnumType.STRING)
     private UserStatus status;
-    private boolean isRegistered;
     private boolean isRegisteredForPromo;
 
 
     public UserRegistrationDto(){
         this.status = UserStatus.Inactive;
+        this.isRegisteredForPromo = false;
     }
 
-    public UserRegistrationDto(String firstName, String lastName, String password, String email, String dob, boolean ifRegistered, boolean isRegisteredForPromo) {
+    public UserRegistrationDto(String firstName, String lastName, String password, String email, String dob, boolean isRegisteredForPromo) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.dob = dob;
-        this.isRegistered = ifRegistered;
         this.status = UserStatus.Inactive;
         this.isRegisteredForPromo = isRegisteredForPromo;
     }
@@ -38,12 +37,6 @@ public class UserRegistrationDto {
     }
     public void setStatus(UserStatus status) {
         this.status = status;
-    }
-    public boolean isIsRegistered() {
-        return isRegistered;
-    }
-    public void setIsRegistered(boolean isRegistered) {
-        this.isRegistered = isRegistered;
     }
     public String getDob() {
         return dob;

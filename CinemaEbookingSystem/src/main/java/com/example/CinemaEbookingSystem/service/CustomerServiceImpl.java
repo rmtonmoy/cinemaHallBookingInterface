@@ -44,7 +44,7 @@ public class CustomerServiceImpl implements CustomerService {
         if(foundCustomer == null) {
             Customer customer = new Customer(userRegistrationDto.getFirstName(), userRegistrationDto.getLastName(),
                     Base64.getEncoder().encodeToString(userRegistrationDto.getPassword().getBytes()), userRegistrationDto.getEmail(),
-                    userRegistrationDto.getDob(), userRegistrationDto.getStatus(), userRegistrationDto.isIsRegistered());
+                    userRegistrationDto.getDob(), userRegistrationDto.getStatus(), userRegistrationDto.isRegisteredForPromo());
 
             Customer customer2 = customerRepository.save(customer);
             for (PaymentCard paymentCard : paymentCards.getCards()) {
