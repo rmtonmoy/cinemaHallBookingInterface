@@ -1,5 +1,6 @@
 package com.example.CinemaEbookingSystem.service;
 
+import com.example.CinemaEbookingSystem.dto.MovieInfoDto;
 import com.example.CinemaEbookingSystem.model.MovieInfo;
 import com.example.CinemaEbookingSystem.repository.MovieInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,9 @@ public class MovieInfoServiceImpl implements MovieInfoService{
     }
 
     @Override
-    public void SaveMovieInfo(MovieInfo movieInfo)
+    public void SaveMovieInfo(MovieInfoDto movieInfoDto)
     {
+        MovieInfo movieInfo = new MovieInfo(movieInfoDto);
         this.MovieInfoRepository.save(movieInfo);
     }
 }
