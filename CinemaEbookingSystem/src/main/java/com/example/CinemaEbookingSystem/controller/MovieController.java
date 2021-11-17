@@ -58,14 +58,6 @@ public class MovieController {
         return "registrationconfirmation";
     }
 
-    @GetMapping(path = "/search")
-    String getSearchView(Model model, HttpSession session){
-        model.addAttribute("something", "Cinema E-booking System");
-        model.addAttribute("email", session.getAttribute("email"));
-        model.addAttribute("userName", session.getAttribute("name"));
-        return "search_view";
-    }
-
     @GetMapping(path = "/orderHistory")
     String getOrderHistory(Model model, HttpSession session) {
         model.addAttribute("email", session.getAttribute("email"));
@@ -79,6 +71,18 @@ public class MovieController {
         model.addAttribute("userName", session.getAttribute("name"));
         model.addAttribute("something", "Cinema E-booking System");
         return "orderSummary";
+    }
+    
+    // =================================================================================================================
+    // Search & filter
+    
+    @GetMapping(path = "/search")
+    String getSearch(Model model, HttpSession session) {
+        model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("userName", session.getAttribute("name"));
+        
+        
+        return "search";
     }
 
 }
