@@ -10,4 +10,5 @@ public interface PromotionService {
 
     public void sendPromoEmail(String toMail, Promotion promotion);
     public void discontinuePromo(Promotion promotion);
+
 }

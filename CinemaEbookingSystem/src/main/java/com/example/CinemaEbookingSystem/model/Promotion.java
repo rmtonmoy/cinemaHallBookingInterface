@@ -15,6 +15,17 @@ public class Promotion {
     private String promoDescription;
     private String promoCode;
     private int discountAmount;
+    private boolean active;
+
+    public Promotion(int promotion_id, String promoTitle, String promoDescription, String promoCode, int discountAmount, boolean active) {
+        this.promotion_id = promotion_id;
+        this.promoTitle = promoTitle;
+        this.promoDescription = promoDescription;
+        this.promoCode = promoCode;
+        this.discountAmount = discountAmount;
+        this.active = true;
+    }
+
 
     public String getPromoTitle() {
         return promoTitle;
@@ -63,4 +74,8 @@ public class Promotion {
     public void setDiscountAmount(int discountAmount) {
         this.discountAmount = discountAmount;
     }
+
+    public boolean isActive() { return active; }
+
+    public void setActive(boolean active) { this.active = active; }
 }

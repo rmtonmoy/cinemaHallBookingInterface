@@ -34,4 +34,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>{
         value = "SELECT id FROM customer WHERE email = ?1",
         nativeQuery = true)
     long findCustomerId(String customerEmail);
+
+
 }
