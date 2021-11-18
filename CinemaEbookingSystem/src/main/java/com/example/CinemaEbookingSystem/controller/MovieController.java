@@ -1,20 +1,22 @@
 package com.example.CinemaEbookingSystem.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.example.CinemaEbookingSystem.model.Admin;
+import com.example.CinemaEbookingSystem.repository.AdminRepository;
 import javax.servlet.http.HttpSession;
+
 import java.util.Arrays;
+
 
 @Controller
 public class MovieController {
 
     @GetMapping(path = "/adminHome")
-    String adminHome(Model model, HttpSession session){
-        System.out.println(session.getAttribute("email"));
-        System.out.println(session.getAttribute("name"));
-        model.addAttribute("something", "Cinema E-booking System");
+    String adminHome(Model model, HttpSession session) {
         model.addAttribute("userName", session.getAttribute("name"));
         model.addAttribute("email", session.getAttribute("email"));
         return "adminHome";

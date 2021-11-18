@@ -1,53 +1,104 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Cinema E-booking System</title>
-    <span th:replace="fragments/head"></span>
-    <style>
-        .button {
-            display: inline-block;
-            padding: 15px 25px;
-            font-size: 40px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            outline: none;
-            color: white;
-            background-color: #8197f7;
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 9px #999;
-        }
+  <title>Admin Home - Cinema E-booking System</title>
+  <span th:replace="fragments/head"></span>
+  <style>
+    .navbar {
+      border-radius: 0;
+    }
 
-        .button:hover {background-color: #5c78f2}
+    .nav-pills .nav-link a {
+      color: rgb(43, 43, 43);
+    }
 
-        .button:active {
-            background-color: #5c78f2;
-            box-shadow: 0 5px #666;
-            transform: translateY(4px);
-        }
-        .navbar-nav.navbar-center {
-            position: absolute;
-            left: 50%;
-            transform: translatex(-50%);
-        }
+    .nav-pills .nav-link.active a {
+      color: rgb(43, 43, 43);
+      background-color: lightgray;
+      font-weight: bold;
+    }
 
-    </style>
+    #sidebar {
+      margin-top: 1.5em;
+    }
+
+    #main div {
+      display: inline-block;
+    }
+
+    #main h1 {
+      margin-left: 1.5em;
+    }
+
+    #main a, a:hover {
+      color: rgb(75, 75, 75);
+      text-decoration: none;
+    }
+
+    .card {
+      margin: 1.5em 0em 3em 3em;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+    .card-body {
+      padding: 4px 16px;
+    }
+  </style>
 </head>
 <body>
-    <h1 th:text="${something}"></h1>
-    <nav th:replace="fragments/loggedInHeader"></nav>
-    <div class="managebox" style="margin: auto; padding: 50px;background: rgba(92, 120, 242, 0.3);width: 60% ">
-        <p>
-        <div class="Manage movies" style="text-align: center; margin: auto;">
-            <a href="manageMovies"><button class="button" style="margin:5px;">Manage Movies</button></a>
-        </div>
-        </p>
-        <p>
-        <div class="Manage promotions" style="text-align: center;margin: auto;">
-        <a href="managePromo"><button class="button" style="margin: 5px">Manage Promotions</button></a>
-        </div>
-        </p>
-    </div>
+  <nav th:replace="fragments/header"></nav>
+
+  <div class="container-fluid">       
+    <div class="row">     
+      <div class="col-sm-3 col-md-2 sidebar" id="sidebar"> 
+        <div class="d-flex flex-column">
+          <ul class="nav nav-pills nav-stacked flex-column" role="tablist">
+            <li class="nav-link active"><a th:href="@{/adminHome}">Admin Home</a></li>
+            <li class="nav-link"><a th:href="@{/manageMovies}">Movies</a></li>
+            <li class="nav-link"><a th:href="@{/managePromo}">Promotions</a></li>        
+            <li class="nav-link"><a th:href="@{#}">Users</a></li> 
+          </ul>      
+        </div>       
+      </div>                       
+
+      <div class="col-sm-9 main" id="main">
+        <h1 th:text="${'Hi, ' + #strings.substring(userName, 0, #strings.indexOf(userName, ' '))}"></h1><br>
+        <a th:href="@{/manageMovies}">
+          <div class="card">
+            <img src="https://m.media-amazon.com/images/I/61hhkAf3LgL._AC_SL1000_.jpg" width="100%" height="175px">
+            <div class="card-body">
+              <h4><b>Manage Movies</b></h4>
+              <p>View and edit movies</p>
+            </div>
+          </div>
+        </a>
+        <a th:href="@{/managePromo}">
+          <div class="card">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/002/041/322/small/set-of-coupon-sale-labels-vector.jpg" width="100%" height="175px">
+            <div class="card-body">
+              <h4><b>Manage Promotions</b></h4>
+              <p>View and edit promotions</p>
+            </div>
+          </div>
+        </a>
+        <a th:href="@{#}">
+          <div class="card">
+            <img src="https://www.pngkit.com/png/detail/131-1318731_group-of-people-in-a-formation-free-icon.png" width="100%" height="175px">
+            <div class="card-body">
+              <h4><b>Manage Users</b></h4>
+              <p>View and edit users</p>
+            </div>
+          </div>
+        </a>
+      </div> 
+    </div> 
+  </div>
 </body>
 </html>
