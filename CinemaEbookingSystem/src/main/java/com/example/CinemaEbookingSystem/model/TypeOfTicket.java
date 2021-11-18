@@ -1,6 +1,6 @@
 package com.example.CinemaEbookingSystem.model;
 
-public enum TicketType {
+public enum TypeOfTicket {
     Child,
     Adult,
     Senior,

@@ -20,14 +20,35 @@ public class MovieInfoServiceImpl implements MovieInfoService{
     }
 
     @Override
-    public void SaveMovieInfo(MovieInfoDto movieInfoDto)
+    public void SaveMovieInfo(MovieInfo movieInfo)
     {
-        MovieInfo movieInfo = new MovieInfo(movieInfoDto);
         this.MovieInfoRepository.save(movieInfo);
     }
     
     @Override
     public List<String> getCategories() {
         return MovieInfoRepository.getCategories();
+    }
+
+    @Override
+    public boolean hasMovie(String title){
+        List<MovieInfo> movieInfoList = getAllMovieInfo();
+        for(MovieInfo movieInfo : movieInfoList){
+            if(movieInfo.getTitle().equals(title) == true){
+                return true;
+            }
+        }
+        return  false;
+    }
+
+    @Override
+    public MovieInfo findByTitle(String title) {
+        List<MovieInfo> movieInfoList = getAllMovieInfo();
+        for(MovieInfo movieInfo : movieInfoList){
+            if(movieInfo.getTitle().equals(title) == true){
+                return movieInfo;
+            }
+        }
+        return null;
     }
 }

@@ -19,7 +19,9 @@ public class Customer extends User {
 
     private boolean isRegistered;
 
-    //@ManyToMany
+    private boolean isRegisteredForPromo;
+
+//@ManyToMany
     //@JoinTable(name="OrderHistory",
     //        joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
     //inverseJoinColumns = @JoinColumn(name = "booking_id", referencedColumnName = "id"))
@@ -48,6 +50,15 @@ public class Customer extends User {
         this.isRegistered = isRegistered;
     }
 
+    public Customer(String firstName, String lastName, String password, String email, String dob, UserStatus status, List<PaymentCard> cardlist, boolean isRegistered, boolean isRegisteredForPromo, List<Booking> booking) {
+        super(firstName, lastName, password, email, dob);
+        this.status = status;
+        this.cardlist = cardlist;
+        this.isRegistered = isRegistered;
+        this.isRegisteredForPromo = isRegisteredForPromo;
+        this.booking = booking;
+    }
+
     public UserStatus getStatus() {
         return status;
     }
@@ -74,6 +85,14 @@ public class Customer extends User {
 
     public void setBooking(List<Booking> booking) {
         this.booking = booking;
+    }
+
+    public boolean isRegisteredForPromo() {
+        return isRegisteredForPromo;
+    }
+
+    public void setRegisteredForPromo(boolean registeredForPromo) {
+        isRegisteredForPromo = registeredForPromo;
     }
 
     public void editProfile() {}

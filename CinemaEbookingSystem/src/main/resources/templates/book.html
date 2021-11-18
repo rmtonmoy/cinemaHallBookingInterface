@@ -4,34 +4,24 @@
     <head>
         <title>Checkout - Cinema E-Booking System</title>
         <span th:replace="fragments/head"></span>
-        
-        <!-- TODO: Move to CSS file -->
-        <style>
-            .movieSelector span {
-                font-weight: bold;
-            }
-            
-            form img {
-                width: 100%;
-            }
-        </style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
     
     <body>
         <nav th:replace="fragments/header"></nav>
-        <a href="orderSummary" class="btn btn-info" role="button">View order summary</a>
+
         <main class="container" role="main">
             <form>
                 <section>
                     <h2>Select Movie</h2>
-                    <div class="movieSelector form-check" th:each="movie : ${movies}"> <!-- this is div abuse :( -->
-                        <input class="form-check-input" type="radio" name="movie" th:value="${movie.title}">
-                        <span class="form-check-label" th:text="${movie.title}"></span>
+                    <div th:each="movie : ${movies}"> <!-- this is div abuse :( -->
+                        <input type="radio" name="movie" th:value="${movie.title}">
+                        <span th:text="${movie.title}"></span>
                     </div>
-                    <br/>
-                    
-                    <div class="form-group">
-                        <label for="showTime">Showing Time:</label> <!-- Do this with JavaScript -->
+                    <div>
+                        <h3>Showing Time:</h3> <!-- Do this with JavaScript -->
                         <select name="showTime" id="showTime" class="form-control">
                             <option value="1200P">12:00 PM</option>
                             <option value="0230P">2:30 PM</option>
@@ -44,44 +34,61 @@
                 <hr/>
                 <section>
                     <h2>Select Tickets</h2>
-                    <button id="addTicket" type="button" class='btn btn-dark'>Add Ticket</button>
-                    <br/><br/>
                     
                     <div id="ticket1"> <!-- In the future, IDs will be used by JS to track what tickets are being added -->
+
                         <div class="form-group">
-                            <label for="ticketType">Ticket Type:</label>
-                            <select name="ticketType" id="ticketType" class="form-control col-1">
+                            <label for="typeOfTicket">Ticket Type:</label>
+                            <select name="typeOfTicket" id="typeOfTicket" class="form-control col-1">
                                 <option value="adult">Adult</option>
                                 <option value="child">Child</option>
                             </select>
+                        
+                        <h3>Seat:</h3>
+                        <h4>Available Seating</h4>
+
+                        <div class="container">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary">A1</button>
+                                <button type="button" class="btn btn-primary">A2</button>
+                                <button type="button" class="btn btn-primary">A3</button>
+                                <button type="button" class="btn btn-primary">A4</button>
+                            </div>
                         </div>
-                        
-                        <!--
-                        <label for="qty">Quantity:</label>
-                        <input type="text" name="qty" id="qty" maxlength="2" pattern = "\d{2}" required />
-                        <br/>
-                        -->
-                        
-                        <label for="seat">Seat:</label>
-                        <input type="text" name="seat" id="seat" maxlength="3" pattern = "[a-zA-Z][0-9]+" class="form-control" required />
-                        <br/>
-                        
-                        <button id="removeTicket1" type="button" class='btn btn-dark'>Remove Ticket</button>
+                        <div class="container">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary">B1</button>
+                                <button type="button" class="btn btn-primary">B2</button>
+                                <button type="button" class="btn btn-primary">B3</button>
+                                <button type="button" class="btn btn-primary">B4</button>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary">C1</button>
+                                <button type="button" class="btn btn-primary">C2</button>
+                                <button type="button" class="btn btn-primary">C3</button>
+                                <button type="button" class="btn btn-primary">C4</button>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary">D1</button>
+                                <button type="button" class="btn btn-primary">D2</button>
+                                <button type="button" class="btn btn-primary">D3</button>
+                                <button type="button" class="btn btn-primary">D4</button>
+                            </div>
+                        </div>
                     </div>
                 </section>
                 <br/><br/>
+                <button id="submitBtn" type='submit'>Add Tickets to Cart</button>
+                <br/><br/>
                 <section>
-                    <button id="submitBtn" type='submit' class='btn btn-dark'>Add Tickets to Cart</button>
+                    <a href="orderSummary" role="button">View order summary</a>
                 </section>
                 <hr/>
-                <section>
-                    <h3>Available Seating</h3> <!-- TODO: Dynamically build seating chart to display availability as well -->
-                    <img src="seatingChart.png" alt="Theater hall seating map" />
-                </section>
             </form>
         </main>
-        
     </body>
-    
-    
 </html>

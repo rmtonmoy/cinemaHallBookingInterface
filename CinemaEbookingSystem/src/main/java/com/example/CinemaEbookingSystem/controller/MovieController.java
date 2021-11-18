@@ -3,15 +3,19 @@ package com.example.CinemaEbookingSystem.controller;
 import com.example.CinemaEbookingSystem.dto.MovieSearchDto;
 import com.example.CinemaEbookingSystem.model.MovieInfo;
 import com.example.CinemaEbookingSystem.service.MovieInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.example.CinemaEbookingSystem.model.Admin;
+import com.example.CinemaEbookingSystem.repository.AdminRepository;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import java.util.Arrays;
 
 @Controller
 public class MovieController {
@@ -24,16 +28,6 @@ public class MovieController {
         movieInfoService = mis;
     }
 
-    @GetMapping(path = "/adminHome")
-    String adminHome(Model model, HttpSession session){
-        System.out.println(session.getAttribute("email"));
-        System.out.println(session.getAttribute("name"));
-        model.addAttribute("something", "Cinema E-booking System");
-        model.addAttribute("userName", session.getAttribute("name"));
-        model.addAttribute("email", session.getAttribute("email"));
-        return "adminHome";
-    }
-
     @GetMapping(path = "/")
     String homepage(Model model, HttpSession session){
         System.out.println(session.getAttribute("email"));
@@ -44,22 +38,11 @@ public class MovieController {
         return "movie";
     }
 
-    @GetMapping(path = "/manageMovies")
-    String manageMovies(Model model, HttpSession session){
-        model.addAttribute("something", "Cinema E-booking System");
-        return "manageMovies";
-    }
 
     @GetMapping(path = "/paymentConfirmation")
     String paymentConfirmation(Model model, HttpSession session){
         model.addAttribute("something", "Cinema E-booking System");
         return "paymentConfirmation";
-    }
-
-    @GetMapping(path = "/managePromo")
-    String managePromo(Model model, HttpSession session){
-        model.addAttribute("something", "Cinema E-booking System");
-        return "managePromo";
     }
 
     // @GetMapping(path = "/signup")

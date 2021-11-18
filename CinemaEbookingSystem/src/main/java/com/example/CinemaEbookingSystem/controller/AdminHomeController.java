@@ -2,6 +2,7 @@ package com.example.CinemaEbookingSystem.controller;
 
 import com.example.CinemaEbookingSystem.dto.MovieInfoDto;
 import com.example.CinemaEbookingSystem.dto.UserSignInDto;
+import com.example.CinemaEbookingSystem.model.MovieInfo;
 import com.example.CinemaEbookingSystem.repository.MovieInfoRepository;
 import com.example.CinemaEbookingSystem.service.MovieInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class AdminHomeController {
 
     @PostMapping(path = "/manageMovies")
     String addNewMove(@ModelAttribute("movie") MovieInfoDto movieInfoDto, HttpServletRequest request){
-        movieInfoService.SaveMovieInfo(movieInfoDto);
+        movieInfoService.SaveMovieInfo(new MovieInfo(movieInfoDto));
         return "/mangeMovies";
     }
 }

@@ -14,4 +14,6 @@ public interface PaymentCardService {
     void updatePaymentCard(PaymentCard paymentCard, Customer customer);
     PaymentCard getPaymentCardById(long id);
     void deletePaymentCardById(long id);
+    List<PaymentCard> encodePaymentCards(Customer customer);
+    void decodePaymentCard(PaymentCard paymentCard);
 }

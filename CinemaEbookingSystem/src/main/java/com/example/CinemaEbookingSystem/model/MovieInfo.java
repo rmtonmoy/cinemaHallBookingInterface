@@ -25,9 +25,10 @@ public class MovieInfo {
     private String MPAA_rating;
     private String linkToTrailer;
     private String linkToPoster;
+    private int duration;
 
     public MovieInfo() {}
-    
+
     public MovieInfo(MovieInfoDto movieInfoDto) {
         title = movieInfoDto.getTitle();
         category = movieInfoDto.getCategory();
@@ -118,5 +119,13 @@ public class MovieInfo {
     
     public String getLinkToPoster() {
         return linkToPoster;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }

@@ -18,24 +18,6 @@
       font-weight: bold;
     }
 
-    #navbar-pages {
-      margin-left: 1em;
-    }
-
-    #navbar-pages a {
-      font-weight: bold;
-    }
-
-    #shopping-cart {
-      margin-left: 1em;
-      padding-left: 1.5em;
-      padding-right: 1.5em;
-    }
-
-    #user-profile {
-      margin-left: 4em;
-    }
-
     #sidebar {
       margin-top: 1.5em;
     }
@@ -46,6 +28,13 @@
 
     #cancel {
       margin-left: 1em;
+    }
+
+    .alert {
+      text-align: center;
+      width: 50%;
+      margin-top: 2em;
+      margin-left: 30%;
     }
   </style>
 </head>
@@ -103,7 +92,7 @@
             </div>
           </div>
           <div class="form-group">
-            <a class="col-sm-offset-2 col-sm-2" href="#">Reset password</a>
+            <a class="col-sm-offset-2 col-sm-2" th:href="@{/editProfile/changePassword}">Reset password</a>
           </div>
           <div class="form-group">        
             <div class="col-sm-offset-2 col-sm-10">
@@ -112,6 +101,9 @@
             </div>
           </div>
         </form>
+        <div th:if="${param.Success}">
+          <div class="alert alert-success">Success! Your password has been changed</div>
+        </div>
       </div> 
     </div> 
   </div>

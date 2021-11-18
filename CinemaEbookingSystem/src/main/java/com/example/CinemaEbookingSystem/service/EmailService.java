@@ -1,5 +1,7 @@
 package com.example.CinemaEbookingSystem.service;
 
+import com.example.CinemaEbookingSystem.dto.VerificationDto;
+import com.example.CinemaEbookingSystem.model.Promotion;
 import com.example.CinemaEbookingSystem.model.User;
 import org.springframework.stereotype.Component;
 
@@ -15,5 +17,8 @@ import javax.mail.internet.MimeMessage;
 
 @Component
 public interface EmailService {
-    public boolean sendEmail(User user);
+    public void sendVerificationEmail(String toEmail);
+    public String createVerificationCode(String email);
+    boolean verifyCustomer(VerificationDto verificationDto);
+    public void sendPromotionalEmail(String toEmail, Promotion promotion);
 }
