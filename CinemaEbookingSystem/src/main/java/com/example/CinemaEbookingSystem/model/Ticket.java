@@ -12,47 +12,32 @@ public class Ticket {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name= "booking_id")
-    private Booking booking;
+    @JoinColumn(name = "show_id")
+    OneShow oneShow;
+
+    private int ticketRn;
+    private int ticketCn;
 
     @Enumerated(EnumType.STRING)
-    private TicketType ticketType; 
+    private TypeOfTicket typeOfTicket;
 
-    @OneToOne
-    @JoinColumn(name = "theater_id")
-    Theater theater;
-
-    @OneToOne
-    @JoinColumn(name = "show_time_id")
-    ShowTime showTime;
-
-    @OneToOne
-    @JoinColumn(name = "movie_info_id")
-    MovieInfo movieInfo;
-
-    @OneToOne
-    @JoinColumn(name = "seat_id")
-    Seat seat;
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "promotion_id")
     Promotion promotion;
 
-    public Seat getSeat() {
-        return seat;
+    boolean isBooked;
+
+    public Ticket(){
+
     }
 
-    public MovieInfo getMovieInfo() {
-        return movieInfo;
-    }
-
-
-    public ShowTime getShowTime() {
-        return showTime;
-    }
-
-    public Theater getTheater() {
-        return theater;
+    public Ticket(OneShow oneShow, int ticketRn, int ticketCn, TypeOfTicket typeOfTicket, Promotion promotion, boolean isBooked) {
+        this.oneShow = oneShow;
+        this.ticketRn = ticketRn;
+        this.ticketCn = ticketCn;
+        this.typeOfTicket = typeOfTicket;
+        this.promotion = promotion;
+        this.isBooked = isBooked;
     }
 
     public Long getId() {
@@ -63,36 +48,36 @@ public class Ticket {
         this.id = id;
     }
 
-    public Booking getBooking() {
-        return booking;
+    public OneShow getShow() {
+        return oneShow;
     }
 
-    public void setBooking(Booking booking) {
-        this.booking = booking;
+    public void setShow(OneShow oneShow) {
+        this.oneShow = oneShow;
     }
 
-    public TicketType getTicketType() {
-        return ticketType;
+    public int getTicketRn() {
+        return ticketRn;
     }
 
-    public void setTicketType(TicketType ticketType) {
-        this.ticketType = ticketType;
+    public void setTicketRn(int ticketRn) {
+        this.ticketRn = ticketRn;
     }
 
-    public void setTheater(Theater theater) {
-        this.theater = theater;
+    public int getTicketCn() {
+        return ticketCn;
     }
 
-    public void setShowTime(ShowTime showTime) {
-        this.showTime = showTime;
+    public void setTicketCn(int ticketCn) {
+        this.ticketCn = ticketCn;
     }
 
-    public void setMovieInfo(MovieInfo movieInfo) {
-        this.movieInfo = movieInfo;
+    public TypeOfTicket getTicketType() {
+        return typeOfTicket;
     }
 
-    public void setSeat(Seat seat) {
-        this.seat = seat;
+    public void setTicketType(TypeOfTicket typeOfTicket) {
+        this.typeOfTicket = typeOfTicket;
     }
 
     public Promotion getPromotion() {
@@ -101,5 +86,13 @@ public class Ticket {
 
     public void setPromotion(Promotion promotion) {
         this.promotion = promotion;
+    }
+
+    public boolean isBooked() {
+        return isBooked;
+    }
+
+    public void setBooked(boolean booked) {
+        isBooked = booked;
     }
 }

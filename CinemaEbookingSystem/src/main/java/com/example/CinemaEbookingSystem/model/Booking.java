@@ -13,20 +13,20 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "booking")
-    private List<Ticket> ticketList = new ArrayList<>();
+    //@OneToMany(mappedBy = "ticket_list")
+    //private List<Ticket> ticketList = new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name = "card_info")
     private PaymentCard paymentCard;
 
-    public List<Ticket> getTicketList() {
+    /*public List<Ticket> getTicketList() {
         return ticketList;
     }
 
     public void setTicketList(List<Ticket> ticketList) {
         this.ticketList = ticketList;
-    }
+    }*/
 
     public PaymentCard getPaymentCard() {
         return paymentCard;

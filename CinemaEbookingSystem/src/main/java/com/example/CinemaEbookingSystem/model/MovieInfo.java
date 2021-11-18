@@ -27,6 +27,8 @@ public class MovieInfo {
     private String synopsis;
 
     private String MPAA_rating;
+
+    private int duration;
     
     // TODO - Constructor
     public MovieInfo() {};
@@ -106,5 +108,13 @@ public class MovieInfo {
 
     public void setMPAA_rating(String MPAA_rating) {
         this.MPAA_rating = MPAA_rating;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }
