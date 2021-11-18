@@ -4,82 +4,66 @@
 <head>
     <title>Home - Cinema E-Booking System</title>
     <span th:replace="fragments/head"></span>
+    <style>
+        .movieResult img {
+            float: left;
+            height: 13ch;
+            margin: 0px 2ch;
+        }
+        
+        #submitBtn {
+            margin-top: 2ch;
+        }
+    </style>
 </head>
 
 <body>
     <nav th:replace="fragments/header"></nav>
-
-    <h1 th:text="${something}">Cinema E-Booking System</h1>
-    <div class = "container-fluid">
-        <div class="row">
-            <div class="col-sm-4">
-                Search: <form> <input type="text" value = "batman" size="40"> </form>
-            </div>
-
-            <div class="col-sm-4">
-                <form method="post">
-                    MPAA Film Rating:<br>
-                    <input type="checkbox" name="rating" value="X">X<br>
-                    <input type="checkbox" name="rating" value="PG-13">PG-13<br>
-                    <input type="checkbox" name="rating" value="PG">PG<br>
-
-                </form>
-            </div>
-
-            <div class = "col-sm-4">
-                Chose date:<br>
-                <input type="date">
-            </div>
-        </div>
-    </div>
-
-    <div class = "container-fluid">
-        <center> <button type = button class="btn btn-danger">Apply Filter</button> </center>
-        <br>
-        <br>
-
-        <h1 style="padding-left: 155px">Search Results: (2 results found) </h1>
-    </div>
-
-    <div class = "rms_class" style="border:5px solid #000000; padding:10px">
-        <!--
-        <div class = "container" style="border:5px solid #cecece; ">
-            <div class="row">
-                <div class= "col-sm-4"> <img src = "https://m.media-amazon.com/images/I/41F7d4P58ML._SY445_.jpg"    width="310" height="450"> </div>
-                <div class= "col-sm-8">
-                    <h1> The Batman Begins (2003)</h1>
-                    Director: Christopher Nolan
-                    <br>
-                    Writer: Bob Kane(characters) David S. Goyer(story) Christopher Nolan(screenplay)
-                    <br>
-                    Stars Christian BaleMichael CaineKen Watanabe
-                    <br>
-                    Status: Now showing
-                    <br>
-                    Duration: 2 Hour 20 min
-                    <br>
-                    Rating: PG-13
-                    <br>
-                    Genre: Action, Adventure
-                    <br>
-                    <button type = button class="btn btn-primary">Book Tickets</button>
+    <main class="container" role="main">
+        <h1>Search Movies</h1>
+        <form>
+            <!-- title, category, showing now or not -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="title">Title:</label>
+                        <input id="title" name="title" type="text" size="40" />
+                        <br/>
+                        <button id="submitBtn" type="submit" class="btn btn-dark">Search</button>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="cat">Categories</label>
+                        <select id="cat" name="cat" th:each="category : ${categories}">
+                            <option class="" th:value="${category}" th:text="${category}"></option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="showing">Showing Status</label>
+                        <br/>
+                        <input class="form-check-input" id="any" type="radio" name="status" value="any" checked />
+                        <label class="form-check-label" for="any">Any</label>
+                        <br/>
+                        <input class="form-check-input" id="showing" type="radio" name="status" value="showing" />
+                        <label class="form-check-label" for="showing">Currently Showing</label>
+                        <br/>
+                        <input class="form-check-input" id="soon" type="radio" name="status" value="soon" />
+                        <label class="form-check-label" for="soon">Coming Soon</label>
+                        <br/>
+                    </div>
                 </div>
             </div>
-        </div>
-        -->
+        </form>
         
-        <div th:each="movie : ${movies}">
+        <hr/>
+        
+        <div class="movieResult" th:each="movie : ${movies}">
             <img th:src="${movie.linkToPoster}" />
             <h3 th:text="${movie.title}"></h3>
             <p th:text="${movie.MPAA_rating}"></p>
-            <a th:href="${movie.linkToTrailer}" target="_blank" rel="noopener noreferrer external">Watch Trailer</a>
+            <!-- TODO: link to movie info page -->
+            <a class="btn btn-primary" th:href="${movie.linkToTrailer}" target="_blank" rel="noopener noreferrer external">View Info</a>
+            <a class="btn btn-primary" th:href="${movie.linkToTrailer}" target="_blank" rel="noopener noreferrer external">Watch Trailer</a>
         </div>
-        
-        <br>
-        <br>
-
-        
-    </div>
-
+    </main>
 </body>
 </html>
