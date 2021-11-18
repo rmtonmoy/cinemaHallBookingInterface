@@ -23,6 +23,10 @@ public class OneShow {
     @JoinColumn(name = "movie_id")
     MovieInfo movieInfo;
 
+    public OneShow(){
+
+    }
+
     public OneShow(ShowTime showTime, Theater theater, MovieInfo movieInfo) {
         this.showTime = showTime;
         this.theater = theater;
@@ -56,5 +60,13 @@ public class OneShow {
 
     public void setMovieInfo(MovieInfo movieInfo) {
         this.movieInfo = movieInfo;
+    }
+
+    public ShowTime getShowTime() {
+        return showTime;
+    }
+
+    public void setShowTime(ShowTime showTime) {
+        this.showTime = showTime;
     }
 }

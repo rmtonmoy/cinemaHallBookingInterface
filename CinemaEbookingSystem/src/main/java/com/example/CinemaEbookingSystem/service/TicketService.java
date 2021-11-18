@@ -5,5 +5,5 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface TicketService {
-    void addTickets(OneShow oneShow);
+    boolean addTickets(OneShow oneShow);
 }

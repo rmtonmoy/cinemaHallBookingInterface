@@ -39,7 +39,14 @@ public class AdminHomePageController {
     {
         if(movieInfoService.hasMovie(movieName)){
             OneShow oneShow = oneShowService.save(date, theaterId, startingAt, movieName);
-            ticketService.addTickets(oneShow);
+            boolean canAdd = ticketService.addTickets(oneShow);
+
+            if(canAdd){
+                model.addAttribute("verdict", "Tickets added!");
+            }
+            else{
+                model.addAttribute("verdict", "Time Conflict!");
+            }
         }
         else{
             model.addAttribute("verdict", "Movie Not Found!");

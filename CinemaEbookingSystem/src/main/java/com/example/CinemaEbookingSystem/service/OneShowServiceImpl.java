@@ -8,6 +8,9 @@ import com.example.CinemaEbookingSystem.repository.OneShowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class OneShowServiceImpl implements OneShowService{
     @Autowired
@@ -31,8 +34,18 @@ public class OneShowServiceImpl implements OneShowService{
         ShowTime showTime = showTimeService.saveIfNotFound(date, startingAt);
         MovieInfo movieInfo = movieInfoService.findByTitle(movieName);
         Theater theater = theaterService.findById(theaterId);
-
         OneShow oneShow = new OneShow(showTime, theater, movieInfo);
+
+
+        List<OneShow> oneShowList = oneShowRepository.findAll(); 
+        for(OneShow anotherOneShow : oneShowList){
+            if(anotherOneShow.getShowTime().getId() == oneShow.getShowTime().getId()
+                && anotherOneShow.getMovieInfo().getId() == oneShow.getMovieInfo().getId()
+                && anotherOneShow.getTheater().getId() == oneShow.getTheater().getId()){
+                return anotherOneShow;
+            }
+        }
+
         oneShowRepository.save(oneShow);
         return oneShow;
     }
