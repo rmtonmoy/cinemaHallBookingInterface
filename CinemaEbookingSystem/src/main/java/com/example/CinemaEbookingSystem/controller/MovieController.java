@@ -1,5 +1,6 @@
 package com.example.CinemaEbookingSystem.controller;
 
+import com.example.CinemaEbookingSystem.dto.MovieSearchDto;
 import com.example.CinemaEbookingSystem.model.MovieInfo;
 import com.example.CinemaEbookingSystem.service.MovieInfoService;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 public class MovieController {
@@ -89,7 +91,7 @@ public class MovieController {
     // Search & filter
     
     @GetMapping(path = "/search")
-    String getSearch(Model model, HttpSession session) {
+    String getSearch(Model model, HttpSession session, @ModelAttribute("searchParams") MovieSearchDto searchParams) {
         model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("userName", session.getAttribute("name"));
         
@@ -97,8 +99,28 @@ public class MovieController {
         categories.add(0, "Any");
         model.addAttribute("categories", categories);
         
-        List<MovieInfo> movies = movieInfoService.getAllMovieInfo();
-        model.addAttribute("movies", movies);
+        // TODO: Cooler title match algorithm
+        List<MovieInfo> movies   = movieInfoService.getAllMovieInfo();
+        List<MovieInfo> filtered = new ArrayList(); // ughhhh the memory inefficiencies!!!
+        for (MovieInfo info : movies) {
+            boolean include = true;
+            if (!(searchParams.title == null || searchParams.title.equals(""))) {
+                if (!info.getTitle().toUpperCase().contains(searchParams.title.toUpperCase()))
+                    include = false;
+            }
+            if (!(searchParams.cat == null || searchParams.cat.equals("") || searchParams.cat.equals("Any"))) {
+                if (!info.getCategory().equalsIgnoreCase(searchParams.cat))
+                    include = false;
+            }
+            if (!(searchParams.status == null || searchParams.status.equals("") || searchParams.status.equals("any"))) {
+                if (false) // TODO: Determine showing status
+                    include = false;
+            }
+            
+            if (include)
+                filtered.add(info);
+        }
+        model.addAttribute("movies", filtered);
         return "search";
     }
 

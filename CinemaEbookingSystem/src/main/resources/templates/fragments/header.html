@@ -16,9 +16,9 @@
                 
                 <li th:if="${email != null}"><a href="#" th:text = "${userName}">></a></li>
                 <li>
-                    <form class="navbar-form" role="search" action="/search" method="get">
+                    <form class="navbar-form" role="search" action="/search" method="get" th:object="${searchParams}">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search" name="title" id="title">
+                            <input type="text" class="form-control" placeholder="Search" name="title" id="title" th:field="*{title}">
                             <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                             </div>

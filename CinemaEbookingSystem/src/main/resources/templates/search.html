@@ -21,13 +21,13 @@
     <nav th:replace="fragments/header"></nav>
     <main class="container" role="main">
         <h1>Search Movies</h1>
-        <form>
+        <form th:object="${searchParams}">
             <!-- title, category, showing now or not -->
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-4">
                         <label for="title">Title:</label>
-                        <input id="title" name="title" type="text" size="40" />
+                        <input id="title" name="title" type="text" size="40" th:field="*{title}"/>
                         <br/>
                         <button id="submitBtn" type="submit" class="btn btn-dark">Search</button>
                     </div>
@@ -35,19 +35,19 @@
                         <label for="cat">Categories</label>
                         <br/>
                         <select id="cat" name="cat">
-                            <option class="" th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
+                            <option class="" th:each="category : ${categories}" th:value="${category}" th:text="${category}" th:field="*{cat}"></option>
                         </select>
                     </div>
                     <div class="col-sm-4">
                         <label for="showing">Showing Status</label>
                         <br/>
-                        <input class="form-check-input" id="any" type="radio" name="status" value="any" checked />
+                        <input class="form-check-input" id="any" type="radio" name="status" value="any" th:field="*{status}" checked />
                         <label class="form-check-label" for="any">Any</label>
                         <br/>
-                        <input class="form-check-input" id="showing" type="radio" name="status" value="showing" />
+                        <input class="form-check-input" id="showing" type="radio" name="status" value="showing" th:field="*{status}" />
                         <label class="form-check-label" for="showing">Currently Showing</label>
                         <br/>
-                        <input class="form-check-input" id="soon" type="radio" name="status" value="soon" />
+                        <input class="form-check-input" id="soon" type="radio" name="status" value="soon" th:field="*{status}" />
                         <label class="form-check-label" for="soon">Coming Soon</label>
                         <br/>
                     </div>
