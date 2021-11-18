@@ -16,4 +16,10 @@ public interface MovieInfoRepository extends JpaRepository<MovieInfo, Integer> {
     )
     List<MovieInfo> findAll();
     
+    @Query(
+        value = "SELECT DISTINCT category FROM movie_info",
+        nativeQuery = true
+    )
+    List<String> getCategories();
+    
 }

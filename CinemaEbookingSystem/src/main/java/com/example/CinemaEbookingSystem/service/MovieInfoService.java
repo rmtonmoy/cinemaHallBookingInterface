@@ -11,4 +11,5 @@ import java.util.List;
 public interface MovieInfoService {
     List<MovieInfo> getAllMovieInfo();
     void SaveMovieInfo(MovieInfoDto movieInfoDto);
+    List<String> getCategories();
 }

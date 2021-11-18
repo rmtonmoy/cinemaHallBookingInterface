@@ -93,6 +93,10 @@ public class MovieController {
         model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("userName", session.getAttribute("name"));
         
+        List<String> categories = movieInfoService.getCategories();
+        categories.add(0, "Any");
+        model.addAttribute("categories", categories);
+        
         List<MovieInfo> movies = movieInfoService.getAllMovieInfo();
         model.addAttribute("movies", movies);
         return "search";

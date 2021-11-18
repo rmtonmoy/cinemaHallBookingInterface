@@ -33,8 +33,9 @@
                     </div>
                     <div class="col-sm-4">
                         <label for="cat">Categories</label>
-                        <select id="cat" name="cat" th:each="category : ${categories}">
-                            <option class="" th:value="${category}" th:text="${category}"></option>
+                        <br/>
+                        <select id="cat" name="cat">
+                            <option class="" th:each="category : ${categories}" th:value="${category}" th:text="${category}"></option>
                         </select>
                     </div>
                     <div class="col-sm-4">

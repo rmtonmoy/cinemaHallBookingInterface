@@ -25,4 +25,9 @@ public class MovieInfoServiceImpl implements MovieInfoService{
         MovieInfo movieInfo = new MovieInfo(movieInfoDto);
         this.MovieInfoRepository.save(movieInfo);
     }
+    
+    @Override
+    public List<String> getCategories() {
+        return MovieInfoRepository.getCategories();
+    }
 }
