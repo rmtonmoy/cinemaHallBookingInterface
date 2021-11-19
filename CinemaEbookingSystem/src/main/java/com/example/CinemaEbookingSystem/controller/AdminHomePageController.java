@@ -1,22 +1,20 @@
 package com.example.CinemaEbookingSystem.controller;
 
+import com.example.CinemaEbookingSystem.dto.PromotionDto;
+import com.example.CinemaEbookingSystem.dto.TheaterDto;
 import com.example.CinemaEbookingSystem.model.MovieInfo;
 import com.example.CinemaEbookingSystem.model.OneShow;
+import com.example.CinemaEbookingSystem.model.Theater;
 import com.example.CinemaEbookingSystem.repository.OneShowRepository;
-import com.example.CinemaEbookingSystem.service.MovieInfoService;
-import com.example.CinemaEbookingSystem.service.OneShowService;
-import com.example.CinemaEbookingSystem.service.PopulateDBService;
-import com.example.CinemaEbookingSystem.service.TicketService;
+import com.example.CinemaEbookingSystem.service.*;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -32,6 +30,25 @@ public class AdminHomePageController {
 
     @Autowired
     TicketService ticketService;
+
+    @Autowired
+    TheaterService theaterService;
+
+    @ModelAttribute("theaterDto")
+    public TheaterDto theaterDto(){ return new TheaterDto();}
+
+    @GetMapping(path = "/addTheater")
+    public String showAllTheaters(Model model){
+        List<Theater> theaterList = theaterService.getAllTheaters();
+        model.addAttribute("listTheater", theaterList);
+        return "addTheater";
+    }
+
+    @PostMapping(path = "/addTheater")
+    public String addTheater(@ModelAttribute("theaterDto") TheaterDto theaterDto){
+        theaterService.addTheater(theaterDto.getMaxR(), theaterDto.getMaxC());
+        return "redirect:/addTheater";
+    }
 
     @RequestMapping(value = "assignMovie", method = RequestMethod.GET)
     void assignMovie(Model model, @RequestParam("date") String date, @RequestParam("theaterId") long theaterId,

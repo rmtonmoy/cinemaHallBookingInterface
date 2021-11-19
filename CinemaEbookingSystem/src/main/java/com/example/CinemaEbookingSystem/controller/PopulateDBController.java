@@ -15,8 +15,8 @@ public class PopulateDBController {
     @Autowired
     PopulateDBService populateDBService;
 
-    @RequestMapping(value = "addTheater", method = RequestMethod.GET)
+    /*@RequestMapping(value = "addTheater", method = RequestMethod.GET)
     void addSeat(@RequestParam("maxR") int maxR, @RequestParam("maxC") int maxC){
         populateDBService.addTheater(maxR, maxC);
-    }
+    }*/
 }
