@@ -21,4 +21,5 @@ public interface EmailService {
     public String createVerificationCode(String email);
     boolean verifyCustomer(VerificationDto verificationDto);
     public void sendPromotionalEmail(String toEmail, Promotion promotion);
+    boolean sendEmailRP(String toEmail);
 }

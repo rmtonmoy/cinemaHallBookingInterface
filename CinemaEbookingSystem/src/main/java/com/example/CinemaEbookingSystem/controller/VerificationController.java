@@ -37,4 +37,21 @@ public class VerificationController {
             return "redirect:/verify?UnverifiedCustomer";
     }
 
+    @ModelAttribute("verifyUserRP")
+
+    @GetMapping(path = "/forgotPassword1")
+    String verifyCustomerRP(Model model, HttpSession session)
+    {
+        model.addAttribute("something", "Cinema E-booking System");
+        return "forgotPassword";
+    }
+    @PostMapping(path = "/forgotPassword1")
+    String verifyCustomerRP(@ModelAttribute("verifyUserRP") VerificationDto verificationDto, Model model)
+    {
+        if(emailService.sendEmailRP(verificationDto.getEmail()))
+            return "redirect:/forgotPassword2";
+        else
+            return "redirect:/forgotPassword1?WrongEmail";
+    }
+
 }

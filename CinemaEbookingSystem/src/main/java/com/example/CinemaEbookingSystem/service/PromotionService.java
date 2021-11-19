@@ -1,7 +1,7 @@
 package com.example.CinemaEbookingSystem.service;
 
+import com.example.CinemaEbookingSystem.dto.PromotionDto;
 import com.example.CinemaEbookingSystem.model.Promotion;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
@@ -10,5 +10,8 @@ public interface PromotionService {
 
     public void sendPromoEmail(String toMail, Promotion promotion);
     public void discontinuePromo(Promotion promotion);
+
+    List<Promotion> getAllPromotions();
+    void savePromotion(PromotionDto promotiondto);
 
 }

@@ -3,26 +3,37 @@ package com.example.CinemaEbookingSystem.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "promotions")
+@Table(name = "promotion")
 public class Promotion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private int promotion_id;
     private String promoTitle;
     private String promoDescription;
     private String promoCode;
     private int discountAmount;
+    private String imageUrl;
     private boolean active;
 
-    public Promotion(int promotion_id, String promoTitle, String promoDescription, String promoCode, int discountAmount, boolean active) {
-        this.promotion_id = promotion_id;
+    public Promotion(){
+
+    }
+
+    public Promotion(String promoTitle, String promoDescription, String promoCode, int discountAmount, boolean active) {
         this.promoTitle = promoTitle;
         this.promoDescription = promoDescription;
         this.promoCode = promoCode;
         this.discountAmount = discountAmount;
+        this.active = true;
+    }
+    public Promotion(String description, int discountAmount, String imageUrl, String promoCode, String title) {
+        this.promoDescription = description;
+        this.discountAmount = discountAmount;
+        this.imageUrl = imageUrl;
+        this.promoCode = promoCode;
+        this.promoTitle = title;
         this.active = true;
     }
 
@@ -51,12 +62,12 @@ public class Promotion {
         this.id = id;
     }
 
-    public int getPromotion_id() {
-        return promotion_id;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setPromotion_id(int promotion_id) {
-        this.promotion_id = promotion_id;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getPromoCode() {

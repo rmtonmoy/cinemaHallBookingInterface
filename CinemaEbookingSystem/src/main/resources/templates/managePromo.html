@@ -3,9 +3,17 @@
 <head>
     <title>Cinema E-booking System</title>
     <span th:replace="fragments/head"></span>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .navbar-nav.navbar-center {
+            position: absolute;
+            left: 50%;
+            transform: translatex(-50%);
+        }
+        .table {
+            margin: 0 auto;
+            width: 80%;
+        }
+    </style>
 </head>
 <body>
 <h1 th:text="${something}"></h1>
@@ -23,19 +31,30 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>$5 Tuesdays</td>
-            <td>Save EVERY WEEK on tickets to Tuesday showtimes!</td>
-            <td><img src="https://fatcatsfun.com/uploads/page_content_images/15271873660.jpeg" width="128" height="128"></td>
-            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal2">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-        </tr>
-        <tr>
-            <td>30% off</td>
-            <td>Every day before 4pm, save 30% off the evening ticket prices!</td>
-            <td><img src="https://media.istockphoto.com/photos/render-red-text-30-percent-off-picture-id512215743?k=20&m=512215743&s=612x612&w=0&h=iq8HE2Rhs9SfN0pqWhbd0gYqEORRyeNudwBgS9zno80=" width="128" height="128"></td>
-            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal2">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
+        <tr th:each="Promo : ${listPromo}">
+            <td th:text = "${Promo.PromoTitle}"></td>
+
+            <td th:text = "${Promo.PromoDescription}"></td>
+            <td><img th:src= "${Promo.imageUrl}" width="128" height="128"></td><td></td>
         </tr>
         </tbody>
+
+        <!--        <tbody>-->
+        <!--        <tr>-->
+        <!--            <td>$5 Tuesdays</td>-->
+        <!--            <td>Save EVERY WEEK on tickets to Tuesday showtimes!</td>-->
+        <!--            <td><img src="https://fatcatsfun.com/uploads/page_content_images/15271873660.jpeg" width="128" height="128"></td>-->
+        <!--            <td><button type="button" class="btn btn-primary" onclick="SendPromoToUsers()">Send to users</button>-->
+        <!--                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal2">Edit</button>-->
+        <!--                <button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>-->
+        <!--        </tr>-->
+        <!--        <tr>-->
+        <!--            <td>30% off</td>-->
+        <!--            <td>Every day before 4pm, save 30% off the evening ticket prices!</td>-->
+        <!--            <td><img src="https://media.istockphoto.com/photos/render-red-text-30-percent-off-picture-id512215743?k=20&m=512215743&s=612x612&w=0&h=iq8HE2Rhs9SfN0pqWhbd0gYqEORRyeNudwBgS9zno80=" width="128" height="128"></td>-->
+        <!--            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal2">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>-->
+        <!--        </tr>-->
+        <!--        </tbody>-->
     </table>
 
     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal2">Add New Promotions</button>
@@ -77,38 +96,45 @@
                 <!-- Modal Body -->
                 <div class="modal-body">
 
-                    <form role="form">
+                    <form th:action="@{/managePromo}" method="post" th:object="${promotion}" id="addNewPromoForm">
                         <div class="form-group">
-                            <label for="titleM">Title</label>
-                            <input type="text" class="form-control"
-                                   id="titleM" placeholder="Enter title"/>
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" th:field="${promotion.title}"
+                                   id="title" placeholder="Enter title"/>
                         </div>
                         <div class="form-group">
-                            <label for="DesM">Description</label>
-                            <input type="text" class="form-control"
-                                   id="DesM" placeholder="Enter description"/>
+                            <label for="description">Description</label>
+                            <input type="text" class="form-control" th:field="${promotion.description}"
+                                   id="description" placeholder="Enter description"/>
                         </div>
                         <div class="form-group">
-                            <label for="imgM">Promo Cover</label>
-                            <input type="file" class="form-control"
-                                   id="imgM"/>
+                            <label for="imageUrl">Promo Cover</label>
+                            <input type="text" class="form-control" th:field="${promotion.imageUrl}"
+                                   id="imageUrl"/>
                         </div>
+                        <div class="form-group">
+                            <label for="promoCode">Promo Code</label>
+                            <input type="text" class="form-control" th:field="${promotion.promoCode}"
+                                   id="promoCode"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="discountAmount">Discount Amount</label>
+                            <input type="text" class="form-control" th:field="${promotion.discountAmount}"
+                                   id="discountAmount"/>
+                        </div>
+                        <button type="submit" onclick="form_submit()" class="btn btn-primary" data-dismiss="modal">
+                            Save changes
+                        </button>
                     </form>
-                </div>
-
-                <!-- Modal Footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default"
-                            data-dismiss="modal">
-                        Close
-                    </button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">
-                        Save changes
-                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    function form_submit() {
+        document.getElementById("addNewPromoForm").submit();
+   }
+</script>
 </body>
 </html>

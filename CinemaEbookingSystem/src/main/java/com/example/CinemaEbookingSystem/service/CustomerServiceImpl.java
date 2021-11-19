@@ -26,11 +26,8 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private PaymentCardService paymentCardService;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository, PaymentCardService paymentCardService) {
-        super();
-        this.customerRepository = customerRepository;
-        this.paymentCardService = paymentCardService;
-    }
+    @Autowired
+    private EmailService emailService;
 
     @Override
     public List<Customer> getAllCustomers() {
@@ -40,6 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public boolean save(UserRegistrationDto userRegistrationDto, PaymentCardDto paymentCards) {
 
+        String CustomerEmailAddress = userRegistrationDto.getEmail();
         Customer foundCustomer = customerRepository.findByEmail(userRegistrationDto.getEmail());
         if(foundCustomer == null) {
             Customer customer = new Customer(userRegistrationDto.getFirstName(), userRegistrationDto.getLastName(),
@@ -53,6 +51,7 @@ public class CustomerServiceImpl implements CustomerService {
                     paymentCardService.save(paymentCard,customer2);
                 }
             }
+            emailService.sendVerificationEmail(CustomerEmailAddress);
             return true;
         }
         else

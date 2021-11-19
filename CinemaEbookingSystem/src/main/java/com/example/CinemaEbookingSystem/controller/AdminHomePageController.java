@@ -69,10 +69,5 @@ public class AdminHomePageController {
         return "manageMovies";
     }
 
-    @GetMapping(path = "/managePromo")
-    String managePromo(Model model, HttpSession session){
-        model.addAttribute("something", "Cinema E-booking System");
-        return "managePromo";
-    }
 
 }
