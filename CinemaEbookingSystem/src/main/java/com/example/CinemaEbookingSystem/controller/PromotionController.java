@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -22,9 +23,12 @@ public class PromotionController {
     public PromotionDto promotiondto(){ return new PromotionDto();}
 
     @GetMapping(path = "/managePromo")
-    public String showAllPromo(Model model){
+    public String showAllPromo(Model model, HttpSession session){
 
         model.addAttribute("something", "Cinema E-booking System");
+
+        model.addAttribute("userName", session.getAttribute("name"));
+        model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("ListUnsentPromo", promotionService.getUnsentPromotions());
         model.addAttribute("ListSentPromo", promotionService.getSentPromotions());
 
@@ -34,16 +38,22 @@ public class PromotionController {
     }
 
     @GetMapping(path = "/showFormForUpdate/{id}")
-    public String showFormForUpdate(@PathVariable (value = "id") long id, Model model){
+    public String showFormForUpdate(@PathVariable (value = "id") long id, Model model, HttpSession session){
         Promotion promotion = promotionService.getPromoById(id);
+
+        model.addAttribute("userName", session.getAttribute("name"));
+        model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("updatepromotion", promotion);
         return "updatePromotion";
     }
 
     @GetMapping(path = "/sendPromoToUsers/{id}")
-    public String sendPromoToUsers(@PathVariable (value = "id") long id, Model model){
+    public String sendPromoToUsers(@PathVariable (value = "id") long id, Model model, HttpSession session){
         Promotion promotion = promotionService.getPromoById(id);
         promotionService.sendPromoEmail(promotion);
+
+        model.addAttribute("userName", session.getAttribute("name"));
+        model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("ListUnsentPromo", promotionService.getUnsentPromotions());
         model.addAttribute("ListSentPromo", promotionService.getSentPromotions());
         return "dummy";
@@ -51,7 +61,10 @@ public class PromotionController {
 
 
     @GetMapping(path = "/performDeleteOperation/{id}")
-    public String performDeleteOperation(@PathVariable (value = "id") long id, Model model){
+    public String performDeleteOperation(@PathVariable (value = "id") long id, Model model, HttpSession session){
+
+        model.addAttribute("userName", session.getAttribute("name"));
+        model.addAttribute("email", session.getAttribute("email"));
         Promotion promotion = promotionService.getPromoById(id);
         promotionService.deletePromotion(promotion);
         return "dummyPrime";

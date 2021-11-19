@@ -64,7 +64,7 @@
             <td th:text = "${Promo.PromoDescription}"></td>
             <td><img th:src= "${Promo.imageUrl}" width="128" height="128"></td>
             <td>
-                <a th:href="@{/showFormForUpdate/{id}(id=${Promo.id})}" class="btn btn-primary">Send to Users</a>
+                <a th:href="@{/sendPromoToUsers/{id}(id=${Promo.id})}" class="btn btn-primary">Send to Users</a>
                 <a th:href="@{/performDeleteOperation/{id}(id=${Promo.id})}" class="btn btn-danger">Delete</a>
             </td>
         </tr>

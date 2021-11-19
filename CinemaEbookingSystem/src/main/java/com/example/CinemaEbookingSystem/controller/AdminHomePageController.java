@@ -39,9 +39,12 @@ public class AdminHomePageController {
     public MovieDto movieDto(){ return new MovieDto();}
 
     @GetMapping(path = "/addTheater")
-    public String showAllTheaters(Model model){
+    public String showAllTheaters(Model model, HttpSession session){
         List<Theater> theaterList = theaterService.getAllTheaters();
         model.addAttribute("something", "Cinema E-booking System");
+
+        model.addAttribute("userName", session.getAttribute("name"));
+        model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("listTheater", theaterList);
         return "addTheater";
     }
@@ -53,11 +56,14 @@ public class AdminHomePageController {
     }
 
     @GetMapping(path = "/manageMovies")
-    public String showAllMovies(Model model){
+    public String showAllMovies(Model model, HttpSession session){
         List<MovieInfo> MovieList = movieInfoService.getAllMovieInfo();
         List<MovieInfo> listCurrentMovie = movieInfoService.listOfCurrentMovies();
         List<MovieInfo> listComingSoonMovie = movieInfoService.listOfComingSoonMovies();
         model.addAttribute("something", "Cinema E-booking System");
+
+        model.addAttribute("userName", session.getAttribute("name"));
+        model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("listCurrentMovie",listCurrentMovie);
         model.addAttribute("listComingSoonMovie",listComingSoonMovie);
         model.addAttribute("listMovie", MovieList);
@@ -71,7 +77,10 @@ public class AdminHomePageController {
     }
 
     @GetMapping(path = "/scheduleMovie/{id}")
-    public String scheduleMovie(Model model){
+    public String scheduleMovie(Model model,HttpSession session){
+
+        model.addAttribute("userName", session.getAttribute("name"));
+        model.addAttribute("email", session.getAttribute("email"));
         return "scheduleMovie";
     }
 

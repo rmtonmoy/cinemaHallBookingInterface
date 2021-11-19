@@ -7,14 +7,18 @@ import com.example.CinemaEbookingSystem.model.Promotion;
 import com.example.CinemaEbookingSystem.model.User;
 import com.example.CinemaEbookingSystem.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Base64;
@@ -85,6 +89,22 @@ public class EmailServiceImpl implements EmailService {
         mailSender.send(message);
 
         System.out.println("Mail sent successfully\n");
+//        MimeMessagePreparator preparator = new MimeMessagePreparator()
+//        {
+//            public void prepare(MimeMessage mimeMessage) throws Exception
+//            {
+//                mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+//                mimeMessage.setFrom(new InternetAddress("se.projectgroupc4@gmail.com"));
+//                mimeMessage.setSubject(subject);
+//                mimeMessage.setText(body);
+//
+//                FileSystemResource file = new FileSystemResource(new File(promotion.getImageUrl()));
+//                MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+//                helper.addAttachment("logo.jpg", file);
+//            }
+//        };
+
+
 
     }
     public boolean sendEmailRP(String toEmail){
