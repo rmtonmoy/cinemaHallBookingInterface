@@ -16,9 +16,6 @@ public class Customer extends User {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     private List<PaymentCard> cardlist = new ArrayList<>();
-
-    private boolean isRegistered;
-
     private boolean isRegisteredForPromo;
 
 //@ManyToMany
@@ -37,7 +34,7 @@ public class Customer extends User {
         super();
         this.status = status;
         this.cardlist = cardlist;
-        this.isRegistered = isRegistered;
+        this.isRegisteredForPromo = isRegistered;
     }
     public Customer(String firstName, String lastName, String password, String email, String dob) {
         super(firstName, lastName, password, email, dob);
@@ -47,15 +44,14 @@ public class Customer extends User {
     public Customer(String firstName, String lastName, String password, String email, String dob, UserStatus userStatus, boolean isRegistered) {
         super(firstName, lastName, password, email, dob);
         this.status = userStatus;
-        this.isRegistered = isRegistered;
+        this.isRegisteredForPromo = isRegistered;
     }
 
-    public Customer(String firstName, String lastName, String password, String email, String dob, UserStatus status, List<PaymentCard> cardlist, boolean isRegistered, boolean isRegisteredForPromo, List<Booking> booking) {
+    public Customer(String firstName, String lastName, String password, String email, String dob, UserStatus status, List<PaymentCard> cardlist, boolean isRegistered, List<Booking> booking) {
         super(firstName, lastName, password, email, dob);
         this.status = status;
         this.cardlist = cardlist;
-        this.isRegistered = isRegistered;
-        this.isRegisteredForPromo = isRegisteredForPromo;
+        this.isRegisteredForPromo = isRegistered;
         this.booking = booking;
     }
 
@@ -87,7 +83,7 @@ public class Customer extends User {
         this.booking = booking;
     }
 
-    public boolean isRegisteredForPromo() {
+    public boolean isIsRegisteredForPromo() {
         return isRegisteredForPromo;
     }
 

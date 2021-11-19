@@ -33,9 +33,10 @@
         <tbody>
         <tr th:each="Promo : ${listPromo}">
             <td th:text = "${Promo.PromoTitle}"></td>
-
             <td th:text = "${Promo.PromoDescription}"></td>
-            <td><img th:src= "${Promo.imageUrl}" width="128" height="128"></td><td></td>
+            <td><img th:src= "${Promo.imageUrl}" width="128" height="128"></td>
+            <td>
+            </td>
         </tr>
         </tbody>
 

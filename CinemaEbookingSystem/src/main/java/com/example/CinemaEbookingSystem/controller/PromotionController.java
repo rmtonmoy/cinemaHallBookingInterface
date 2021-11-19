@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -26,7 +27,6 @@ public class PromotionController {
         model.addAttribute("listPromo", promotionService.getAllPromotions());
 
         List<Promotion> promotionList = promotionService.getAllPromotions();
-        System.out.println("PROMOTION LIST SIZE = " + promotionList.size() + promotionList.get(0).getPromoTitle());
 
         return "managePromo";
     }
