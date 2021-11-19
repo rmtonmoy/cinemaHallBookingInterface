@@ -20,6 +20,18 @@
                         <input type="radio" name="movie" th:value="${movie.title}">
                         <span th:text="${movie.title}"></span>
                     </div>
+
+                    <div>
+                        <h3>Select Day:</h3> <!-- Do this with JavaScript -->
+                        <select name="showDate" id="showDate" class="form-control">
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Monday">Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                        </select>
+                    </div>
+
                     <div>
                         <h3>Showing Time:</h3> <!-- Do this with JavaScript -->
                         <select name="showTime" id="showTime" class="form-control">

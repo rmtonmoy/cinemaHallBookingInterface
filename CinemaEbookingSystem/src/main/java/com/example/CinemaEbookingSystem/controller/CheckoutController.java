@@ -4,6 +4,8 @@
 package com.example.CinemaEbookingSystem.controller;
 
 import com.example.CinemaEbookingSystem.model.MovieInfo;
+import com.example.CinemaEbookingSystem.service.MovieInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +16,9 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class CheckoutController {
-    
+    @Autowired
+    MovieInfoService movieInfoService;
+
     @GetMapping(path = "/checkout")
     String getCheckout(Model model, HttpSession session) {
         model.addAttribute("subtotal", 0.00);
@@ -28,9 +32,7 @@ public class CheckoutController {
     
     @GetMapping(path = "/book")
     String getBook(Model model, HttpSession session) {
-        List<MovieInfo> movies = Arrays.asList(
-            // TODO: Read from some external file for the list of movies
-        );
+        List<MovieInfo> movies = movieInfoService.listOfCurrentMovies();
         model.addAttribute("movies", movies);
         
         model.addAttribute("email", session.getAttribute("email"));
