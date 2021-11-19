@@ -43,9 +43,19 @@
         </div>
         
         <h2>Trailer</h2>
-        <video controls>
+        <!-- <video controls>
             <source th:src="${movie.linkToTrailer}" />
-        </video>
+        </video> -->
+
+        <div class="item">
+            <iframe width=40% height="300" th:src="${movie.linkToTrailer}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </a>
+        </div>
+
+        <!-- <div class="item">
+            <iframe width=40% height="300" src="https://www.youtube.com/embed/8g18jFHCLXk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </a>
+        </div> -->
         
         <hr/>
         
