@@ -1,5 +1,7 @@
 package com.example.CinemaEbookingSystem.controller;
 
+import com.example.CinemaEbookingSystem.dto.PasswordAndVerificationDto;
+import com.example.CinemaEbookingSystem.dto.PasswordDto;
 import com.example.CinemaEbookingSystem.dto.VerificationDto;
 import com.example.CinemaEbookingSystem.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,11 @@ public class VerificationController {
         return new VerificationDto();
     }
 
+    @ModelAttribute("resetPassword")
+    public PasswordAndVerificationDto passwordAndVerificationDto() {
+        return new PasswordAndVerificationDto();
+    }
+
     @GetMapping(path = "/verify")
     String verifyCustomer(Model model, HttpSession session)
     {
@@ -32,26 +39,41 @@ public class VerificationController {
     String verifyCustomer(@ModelAttribute("verifyUser") VerificationDto verificationDto, Model model)
     {
         if(emailService.verifyCustomer(verificationDto))
-            return "redirect:/verify?VerifiedCustomer";
+            return "redirect:/signin?VerifiedCustomer";
         else
             return "redirect:/verify?UnverifiedCustomer";
     }
 
-    @ModelAttribute("verifyUserRP")
-
     @GetMapping(path = "/sendVerificationCode")
-    String verifyCustomerRP(Model model, HttpSession session)
+    String sendVC(Model model, HttpSession session)
     {
-        model.addAttribute("something", "Cinema E-booking System");
         return "sendVerificationCode";
     }
     @PostMapping(path = "/sendVerificationCode")
-    String verifyCustomerRP(@ModelAttribute("verifyUserRP") VerificationDto verificationDto, Model model)
+    String sendVC(@ModelAttribute("verifyUser") VerificationDto verificationDto, Model model)
     {
         if(emailService.sendEmailRP(verificationDto.getEmail()))
-            return "redirect:/forgotPassword2";
+            return "redirect:/resetPassword";
         else
             return "redirect:/sendVerificationCode?WrongEmail";
+    }
+
+    @GetMapping(path = "/resetPassword")
+    String resetPassword(Model model, HttpSession session)
+    {
+        return "resetPassword";
+    }
+    @PostMapping(path = "/resetPassword") 
+    String resetPassword(@ModelAttribute("resetPassword") PasswordAndVerificationDto passwordAndVerificationDto, Model model) 
+    {
+        if (!emailService.verifyCustomerRP(passwordAndVerificationDto)) {
+            return "redirect:/resetPassword?UnverifiedCustomer";
+        } else if (!emailService.confirmPassword(passwordAndVerificationDto)) {
+            return "redirect:/resetPassword?PasswordsDoNotMatch";
+        } else {
+            emailService.resetPassword(passwordAndVerificationDto);
+            return "redirect:/signin?Success";
+        }
     }
 
 }

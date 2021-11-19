@@ -1,5 +1,7 @@
 package com.example.CinemaEbookingSystem.dto;
 
+import java.util.Base64;
+
 public class VerificationDto {
     private String email;
     private String vcode;
@@ -21,5 +23,10 @@ public class VerificationDto {
 
     public void setVcode(String vcode) {
         this.vcode = vcode;
+    }
+
+    public String encodeEmail(String email) {
+        String encodedEmail = new String(Base64.getEncoder().encodeToString(email.getBytes()));
+        return encodedEmail;
     }
 }
