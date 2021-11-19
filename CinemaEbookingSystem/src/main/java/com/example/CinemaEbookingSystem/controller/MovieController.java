@@ -121,8 +121,11 @@ public class MovieController {
                     include = false;
             }
             if (!(searchParams.status == null || searchParams.status.equals("") || searchParams.status.equals("any"))) {
-                if (false) // TODO: Determine showing status
+                if (searchParams.status.equals("showing") && oneShowService.getAllShowsForMovie(info.getId()).isEmpty()) {
                     include = false;
+                } else if (searchParams.status.equals("soon") && !oneShowService.getAllShowsForMovie(info.getId()).isEmpty()) {
+                    include = false;
+                }
             }
             
             if (include)

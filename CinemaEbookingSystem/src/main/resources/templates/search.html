@@ -63,7 +63,7 @@
             <p th:text="${movie.MPAA_rating}"></p>
             <!-- TODO: link to movie info page -->
             <a class="btn btn-primary" th:href="'/movie?id=' + ${movie.id}">View Info</a>
-            <a class="btn btn-primary" th:href="${movie.linkToTrailer}" target="_blank" rel="noopener noreferrer external">Watch Trailer</a>
+            <!-- <a class="btn btn-primary" th:href="${movie.linkToTrailer}" target="_blank" rel="noopener noreferrer external">Watch Trailer</a> -->
         </div>
         <p th:if="${#lists.isEmpty(movies)}">No movies found.</p>
     </main>

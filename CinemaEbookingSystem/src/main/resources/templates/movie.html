@@ -38,7 +38,8 @@
                     Theater <span th:text="${showing.getTheater().id}"></span> at <span th:text="${showing.getShowTime().getStartingTimeString()}"></span>
                 </li>
             </ul>
-            <button></button>
+            <!-- TODO: If a more comprehensive booking page is made, consider updating the href here if we can do cool stuff with it -->
+            <a class="btn btn-primary" href="/book">Book Tickets</a>
         </div>
         
         <h2>Trailer</h2>
