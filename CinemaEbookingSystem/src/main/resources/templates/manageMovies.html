@@ -125,6 +125,16 @@
                             <input type="text" class="form-control" th:field="${movieDto.duration}"
                                    id="duration" required/>
                         </div>
+                        <div class="form-group">
+                            <label for="linkToPoster">Poster Link</label><span style="color: red">*</span>
+                            <input type="text" class="form-control" th:field="${movieDto.linkToPoster}"
+                                   id="linkToPoster" required/>
+                        </div>
+                        <div class="form-group">
+                            <label for="linkToTrailer">Trailer Link</label><span style="color: red">*</span>
+                            <input type="text" class="form-control" th:field="${movieDto.linkToTrailer}"
+                                   id="linkToTrailer" required/>
+                        </div>
                         <button type="submit" onclick="form_submit()" class="btn btn-primary" data-dismiss="modal">
                             Save changes
                         </button>

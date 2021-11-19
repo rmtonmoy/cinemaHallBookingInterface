@@ -18,10 +18,14 @@ public class MovieDto {
 
     private int duration;
 
+    private String linkToPoster;
+
+    private String linkToTrailer;
+
     public MovieDto() {
     }
 
-    public MovieDto(String title, String category, String cast, String director, String producer, String synopsis, String MPAA_rating, int duration) {
+    public MovieDto(String title, String category, String cast, String director, String producer, String synopsis, String MPAA_rating, int duration, String linkToPoster, String linkToTrailer) {
         this.title = title;
         this.category = category;
         this.cast = cast;
@@ -30,6 +34,8 @@ public class MovieDto {
         this.synopsis = synopsis;
         this.MPAA_rating = MPAA_rating;
         this.duration = duration;
+        this.linkToPoster = linkToPoster;
+        this.linkToTrailer = linkToTrailer;
     }
 
     public String getTitle() {
@@ -94,5 +100,21 @@ public class MovieDto {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public String getLinkToPoster() {
+        return linkToPoster;
+    }
+
+    public void setLinkToPoster(String linkToPoster) {
+        this.linkToPoster = linkToPoster;
+    }
+
+    public String getLinkToTrailer() {
+        return linkToTrailer;
+    }
+
+    public void setLinkToTrailer(String linkToTrailer) {
+        this.linkToTrailer = linkToTrailer;
     }
 }

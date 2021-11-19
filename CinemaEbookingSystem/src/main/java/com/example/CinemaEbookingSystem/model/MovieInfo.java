@@ -43,7 +43,7 @@ public class MovieInfo {
     // TODO - Constructor
     public MovieInfo() {};
 
-    public MovieInfo(String title, String category, String cast, String director, String producer, String synopsis, String MPAA_rating, int duration) {
+    public MovieInfo(String title, String category, String cast, String director, String producer, String synopsis, String MPAA_rating, int duration, String linkToPoster, String linkToTrailer) {
         this.title = title;
         this.category = category;
         this.cast = cast;
@@ -52,6 +52,8 @@ public class MovieInfo {
         this.synopsis = synopsis;
         this.MPAA_rating = MPAA_rating;
         this.duration = duration;
+        this.linkToPoster = linkToPoster;
+        this.linkToTrailer = linkToTrailer;
     }
 
     // temp constructor for demo use in CheckoutController

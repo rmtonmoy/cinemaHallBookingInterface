@@ -28,7 +28,8 @@ public class MovieInfoServiceImpl implements MovieInfoService{
     @Override
     public void SaveMovieInfoWithDto(MovieDto movieDto){
         MovieInfo movieInfo = new MovieInfo(movieDto.getTitle(),movieDto.getCategory(), movieDto.getCast(),
-                movieDto.getDirector(),movieDto.getProducer(), movieDto.getSynopsis(),movieDto.getMPAA_rating(),movieDto.getDuration());
+                movieDto.getDirector(),movieDto.getProducer(), movieDto.getSynopsis(),movieDto.getMPAA_rating(),
+                movieDto.getDuration(),movieDto.getLinkToPoster(),movieDto.getLinkToTrailer());
         this.MovieInfoRepository.save(movieInfo);
     }
     
