@@ -20,19 +20,34 @@
         <h1 th:text="${movie.title}"></h1>
         <h3><span th:text="${movie.MPAA_rating}"></span> - <span th:text="${movie.category}"></span></h3>
         
-        <h2>Synopsis</h2>
-        <p th:text="${movie.synopsis}"></p>
-        
         <h2>Staff</h2>
         <p><b>Director:</b> <span th:text="${movie.director}"></span></p>
         <p><b>Producer:</b> <span th:text="${movie.producer}"></span></p>
         <p><b>Main Cast:</b> <span th:text="${movie.cast}"></span></p>
         
+        <h2>Synopsis</h2>
+        <p th:text="${movie.synopsis}"></p>
+        
+        <hr/>
+        
+        <h2>Current Showings</h2>
+        <p th:if="${#lists.isEmpty(showings)}">No showings found.</p>
+        <div th:unless="${#lists.isEmpty(showings)}">
+            <ul>
+                <li th:each="showing : ${showings}">
+                    Theater <span th:text="${showing.getTheater().id}"></span> at <span th:text="${showing.getShowTime().getStartingTimeString()}"></span>
+                </li>
+            </ul>
+            <button></button>
+        </div>
+        
         <h2>Trailer</h2>
         <video controls>
             <source th:src="${movie.linkToTrailer}" />
         </video>
+        
         <hr/>
+        
         <h2>Reviews</h2> <!-- TODO: Load reviews for movie -->
         <p>No reviews found.</p>
     </main>

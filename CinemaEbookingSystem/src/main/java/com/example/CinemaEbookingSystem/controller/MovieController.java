@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.CinemaEbookingSystem.model.Admin;
 import com.example.CinemaEbookingSystem.repository.AdminRepository;
+import com.example.CinemaEbookingSystem.service.OneShowService;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +25,13 @@ public class MovieController {
     @Autowired
     MovieInfoService movieInfoService;
     
-    public MovieController(MovieInfoService mis) {
+    @Autowired
+    OneShowService oneShowService;
+    
+    public MovieController(MovieInfoService mis, OneShowService oss) {
         super();
         movieInfoService = mis;
+        oneShowService   = oss;
     }
 
     @GetMapping(path = "/")
@@ -82,6 +87,7 @@ public class MovieController {
             model.addAttribute("movie", movie);
             //String trailerLink = movie.getLinkToTrailer();
             //model.addAttribute("youtubeId", trailerLink.substring(trailerLink.indexOf("v=") + 2));
+            model.addAttribute("showings", oneShowService.getAllShowsForMovie(id));
         } else {
             return "redirect:/search";
         }

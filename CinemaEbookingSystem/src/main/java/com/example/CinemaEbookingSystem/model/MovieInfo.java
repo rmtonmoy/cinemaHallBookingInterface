@@ -10,8 +10,9 @@ import java.util.List;
 public class MovieInfo {
 
     @Id
-    @GeneratedValue( strategy=GenerationType.AUTO )
+    @GeneratedValue( strategy=GenerationType.IDENTITY )
     private int id;
+    
     private String title;
     private String category;
 
