@@ -24,6 +24,7 @@ public class PromotionController {
     @GetMapping(path = "/managePromo")
     public String showAllPromo(Model model){
 
+        model.addAttribute("something", "Cinema E-booking System");
         model.addAttribute("ListUnsentPromo", promotionService.getUnsentPromotions());
         model.addAttribute("ListSentPromo", promotionService.getSentPromotions());
 

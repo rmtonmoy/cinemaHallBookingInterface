@@ -1,20 +1,18 @@
 package com.example.CinemaEbookingSystem.controller;
 
-import com.example.CinemaEbookingSystem.dto.PromotionDto;
+import com.example.CinemaEbookingSystem.dto.MovieDto;
 import com.example.CinemaEbookingSystem.dto.TheaterDto;
+import com.example.CinemaEbookingSystem.dto.SchedulerDto;
 import com.example.CinemaEbookingSystem.model.MovieInfo;
 import com.example.CinemaEbookingSystem.model.OneShow;
 import com.example.CinemaEbookingSystem.model.Theater;
-import com.example.CinemaEbookingSystem.repository.OneShowRepository;
 import com.example.CinemaEbookingSystem.service.*;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -37,9 +35,13 @@ public class AdminHomePageController {
     @ModelAttribute("theaterDto")
     public TheaterDto theaterDto(){ return new TheaterDto();}
 
+    @ModelAttribute("movieDto")
+    public MovieDto movieDto(){ return new MovieDto();}
+
     @GetMapping(path = "/addTheater")
     public String showAllTheaters(Model model){
         List<Theater> theaterList = theaterService.getAllTheaters();
+        model.addAttribute("something", "Cinema E-booking System");
         model.addAttribute("listTheater", theaterList);
         return "addTheater";
     }
@@ -48,6 +50,39 @@ public class AdminHomePageController {
     public String addTheater(@ModelAttribute("theaterDto") TheaterDto theaterDto){
         theaterService.addTheater(theaterDto.getMaxR(), theaterDto.getMaxC());
         return "redirect:/addTheater";
+    }
+
+    @GetMapping(path = "/manageMovies")
+    public String showAllMovies(Model model){
+        List<MovieInfo> MovieList = movieInfoService.getAllMovieInfo();
+        model.addAttribute("something", "Cinema E-booking System");
+        model.addAttribute("listMovie", MovieList);
+        return "manageMovies";
+    }
+
+    @PostMapping(path = "/manageMoviesDto")
+    public String saveMovie(@ModelAttribute("movieDto") MovieDto movieDto){
+        movieInfoService.SaveMovieInfoWithDto(movieDto);
+        return "redirect:/manageMovies";
+    }
+
+    @GetMapping(path = "/scheduleMovie/{id}")
+    public String scheduleMovie(Model model){
+
+
+
+        return "scheduleMovie";
+    }
+
+
+    @ModelAttribute("schedulerDto")
+    public SchedulerDto schedulerDto(){ return new SchedulerDto();}
+
+    @PostMapping(path = "/scheduleMovie")
+    public String scheduleMovie(@ModelAttribute("schedulerDto") SchedulerDto schedulerDto){
+
+
+        return "redirect:/manageMovies?SchedulerSuccess";
     }
 
     @RequestMapping(value = "assignMovie", method = RequestMethod.GET)
@@ -80,11 +115,6 @@ public class AdminHomePageController {
         return "adminHome";
     }
 
-    @GetMapping(path = "/manageMovies")
-    String manageMovies(Model model, HttpSession session){
-        model.addAttribute("something", "Cinema E-booking System");
-        return "manageMovies";
-    }
 
 
 }

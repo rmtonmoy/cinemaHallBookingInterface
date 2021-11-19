@@ -3,438 +3,59 @@
 <head>
     <title>Cinema E-booking System</title>
     <span th:replace="fragments/head"></span>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .navbar-nav.navbar-center {
+            position: absolute;
+            left: 50%;
+            transform: translatex(-50%);
+        }
+        .table {
+            margin: 0 auto;
+            width: 80%;
+        }
+    </style>
 </head>
 <body>
 <h1 th:text="${something}"></h1>
 <nav th:replace="fragments/header"></nav>
 <div class="table _container">
-    <h3>Current movies</h3>
-    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#sunday">Sunday</button>
-    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#monday">Monday</button>
-    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#tuesday">Tuesday</button>
-    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#wednesday">Wednesday</button>
-    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#thursday">Thursday</button>
-    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#friday">Friday</button>
-    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#saturday">Saturday</button><br><br>
-    <div id="sunday" class="collapse">
-        <button type="button" class="btn btn-success">Sunday</button> 
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal1">Add New Movies</button>
-        <table class="table table-bordered table-striped">
-            <thead>
-            <tr style="background-color: #5c78f2">
-                <th>Title</th>
-                <th>Description</th>
-                <th>Movie Cover</th>
-                <th>Showtimes & Hall number</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Venom</td>
-                <td>After finding a host body in investigative reporter Eddie Brock, the alien symbiote must face a new enemy, Carnage, the alter ego of serial killer Cletus Kasady.</td>
-                <td><img src="https://bgr.com/wp-content/uploads/2021/05/VENOM_-LET-THERE-BE-CARNAGE-Official-Trailer-HD-2-38-screenshot.jpg?quality=70&strip=all" width="128" height="128"></td>
-                <td>3:00PM Hall 1<br>5:00PM Hall 3</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            <tr>
-                <td>Free Guy</td>
-                <td>When a bank teller discovers he's actually a background player in an open-world video game, he decides to become the hero of his own story -- one that he can rewrite himself. In a world where there's no limits, he's determined to save the day his way before it's too late, and maybe find a little romance with the coder who conceived him.</td>
-                <td><img src="https://i.ytimg.com/vi/cttnRmcr_ME/maxresdefault.jpg" width="128" height="128"></td>
-                <td>3:00PM Hall 2<br>5:00PM Hall 1<br>7:00PM Hall 2</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            <tr>
-                <td>Dune</td>
-                <td>Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet's exclusive supply of the most precious resource in existence, only those who can conquer their own fear will survive.</td>
-                <td><img src="https://i.ytimg.com/vi/1EI-UrAweXE/maxresdefault.jpg" width="128" height="128"></td>
-                <td>9:00PM Hall 3</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            <tr>
-                <td>Shang Chi</td>
-                <td>Martial-arts master Shang-Chi confronts the past he thought he left behind when he's drawn into the web of the mysterious Ten Rings organization.</td>
-                <td><img src="https://i.ytimg.com/vi/jSnc8Mt_EEI/maxresdefault.jpg" width="128" height="128"></td>
-                <td>1:00PM Hall 3<br>6:00PM Hall 1</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div id="monday" class="collapse">
-        <button type="button" class="btn btn-success">Monday</button> 
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal1">Add New Movies</button>
-        <table class="table table-bordered table-striped">
-            <thead>
-            <tr style="background-color: #5c78f2">
-                <th>Title</th>
-                <th>Description</th>
-                <th>Movie Cover</th>
-                <th>Showtimes & Hall number</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Free Guy</td>
-                <td>When a bank teller discovers he's actually a background player in an open-world video game, he decides to become the hero of his own story -- one that he can rewrite himself. In a world where there's no limits, he's determined to save the day his way before it's too late, and maybe find a little romance with the coder who conceived him.</td>
-                <td><img src="https://i.ytimg.com/vi/cttnRmcr_ME/maxresdefault.jpg" width="128" height="128"></td>
-                <td>3:00PM Hall 2<br>5:00PM Hall 1<br>7:00PM Hall 2</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            <tr>
-                <td>Dune</td>
-                <td>Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet's exclusive supply of the most precious resource in existence, only those who can conquer their own fear will survive.</td>
-                <td><img src="https://i.ytimg.com/vi/1EI-UrAweXE/maxresdefault.jpg" width="128" height="128"></td>
-                <td>9:00PM Hall 3</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div id="tuesday" class="collapse">
-        <button type="button" class="btn btn-success">Tuesday</button> 
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal1">Add New Movies</button>
-        <table class="table table-bordered table-striped">
-            <thead>
-            <tr style="background-color: #5c78f2">
-                <th>Title</th>
-                <th>Description</th>
-                <th>Movie Cover</th>
-                <th>Showtimes & Hall number</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Venom</td>
-                <td>After finding a host body in investigative reporter Eddie Brock, the alien symbiote must face a new enemy, Carnage, the alter ego of serial killer Cletus Kasady.</td>
-                <td><img src="https://bgr.com/wp-content/uploads/2021/05/VENOM_-LET-THERE-BE-CARNAGE-Official-Trailer-HD-2-38-screenshot.jpg?quality=70&strip=all" width="128" height="128"></td>
-                <td>3:00PM Hall 1<br>5:00PM Hall 3</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            <tr>
-                <td>Dune</td>
-                <td>Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet's exclusive supply of the most precious resource in existence, only those who can conquer their own fear will survive.</td>
-                <td><img src="https://i.ytimg.com/vi/1EI-UrAweXE/maxresdefault.jpg" width="128" height="128"></td>
-                <td>9:00PM Hall 3</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            <tr>
-                <td>Shang Chi</td>
-                <td>Martial-arts master Shang-Chi confronts the past he thought he left behind when he's drawn into the web of the mysterious Ten Rings organization.</td>
-                <td><img src="https://i.ytimg.com/vi/jSnc8Mt_EEI/maxresdefault.jpg" width="128" height="128"></td>
-                <td>1:00PM Hall 3<br>6:00PM Hall 1</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div id="wednesday" class="collapse">
-        <button type="button" class="btn btn-success">Wednesday</button> 
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal1">Add New Movies</button>
-        <table class="table table-bordered table-striped">
-            <thead>
-            <tr style="background-color: #5c78f2">
-                <th>Title</th>
-                <th>Description</th>
-                <th>Movie Cover</th>
-                <th>Showtimes & Hall number</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Venom</td>
-                <td>After finding a host body in investigative reporter Eddie Brock, the alien symbiote must face a new enemy, Carnage, the alter ego of serial killer Cletus Kasady.</td>
-                <td><img src="https://bgr.com/wp-content/uploads/2021/05/VENOM_-LET-THERE-BE-CARNAGE-Official-Trailer-HD-2-38-screenshot.jpg?quality=70&strip=all" width="128" height="128"></td>
-                <td>3:00PM Hall 1<br>5:00PM Hall 3</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            <tr>
-                <td>Free Guy</td>
-                <td>When a bank teller discovers he's actually a background player in an open-world video game, he decides to become the hero of his own story -- one that he can rewrite himself. In a world where there's no limits, he's determined to save the day his way before it's too late, and maybe find a little romance with the coder who conceived him.</td>
-                <td><img src="https://i.ytimg.com/vi/cttnRmcr_ME/maxresdefault.jpg" width="128" height="128"></td>
-                <td>3:00PM Hall 2<br>5:00PM Hall 1<br>7:00PM Hall 2</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            <tr>
-                <td>Shang Chi</td>
-                <td>Martial-arts master Shang-Chi confronts the past he thought he left behind when he's drawn into the web of the mysterious Ten Rings organization.</td>
-                <td><img src="https://i.ytimg.com/vi/jSnc8Mt_EEI/maxresdefault.jpg" width="128" height="128"></td>
-                <td>1:00PM Hall 3<br>6:00PM Hall 1</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div id="thursday" class="collapse">
-        <button type="button" class="btn btn-success">Thursday</button> 
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal1">Add New Movies</button>
-        <table class="table table-bordered table-striped">
-            <thead>
-            <tr style="background-color: #5c78f2">
-                <th>Title</th>
-                <th>Description</th>
-                <th>Movie Cover</th>
-                <th>Showtimes & Hall number</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Free Guy</td>
-                <td>When a bank teller discovers he's actually a background player in an open-world video game, he decides to become the hero of his own story -- one that he can rewrite himself. In a world where there's no limits, he's determined to save the day his way before it's too late, and maybe find a little romance with the coder who conceived him.</td>
-                <td><img src="https://i.ytimg.com/vi/cttnRmcr_ME/maxresdefault.jpg" width="128" height="128"></td>
-                <td>3:00PM Hall 2<br>5:00PM Hall 1<br>7:00PM Hall 2</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            <tr>
-                <td>Dune</td>
-                <td>Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet's exclusive supply of the most precious resource in existence, only those who can conquer their own fear will survive.</td>
-                <td><img src="https://i.ytimg.com/vi/1EI-UrAweXE/maxresdefault.jpg" width="128" height="128"></td>
-                <td>9:00PM Hall 3</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            <tr>
-                <td>Shang Chi</td>
-                <td>Martial-arts master Shang-Chi confronts the past he thought he left behind when he's drawn into the web of the mysterious Ten Rings organization.</td>
-                <td><img src="https://i.ytimg.com/vi/jSnc8Mt_EEI/maxresdefault.jpg" width="128" height="128"></td>
-                <td>1:00PM Hall 3<br>6:00PM Hall 1</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div id="friday" class="collapse">
-        <button type="button" class="btn btn-success">Friday</button> 
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal1">Add New Movies</button>
-        <table class="table table-bordered table-striped">
-            <thead>
-            <tr style="background-color: #5c78f2">
-                <th>Title</th>
-                <th>Description</th>
-                <th>Movie Cover</th>
-                <th>Showtimes & Hall number</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Venom</td>
-                <td>After finding a host body in investigative reporter Eddie Brock, the alien symbiote must face a new enemy, Carnage, the alter ego of serial killer Cletus Kasady.</td>
-                <td><img src="https://bgr.com/wp-content/uploads/2021/05/VENOM_-LET-THERE-BE-CARNAGE-Official-Trailer-HD-2-38-screenshot.jpg?quality=70&strip=all" width="128" height="128"></td>
-                <td>3:00PM Hall 1<br>5:00PM Hall 3</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            <tr>
-                <td>Free Guy</td>
-                <td>When a bank teller discovers he's actually a background player in an open-world video game, he decides to become the hero of his own story -- one that he can rewrite himself. In a world where there's no limits, he's determined to save the day his way before it's too late, and maybe find a little romance with the coder who conceived him.</td>
-                <td><img src="https://i.ytimg.com/vi/cttnRmcr_ME/maxresdefault.jpg" width="128" height="128"></td>
-                <td>3:00PM Hall 2<br>5:00PM Hall 1<br>7:00PM Hall 2</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            <tr>
-                <td>Dune</td>
-                <td>Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet's exclusive supply of the most precious resource in existence, only those who can conquer their own fear will survive.</td>
-                <td><img src="https://i.ytimg.com/vi/1EI-UrAweXE/maxresdefault.jpg" width="128" height="128"></td>
-                <td>9:00PM Hall 3</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            <tr>
-                <td>Shang Chi</td>
-                <td>Martial-arts master Shang-Chi confronts the past he thought he left behind when he's drawn into the web of the mysterious Ten Rings organization.</td>
-                <td><img src="https://i.ytimg.com/vi/jSnc8Mt_EEI/maxresdefault.jpg" width="128" height="128"></td>
-                <td>1:00PM Hall 3<br>6:00PM Hall 1</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div id="saturday" class="collapse">
-        <button type="button" class="btn btn-success">Saturday</button> 
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal1">Add New Movies</button>
-        <table class="table table-bordered table-striped">
-            <thead>
-            <tr style="background-color: #5c78f2">
-                <th>Title</th>
-                <th>Description</th>
-                <th>Movie Cover</th>
-                <th>Showtimes & Hall number</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Venom</td>
-                <td>After finding a host body in investigative reporter Eddie Brock, the alien symbiote must face a new enemy, Carnage, the alter ego of serial killer Cletus Kasady.</td>
-                <td><img src="https://bgr.com/wp-content/uploads/2021/05/VENOM_-LET-THERE-BE-CARNAGE-Official-Trailer-HD-2-38-screenshot.jpg?quality=70&strip=all" width="128" height="128"></td>
-                <td>3:00PM Hall 1<br>5:00PM Hall 3</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            <tr>
-                <td>Free Guy</td>
-                <td>When a bank teller discovers he's actually a background player in an open-world video game, he decides to become the hero of his own story -- one that he can rewrite himself. In a world where there's no limits, he's determined to save the day his way before it's too late, and maybe find a little romance with the coder who conceived him.</td>
-                <td><img src="https://i.ytimg.com/vi/cttnRmcr_ME/maxresdefault.jpg" width="128" height="128"></td>
-                <td>3:00PM Hall 2<br>5:00PM Hall 1<br>7:00PM Hall 2</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            <tr>
-                <td>Dune</td>
-                <td>Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet's exclusive supply of the most precious resource in existence, only those who can conquer their own fear will survive.</td>
-                <td><img src="https://i.ytimg.com/vi/1EI-UrAweXE/maxresdefault.jpg" width="128" height="128"></td>
-                <td>9:00PM Hall 3</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            <tr>
-                <td>Shang Chi</td>
-                <td>Martial-arts master Shang-Chi confronts the past he thought he left behind when he's drawn into the web of the mysterious Ten Rings organization.</td>
-                <td><img src="https://i.ytimg.com/vi/jSnc8Mt_EEI/maxresdefault.jpg" width="128" height="128"></td>
-                <td>1:00PM Hall 3<br>6:00PM Hall 1</td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal1">Edit</button><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-<h3>Coming soon</h3>
-<table class="table table-bordered table-striped">
-    <thead>
-    <tr style="background-color: #5bbfde">
-        <th>Title</th>
-        <th>Description</th>
-        <th>Movie Cover</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>The Batman</td>
-        <td>The Riddler plays a deadly game of cat and mouse with Batman and Commissioner Gordon in Gotham City.</td>
-        <td><img src="https://i.ytimg.com/vi/AY2RzayWqC8/maxresdefault.jpg" width="128" height="128"></td>
-        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal2">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>
-    </tr>
-    </tbody>
-</table>
 
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal2">Add New Movies</button>
-    
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Confirm Delete</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure that you want to delete this item?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    <!-- Modal -->
-    <div class="modal fade" id="formModal1" tabindex="-1" role="dialog"
-         aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <button type="button" class="close"
-                            data-dismiss="modal">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">
-                        Edit Info
-                    </h4>
-                </div>
-
-                <!-- Modal Body -->
-                <div class="modal-body">
-
-                    <form role="form">
-                        <div class="form-group">
-                            <label for="titleM">Title</label>
-                            <input type="text" class="form-control"
-                                   id="titleM" placeholder="Enter title"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="categoryM">Category</label>
-                            <input type="text" class="form-control"
-                                   id="categoryM" placeholder="Enter category"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="DesM">Synopsis</label>
-                            <input type="text" class="form-control"
-                                   id="DesM" placeholder="Enter synopsis"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="castM">Cast</label>
-                            <input type="text" class="form-control"
-                                   id="castM" placeholder="Enter cast"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="director">Director</label>
-                            <input type="text" class="form-control"
-                                   id="director" placeholder="Enter director"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="producer">Producer</label>
-                            <input type="text" class="form-control"
-                                   id="producer" placeholder="Enter producer"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="MPAA_rating">MPAA Rating</label>
-                            <input type="text" class="form-control"
-                                   id="MPAA_rating" placeholder="Enter MPAA Rating"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="imgM">Movie Cover</label>
-                            <input type="file" class="form-control"
-                                   id="imgM"/>
-                        </div>
-                        Select hall:<br>
-                        <label class="radio-inline">
-                            <input type="radio" value="">Hall 1
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" value="">Hall 2
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" value="">Hall 3
-                        </label>
-                        <br><br>Select Showtime:<br>
-                        <label class="checkbox-inline"><input type="checkbox" value="">3:00PM</label>
-                        <label class="checkbox-inline"><input type="checkbox" value="">4:00PM</label>
-                        <label class="checkbox-inline"><input type="checkbox" value="">5:00PM</label>
-                        <label class="checkbox-inline"><input type="checkbox" value="">6:00PM</label>
-                        <label class="checkbox-inline"><input type="checkbox" value="">7:00PM</label>
-                        <label class="checkbox-inline"><input type="checkbox" value="">8:00PM</label>
-                        <label class="checkbox-inline"><input type="checkbox" value="">9:00PM</label>
-                        <label class="checkbox-inline"><input type="checkbox" value="">10:00PM</label>
-                    </form>
-
-                </div>
-
-                <!-- Modal Footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default"
-                            data-dismiss="modal">
-                        Close
-                    </button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">
-                        Save changes
-                    </button>
-                </div>
-            </div>
-        </div>
+    <div th:if="${param.SchedulerSuccess}">
+        <div class="alert alert-success">Successfully scheduled the movie!</div>
     </div>
+    <h3>Movies</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr style="background-color: #5bbfde">
+            <th>Title</th>
+            <th>Category</th>
+            <th>Cast</th>
+            <th>Director</th>
+            <th>Producer</th>
+            <th>Synopsis</th>
+            <th>MPAA_Rating</th>
+            <th>Duration</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="Movie : ${listMovie}">
+            <td th:text = "${Movie.title}"></td>
+            <td th:text = "${Movie.category}"></td>
+            <td th:text = "${Movie.cast}"></td>
+            <td th:text = "${Movie.director}"></td>
+            <td th:text = "${Movie.producer}"></td>
+            <td th:text = "${Movie.synopsis}"></td>
+            <td th:text = "${Movie.MPAA_rating}"></td>
+            <td th:text = "${Movie.duration}"></td>
+            <td>
+                <a th:href="@{/scheduleMovie/{id}(id=${Movie.id})}" class="btn btn-primary">Schedule</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal2">Add New Movie</button>
+
     <!-- Modal -->
     <div class="modal fade" id="formModal2" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true">
@@ -447,89 +68,68 @@
                         <span aria-hidden="true">&times;</span>
                         <span class="sr-only">Close</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel2">
-                        Edit Info
+                    <h4 class="modal-title" id="myModalLabel">
+                        Add New Movie
                     </h4>
                 </div>
 
                 <!-- Modal Body -->
                 <div class="modal-body">
 
-                    <form role="form">
+                    <form th:action="@{/manageMoviesDto}" method="post" th:object="${movieDto}" id="addNewMovieForm">
                         <div class="form-group">
-                            <label for="titleM">Title</label>
-                            <input type="text" class="form-control"
-                                   id="titleM" placeholder="Enter title"/>
+                            <label for="title">Title</label><span style="color: red">*</span>
+                            <input type="text" class="form-control" th:field="${movieDto.title}"
+                                   id="title" required/>
                         </div>
                         <div class="form-group">
-                            <label for="categoryM">Category</label>
-                            <input type="text" class="form-control"
-                                   id="categoryM" placeholder="Enter category"/>
+                            <label for="category">Category</label><span style="color: red">*</span>
+                            <input type="text" class="form-control" th:field="${movieDto.category}"
+                                   id="category"  required/>
                         </div>
                         <div class="form-group">
-                            <label for="DesM">Synopsis</label>
-                            <input type="text" class="form-control"
-                                   id="DesM" placeholder="Enter synopsis"/>
+                            <label for="cast">Cast</label><span style="color: red">*</span>
+                            <input type="text" class="form-control" th:field="${movieDto.cast}"
+                                   id="cast" required/>
                         </div>
                         <div class="form-group">
-                            <label for="castM">Cast</label>
-                            <input type="text" class="form-control"
-                                   id="castM" placeholder="Enter cast"/>
+                            <label for="director">Director</label><span style="color: red">*</span>
+                            <input type="text" class="form-control" th:field="${movieDto.director}"
+                                   id="director" required/>
                         </div>
                         <div class="form-group">
-                            <label for="director">Director</label>
-                            <input type="text" class="form-control"
-                                   id="director" placeholder="Enter director"/>
+                            <label for="producer">Producer</label><span style="color: red">*</span>
+                            <input type="text" class="form-control" th:field="${movieDto.producer}"
+                                   id="producer" required/>
                         </div>
                         <div class="form-group">
-                            <label for="producer">Producer</label>
-                            <input type="text" class="form-control"
-                                   id="producer" placeholder="Enter producer"/>
+                            <label for="synopsis">Synopsis</label><span style="color: red">*</span>
+                            <input type="text" class="form-control" th:field="${movieDto.synopsis}"
+                                   id="synopsis" required/>
                         </div>
                         <div class="form-group">
-                            <label for="MPAA_rating">MPAA Rating</label>
-                            <input type="text" class="form-control"
-                                   id="MPAA_rating" placeholder="Enter MPAA Rating"/>
+                            <label for="MPAA_rating">MPAA_rating</label><span style="color: red">*</span>
+                            <input type="text" class="form-control" th:field="${movieDto.MPAA_rating}"
+                                   id="MPAA_rating" required/>
                         </div>
                         <div class="form-group">
-                            <label for="imgM">Movie Cover</label>
-                            <input type="file" class="form-control"
-                                   id="imgM"/>
+                            <label for="duration">Duration</label><span style="color: red">*</span>
+                            <input type="text" class="form-control" th:field="${movieDto.duration}"
+                                   id="duration" required/>
                         </div>
-                        Select hall:<br>
-                        <label class="radio-inline">
-                            <input type="radio" value="">Hall 1
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" value="">Hall 2
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" value="">Hall 3
-                        </label>
-                        <br><br>Select Showtime:<br>
-                        <label class="checkbox-inline"><input type="checkbox" value="">3:00PM</label>
-                        <label class="checkbox-inline"><input type="checkbox" value="">4:00PM</label>
-                        <label class="checkbox-inline"><input type="checkbox" value="">5:00PM</label>
-                        <label class="checkbox-inline"><input type="checkbox" value="">6:00PM</label>
-                        <label class="checkbox-inline"><input type="checkbox" value="">7:00PM</label>
-                        <label class="checkbox-inline"><input type="checkbox" value="">8:00PM</label>
-                        <label class="checkbox-inline"><input type="checkbox" value="">9:00PM</label>
-                        <label class="checkbox-inline"><input type="checkbox" value="">10:00PM</label>
+                        <button type="submit" onclick="form_submit()" class="btn btn-primary" data-dismiss="modal">
+                            Save changes
+                        </button>
                     </form>
-                </div>
-                <!-- Modal Footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default"
-                            data-dismiss="modal">
-                        Close
-                    </button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">
-                        Save changes
-                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    function form_submit() {
+        document.getElementById("addNewMovieForm").submit();
+   }
+</script>
 </body>
 </html>

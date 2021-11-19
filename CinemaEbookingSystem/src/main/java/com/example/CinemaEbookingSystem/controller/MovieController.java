@@ -44,7 +44,6 @@ public class MovieController {
         return "home";
     }
 
-
     @GetMapping(path = "/paymentConfirmation")
     String paymentConfirmation(Model model, HttpSession session){
         model.addAttribute("something", "Cinema E-booking System");

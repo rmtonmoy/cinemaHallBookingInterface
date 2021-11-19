@@ -28,8 +28,6 @@ public class MovieInfo {
     private String linkToPoster;
     private int duration;
 
-    public MovieInfo() {}
-
     public MovieInfo(MovieInfoDto movieInfoDto) {
         title = movieInfoDto.getTitle();
         category = movieInfoDto.getCategory();
@@ -40,6 +38,25 @@ public class MovieInfo {
         MPAA_rating = movieInfoDto.getMPAA_rating();
         linkToTrailer = movieInfoDto.getLinkToTrailer();
         linkToPoster = movieInfoDto.getLinkToPoster();
+    }
+    
+    // TODO - Constructor
+    public MovieInfo() {};
+
+    public MovieInfo(String title, String category, String cast, String director, String producer, String synopsis, String MPAA_rating, int duration) {
+        this.title = title;
+        this.category = category;
+        this.cast = cast;
+        this.director = director;
+        this.producer = producer;
+        this.synopsis = synopsis;
+        this.MPAA_rating = MPAA_rating;
+        this.duration = duration;
+    }
+
+    // temp constructor for demo use in CheckoutController
+    public MovieInfo(String title) {
+        this.title = title;
     }
 
     public int getId() {
