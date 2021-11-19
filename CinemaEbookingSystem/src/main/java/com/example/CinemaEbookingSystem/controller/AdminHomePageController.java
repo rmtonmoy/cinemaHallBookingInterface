@@ -55,7 +55,11 @@ public class AdminHomePageController {
     @GetMapping(path = "/manageMovies")
     public String showAllMovies(Model model){
         List<MovieInfo> MovieList = movieInfoService.getAllMovieInfo();
+        List<MovieInfo> listCurrentMovie = movieInfoService.listOfCurrentMovies();
+        List<MovieInfo> listComingSoonMovie = movieInfoService.listOfComingSoonMovies();
         model.addAttribute("something", "Cinema E-booking System");
+        model.addAttribute("listCurrentMovie",listCurrentMovie);
+        model.addAttribute("listComingSoonMovie",listComingSoonMovie);
         model.addAttribute("listMovie", MovieList);
         return "manageMovies";
     }

@@ -32,6 +32,7 @@
         <div class="alert alert-success">Opps! Movie not found</div>
     </div>
     <h3>Movies</h3>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal2">Add New Movie</button><br><br>
     <table class="table table-bordered table-striped">
         <thead>
         <tr style="background-color: #5bbfde">
@@ -47,7 +48,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="Movie : ${listMovie}">
+        <tr th:each="Movie : ${listCurrentMovie}">
             <td th:text = "${Movie.title}"></td>
             <td th:text = "${Movie.category}"></td>
             <td th:text = "${Movie.cast}"></td>
@@ -62,7 +63,37 @@
         </tr>
         </tbody>
     </table>
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal2">Add New Movie</button>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr style="background-color: #5bbfde">
+            <th>Title</th>
+            <th>Category</th>
+            <th>Cast</th>
+            <th>Director</th>
+            <th>Producer</th>
+            <th>Synopsis</th>
+            <th>MPAA_Rating</th>
+            <th>Duration</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="Movie : ${listComingSoonMovie}">
+            <td th:text = "${Movie.title}"></td>
+            <td th:text = "${Movie.category}"></td>
+            <td th:text = "${Movie.cast}"></td>
+            <td th:text = "${Movie.director}"></td>
+            <td th:text = "${Movie.producer}"></td>
+            <td th:text = "${Movie.synopsis}"></td>
+            <td th:text = "${Movie.MPAA_rating}"></td>
+            <td th:text = "${Movie.duration}"></td>
+            <td>
+                <a th:href="@{/scheduleMovie/{id}(id=${Movie.id})}" class="btn btn-primary">Schedule</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 
     <!-- Modal -->
     <div class="modal fade" id="formModal2" tabindex="-1" role="dialog"
