@@ -18,7 +18,6 @@ public class UserRegistrationDto {
 
     public UserRegistrationDto(){
         this.status = UserStatus.Inactive;
-        this.isRegisteredForPromo = false;
     }
 
     public UserRegistrationDto(String firstName, String lastName, String password, String email, String dob, boolean isRegisteredForPromo) {
@@ -68,6 +67,6 @@ public class UserRegistrationDto {
     public void setPassword(String password) {
         this.password = password;
     }
-    public boolean isRegisteredForPromo() { return isRegisteredForPromo; }
-    public void setRegisteredForPromo(boolean registeredForPromo) { isRegisteredForPromo = registeredForPromo; }
+    public boolean isIsRegisteredForPromo() { return isRegisteredForPromo; }
+    public void setIsRegisteredForPromo(boolean registeredForPromo) { isRegisteredForPromo = registeredForPromo; }
 }
