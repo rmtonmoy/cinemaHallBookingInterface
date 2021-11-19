@@ -23,6 +23,12 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>{
             nativeQuery = true)
     Customer findByEmail(String email);
 
+
+    @Query(
+            value = "SELECT * FROM customer WHERE is_registered_for_promo = '1'",
+            nativeQuery = true)
+    List<Customer> findCustomersByPromoRegistration();
+
     @Transactional
     @Modifying
     @Query(

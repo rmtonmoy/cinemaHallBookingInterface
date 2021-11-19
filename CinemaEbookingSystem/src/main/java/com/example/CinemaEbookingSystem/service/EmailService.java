@@ -27,4 +27,5 @@ public interface EmailService {
     boolean verifyCustomerRP(PasswordAndVerificationDto passwordAndVerificationDto);
     boolean confirmPassword(PasswordAndVerificationDto passwordAndVerificationDto);
     void resetPassword(PasswordAndVerificationDto passwordAndVerificationDto);
+
 }
