@@ -16,4 +16,7 @@ public interface MovieInfoService {
     boolean hasMovie(String title);
     MovieInfo findByTitle(String title);
     MovieInfo findById(int id);
+    boolean hasBeenScheduled(int id);
+    List<MovieInfo> listOfCurrentMovies();
+    List<MovieInfo> listOfComingSoonMovies();
 }
