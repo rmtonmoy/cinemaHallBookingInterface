@@ -22,11 +22,15 @@
         </ol>
 
         <!-- Wrapper for slides -->
-        <div class="carousel-inner">
+        <div class="carousel-inner" >
             <div class="item active">
-                <iframe width=100% height="800" src="https://www.youtube.com/embed/-FZ-pPFAjYY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width=100% height="800" src="https://www.youtube.com/embed/8g18jFHCLXk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </a>
             </div>
-
+            <div class="item" th:each="Movie : ${listCurrentMovie}">
+                <iframe width=100% height="800" th:src=${Movie.linkToTrailer} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+<!--
             <div class="item">
                 <iframe width=100% height="800" src="https://www.youtube.com/embed/8g18jFHCLXk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </a>
@@ -44,7 +48,7 @@
                 <iframe width=100% height="800" src="https://www.youtube.com/embed/8YjFbMbfXaQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
-
+-->
         <!-- Left and right controls -->
         <a class="left carousel-control" href="#trailerCarousel" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left"></span>
@@ -60,7 +64,12 @@
     </h2>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-4" th:each="Movie : ${listCurrentMovie}">
+                <img th:src=${Movie.linkToPoster} th:alt=${Movie.title} style="width:100%;">
+                <a href="book" class="btn btn-info" role="button">Book movie</a>
+            </div>
+              <!--
+                <div class="col-sm-4">
                 <img src="https://i.ytimg.com/vi/AY2RzayWqC8/maxresdefault.jpg" alt="batman trailer" style="width:100%;">
                 <a href="book" class="btn btn-info" role="button">Book movie</a>
             </div>
@@ -71,7 +80,7 @@
             <div class="col-sm-4">
                 <img src="https://bgr.com/wp-content/uploads/2021/05/VENOM_-LET-THERE-BE-CARNAGE-Official-Trailer-HD-2-38-screenshot.jpg?quality=70&strip=all" alt="venom trailer" style="width:100%;">
                 <a href="book" class="btn btn-info" role="button">Book movie</a>
-            </div>
+            </div>-->
         </div>
     </div>
     <h3>
@@ -79,7 +88,12 @@
     </h3>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-4" th:each="Movie : ${listComingSoonMovie}">
+                <img th:src=${Movie.linkToPoster} th:alt=${Movie.title} style="width:100%;">
+                <a href="book" class="btn btn-info" role="button">Book movie</a>
+            </div>
+
+            <!--<div class="col-sm-4">
                 <img src="https://i.ytimg.com/vi/cttnRmcr_ME/maxresdefault.jpg" alt="free guy trailer" style="width:100%;">
             </div>
             <div class="col-sm-4">
@@ -87,7 +101,7 @@
             </div>
             <div class="col-sm-4">
                 <img src="https://image.tmdb.org/t/p/original/wR8ejQR5zhal9UEARNbYR8yQnuL.jpg" alt="shang chi trailer" style="width:100%;">
-            </div>
+            </div>-->
         </div>
     </div>
     <h3></h3>

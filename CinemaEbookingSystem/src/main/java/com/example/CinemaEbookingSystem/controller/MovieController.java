@@ -41,6 +41,8 @@ public class MovieController {
         model.addAttribute("something", "Cinema E-booking System");
         model.addAttribute("userName", session.getAttribute("name"));
         model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("listCurrentMovie", movieInfoService.listOfCurrentMovies());
+        model.addAttribute("listComingSoonMovie", movieInfoService.listOfComingSoonMovies());
         return "home";
     }
 
