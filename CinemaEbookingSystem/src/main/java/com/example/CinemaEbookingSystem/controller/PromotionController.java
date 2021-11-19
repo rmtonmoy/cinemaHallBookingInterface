@@ -48,6 +48,20 @@ public class PromotionController {
         return "dummy";
     }
 
+
+    @GetMapping(path = "/performDeleteOperation/{id}")
+    public String performDeleteOperation(@PathVariable (value = "id") long id, Model model){
+        Promotion promotion = promotionService.getPromoById(id);
+        promotionService.deletePromotion(promotion);
+        return "dummyPrime";
+    }
+
+    @GetMapping(path = "/dummyPrime")
+    public String dummyPrime(){
+        return "managePromo";
+    }
+
+
     @GetMapping(path = "/dummy")
     public String dummy(){
         return "managePromo";

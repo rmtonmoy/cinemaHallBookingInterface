@@ -23,4 +23,6 @@ public interface PromotionService {
     Promotion getPromoById(long id);
 
     void updatePromotion(Promotion promotion);
+
+    void deletePromotion(Promotion promotion);
 }

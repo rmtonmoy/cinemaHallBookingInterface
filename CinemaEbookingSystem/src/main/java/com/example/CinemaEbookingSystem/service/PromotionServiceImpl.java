@@ -80,4 +80,9 @@ public class PromotionServiceImpl implements PromotionService {
         this.promotionRepository.save(promotion);
     }
 
+    @Override
+    public void deletePromotion(Promotion promotion) {
+        promotionRepository.delete(promotion);
+    }
+
 }
