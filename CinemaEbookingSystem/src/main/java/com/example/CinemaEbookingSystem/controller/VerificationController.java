@@ -1,5 +1,7 @@
 package com.example.CinemaEbookingSystem.controller;
 
+import com.example.CinemaEbookingSystem.dto.PasswordAndVerificationDto;
+import com.example.CinemaEbookingSystem.dto.PasswordDto;
 import com.example.CinemaEbookingSystem.dto.VerificationDto;
 import com.example.CinemaEbookingSystem.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,11 @@ public class VerificationController {
         return new VerificationDto();
     }
 
+    @ModelAttribute("resetPassword")
+    public PasswordAndVerificationDto passwordAndVerificationDto() {
+        return new PasswordAndVerificationDto();
+    }
+
     @GetMapping(path = "/verify")
     String verifyCustomer(Model model, HttpSession session)
     {
@@ -32,26 +39,53 @@ public class VerificationController {
     String verifyCustomer(@ModelAttribute("verifyUser") VerificationDto verificationDto, Model model)
     {
         if(emailService.verifyCustomer(verificationDto))
-            return "redirect:/verify?VerifiedCustomer";
+            return "redirect:/signin?VerifiedCustomer";
         else
             return "redirect:/verify?UnverifiedCustomer";
     }
+    // @PostMapping(path = "/verifyUserRP")
+    // String verifyCustomerRP(@ModelAttribute("verifyUser") VerificationDto verificationDto, Model model)
+    // {
+    //     if(emailService.verifyCustomer(verificationDto))
+    //         return "redirect:/resetPassword";
+    //     else
+    //         return "redirect:/verify?UnverifiedCustomer";
+    // }
 
-    @ModelAttribute("verifyUserRP")
-
-    @GetMapping(path = "/forgotPassword1")
-    String verifyCustomerRP(Model model, HttpSession session)
+    @GetMapping(path = "/sendVerificationCode")
+    String sendVC(Model model, HttpSession session)
     {
-        model.addAttribute("something", "Cinema E-booking System");
-        return "forgotPassword";
+        return "sendVerificationCode";
     }
-    @PostMapping(path = "/forgotPassword1")
-    String verifyCustomerRP(@ModelAttribute("verifyUserRP") VerificationDto verificationDto, Model model)
+    @PostMapping(path = "/sendVerificationCode")
+    String sendVC(@ModelAttribute("verifyUser") VerificationDto verificationDto, Model model)
     {
         if(emailService.sendEmailRP(verificationDto.getEmail()))
-            return "redirect:/forgotPassword2";
+            return "redirect:/resetPassword";
         else
-            return "redirect:/forgotPassword1?WrongEmail";
+            return "redirect:/sendVerificationCode?WrongEmail";
+    }
+
+    @GetMapping(path = "/resetPassword")
+    String resetPassword(Model model, HttpSession session)
+    {
+        return "resetPassword";
+    }
+    @PostMapping(path = "/resetPassword") 
+    String resetPassword(@ModelAttribute("resetPassword") PasswordAndVerificationDto passwordAndVerificationDto, Model model) 
+    {
+        // System.out.println(passwordAndVerificationDto.getEmail());
+        // System.out.println(passwordAndVerificationDto.getVcode());
+        // System.out.println(passwordAndVerificationDto.getNewPassword());
+        // System.out.println(passwordAndVerificationDto.getConfirmPassword());
+        if (!emailService.verifyCustomerRP(passwordAndVerificationDto)) {
+            return "redirect:/resetPassword?UnverifiedCustomer";
+        } else if (!emailService.confirmPassword(passwordAndVerificationDto)) {
+            return "redirect:/resetPassword?PasswordsDoNotMatch";
+        } else {
+            emailService.resetPassword(passwordAndVerificationDto);
+            return "redirect:/signin?Success";
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.CinemaEbookingSystem.service;
 
+import com.example.CinemaEbookingSystem.dto.PasswordAndVerificationDto;
 import com.example.CinemaEbookingSystem.dto.VerificationDto;
 import com.example.CinemaEbookingSystem.model.Promotion;
 import com.example.CinemaEbookingSystem.model.User;
@@ -22,4 +23,8 @@ public interface EmailService {
     boolean verifyCustomer(VerificationDto verificationDto);
     public void sendPromotionalEmail(String toEmail, Promotion promotion);
     boolean sendEmailRP(String toEmail);
+    String createVerificationCode2(String email);
+    boolean verifyCustomerRP(PasswordAndVerificationDto passwordAndVerificationDto);
+    boolean confirmPassword(PasswordAndVerificationDto passwordAndVerificationDto);
+    void resetPassword(PasswordAndVerificationDto passwordAndVerificationDto);
 }

@@ -1,5 +1,6 @@
 package com.example.CinemaEbookingSystem.service;
 
+import com.example.CinemaEbookingSystem.dto.PasswordAndVerificationDto;
 import com.example.CinemaEbookingSystem.dto.VerificationDto;
 import com.example.CinemaEbookingSystem.model.Customer;
 import com.example.CinemaEbookingSystem.model.Promotion;
@@ -16,6 +17,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Properties;
 
 @Service
@@ -43,8 +45,6 @@ public class EmailServiceImpl implements EmailService {
 
         System.out.println("Mail sent successfully\n");
     }
-
-
 
     public String createVerificationCode(String email) {
         String shortPassword = email.substring(0, 5);
@@ -121,4 +121,28 @@ public class EmailServiceImpl implements EmailService {
         return verificationCode;
     }
 
+    public boolean verifyCustomerRP(PasswordAndVerificationDto passwordAndVerificationDto)
+    {
+        String email = passwordAndVerificationDto.getEmail();
+        String vcode = passwordAndVerificationDto.getVcode();
+        if(vcode.equals(createVerificationCode2(email))){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean confirmPassword(PasswordAndVerificationDto passwordAndVerificationDto) {
+        if (passwordAndVerificationDto.getNewPassword().equals(passwordAndVerificationDto.getConfirmPassword())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void resetPassword(PasswordAndVerificationDto passwordAndVerificationDto) {
+        Customer customer = customerRepository.findByEmail(passwordAndVerificationDto.getEmail());
+        customer.setPassword(Base64.getEncoder().encodeToString(passwordAndVerificationDto.getNewPassword().getBytes()));
+    }
 }
