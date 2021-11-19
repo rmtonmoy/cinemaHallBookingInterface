@@ -43,14 +43,6 @@ public class VerificationController {
         else
             return "redirect:/verify?UnverifiedCustomer";
     }
-    // @PostMapping(path = "/verifyUserRP")
-    // String verifyCustomerRP(@ModelAttribute("verifyUser") VerificationDto verificationDto, Model model)
-    // {
-    //     if(emailService.verifyCustomer(verificationDto))
-    //         return "redirect:/resetPassword";
-    //     else
-    //         return "redirect:/verify?UnverifiedCustomer";
-    // }
 
     @GetMapping(path = "/sendVerificationCode")
     String sendVC(Model model, HttpSession session)
@@ -74,10 +66,6 @@ public class VerificationController {
     @PostMapping(path = "/resetPassword") 
     String resetPassword(@ModelAttribute("resetPassword") PasswordAndVerificationDto passwordAndVerificationDto, Model model) 
     {
-        // System.out.println(passwordAndVerificationDto.getEmail());
-        // System.out.println(passwordAndVerificationDto.getVcode());
-        // System.out.println(passwordAndVerificationDto.getNewPassword());
-        // System.out.println(passwordAndVerificationDto.getConfirmPassword());
         if (!emailService.verifyCustomerRP(passwordAndVerificationDto)) {
             return "redirect:/resetPassword?UnverifiedCustomer";
         } else if (!emailService.confirmPassword(passwordAndVerificationDto)) {
