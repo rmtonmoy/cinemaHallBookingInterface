@@ -6,11 +6,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 <h1 th:text="${something}"></h1>
 <nav th:replace="fragments/header"></nav>
-    <div>
+    <h1 style="text-align: center">Schedule Movie</h1>
+    <div style=" margin: auto;width: 40%;padding: 20px; background-color: rgba(126, 169, 242, 0.5);">
         <form th:action="@{/scheduleMovie}" method="post" th:object="${schedulerDto}" id="scheduleMovieForm">
             <div class="form-group">
                 <label for="title">Title</label>
@@ -23,23 +25,23 @@
                        id="date"/>
             </div>
             <div class="form-group">
-                <label for="tid">Date</label>
+                <label for="tid">Theater ID</label>
                 <input type="text" class="form-control" th:field="${schedulerDto.theaterId}"
                        id="tid"/>
             </div>
 
-            <div class="form-group">
-                <span><label for="startTimehr">Start Time</label>
+            <div class="form-group form-inline">
+                <label for="startTimehr">Start Time</label>
                 <input type="text" class="form-control" th:field="${schedulerDto.StartTimeHr}"
-                       id="startTimehr"/></span>
-                <span><label for="startTimemin"> : </label>
+                       id="startTimehr"/>
+                <label for="startTimemin"> : </label>
                     <input type="text" class="form-control" th:field="${schedulerDto.StartTimeMin}"
                              id="startTimemin"/>
-                </span>
-                <span><label for="ampm"> AM/PM </label>
+            </div>
+            <div class="form-group">
+                <label for="ampm"> AM / PM </label>
                     <input type="text" class="form-control" th:field="${schedulerDto.AmPm}"
                            id="ampm"/>
-                </span>
             </div>
             <button type="submit" class="btn btn-primary">
                 Save changes

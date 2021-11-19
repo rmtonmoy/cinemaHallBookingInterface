@@ -18,6 +18,7 @@
 <body>
 <h1 th:text="${something}"></h1>
 <nav th:replace="fragments/header"></nav>
+<div style=" margin: auto;width: 40%;padding: 20px; background-color: rgba(126, 169, 242, 0.5);">
 <form th:action="@{/updatePromo}" method="post" th:object="${updatepromotion}" id="addNewPromoForm">
     <input type="hidden" th:field="${updatepromotion.id}" />
     <div class="form-group">
@@ -49,5 +50,6 @@
         Save changes
     </button>
 </form>
+</div>
 </body>
 </html>
