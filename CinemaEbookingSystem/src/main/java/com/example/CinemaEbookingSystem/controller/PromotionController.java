@@ -24,11 +24,53 @@ public class PromotionController {
     @GetMapping(path = "/managePromo")
     public String showAllPromo(Model model){
 
-        model.addAttribute("listPromo", promotionService.getAllPromotions());
+        model.addAttribute("ListUnsentPromo", promotionService.getUnsentPromotions());
+        model.addAttribute("ListSentPromo", promotionService.getSentPromotions());
 
         List<Promotion> promotionList = promotionService.getAllPromotions();
 
         return "managePromo";
+    }
+
+    @GetMapping(path = "/showFormForUpdate/{id}")
+    public String showFormForUpdate(@PathVariable (value = "id") long id, Model model){
+        Promotion promotion = promotionService.getPromoById(id);
+        model.addAttribute("updatepromotion", promotion);
+        return "updatePromotion";
+    }
+
+    @GetMapping(path = "/sendPromoToUsers/{id}")
+    public String sendPromoToUsers(@PathVariable (value = "id") long id, Model model){
+        Promotion promotion = promotionService.getPromoById(id);
+        promotionService.sendPromoEmail(promotion);
+        model.addAttribute("ListUnsentPromo", promotionService.getUnsentPromotions());
+        model.addAttribute("ListSentPromo", promotionService.getSentPromotions());
+        return "dummy";
+    }
+
+
+    @GetMapping(path = "/performDeleteOperation/{id}")
+    public String performDeleteOperation(@PathVariable (value = "id") long id, Model model){
+        Promotion promotion = promotionService.getPromoById(id);
+        promotionService.deletePromotion(promotion);
+        return "dummyPrime";
+    }
+
+    @GetMapping(path = "/dummyPrime")
+    public String dummyPrime(){
+        return "managePromo";
+    }
+
+
+    @GetMapping(path = "/dummy")
+    public String dummy(){
+        return "managePromo";
+    }
+
+    @PostMapping(path = "/updatePromo")
+    public String savePromo(@ModelAttribute("updatepromotion") Promotion promotion){
+        promotionService.updatePromotion(promotion);
+        return "redirect:/managePromo";
     }
 
     @PostMapping(path = "/managePromo")

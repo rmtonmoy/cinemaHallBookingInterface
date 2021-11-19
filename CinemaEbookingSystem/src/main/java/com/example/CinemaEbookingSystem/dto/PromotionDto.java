@@ -1,6 +1,7 @@
 package com.example.CinemaEbookingSystem.dto;
 
 public class PromotionDto {
+    private long id;
     private String description;
     private int discountAmount;
     private String imageUrl;
@@ -16,6 +17,14 @@ public class PromotionDto {
         this.imageUrl = imageUrl;
         this.promoCode = promoCode;
         this.title = title;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getDescription() {

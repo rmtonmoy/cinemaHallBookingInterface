@@ -15,6 +15,7 @@ public class Promotion {
     private String promoCode;
     private int discountAmount;
     private String imageUrl;
+    private boolean isSent;
     private boolean active;
 
     public Promotion(){
@@ -27,6 +28,7 @@ public class Promotion {
         this.promoCode = promoCode;
         this.discountAmount = discountAmount;
         this.active = true;
+        this.isSent = false;
     }
     public Promotion(String description, int discountAmount, String imageUrl, String promoCode, String title) {
         this.promoDescription = description;
@@ -35,8 +37,16 @@ public class Promotion {
         this.promoCode = promoCode;
         this.promoTitle = title;
         this.active = true;
+        this.isSent = false;
     }
 
+    public boolean isIsSent() {
+        return isSent;
+    }
+
+    public void setIsSent(boolean sent) {
+        isSent = sent;
+    }
 
     public String getPromoTitle() {
         return promoTitle;

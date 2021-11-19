@@ -8,10 +8,21 @@ import java.util.List;
 @Component
 public interface PromotionService {
 
-    public void sendPromoEmail(String toMail, Promotion promotion);
+    public boolean sendPromoEmail(Promotion promotion);
+
     public void discontinuePromo(Promotion promotion);
 
     List<Promotion> getAllPromotions();
+
+    List<Promotion> getUnsentPromotions();
+
+    List<Promotion> getSentPromotions();
+
     void savePromotion(PromotionDto promotiondto);
 
+    Promotion getPromoById(long id);
+
+    void updatePromotion(Promotion promotion);
+
+    void deletePromotion(Promotion promotion);
 }

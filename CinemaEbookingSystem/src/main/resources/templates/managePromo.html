@@ -20,6 +20,10 @@
 <nav th:replace="fragments/header"></nav>
 <div class="table _container">
 
+    <div th:if="${param.EmailSent}">
+        <div class="alert alert-success">Email is successfully sent.</div>
+    </div>
+
     <h3>Offers and Promotions</h3>
     <table class="table table-bordered table-striped">
         <thead>
@@ -31,16 +35,43 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="Promo : ${listPromo}">
+        <tr th:each="Promo : ${ListUnsentPromo}">
             <td th:text = "${Promo.PromoTitle}"></td>
             <td th:text = "${Promo.PromoDescription}"></td>
             <td><img th:src= "${Promo.imageUrl}" width="128" height="128"></td>
             <td>
+                <a th:href="@{/sendPromoToUsers/{id}(id=${Promo.id})}" class="btn btn-primary">Send to Users</a>
+                <a th:href="@{/showFormForUpdate/{id}(id=${Promo.id})}" class="btn btn-primary">Edit</a>
+                <a th:href="@{/performDeleteOperation/{id}(id=${Promo.id})}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         </tbody>
+    </table>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal2">Add New Promotions</button>
+    <h3>Sent Promotions</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr style="background-color: #5bbfde">
+            <th>Title</th>
+            <th>Description</th>
+            <th>Promotion Cover</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="Promo : ${ListSentPromo}">
+            <td th:text = "${Promo.PromoTitle}"></td>
+            <td th:text = "${Promo.PromoDescription}"></td>
+            <td><img th:src= "${Promo.imageUrl}" width="128" height="128"></td>
+            <td>
+                <a th:href="@{/showFormForUpdate/{id}(id=${Promo.id})}" class="btn btn-primary">Send to Users</a>
+                <a th:href="@{/performDeleteOperation/{id}(id=${Promo.id})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-        <!--        <tbody>-->
+    <!--        <tbody>-->
         <!--        <tr>-->
         <!--            <td>$5 Tuesdays</td>-->
         <!--            <td>Save EVERY WEEK on tickets to Tuesday showtimes!</td>-->
@@ -56,9 +87,7 @@
         <!--            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal2">Edit</button><button type="button" class="btn btn-danger"data-toggle="modal" data-target="#deleteModal">Delete</button></td>-->
         <!--        </tr>-->
         <!--        </tbody>-->
-    </table>
 
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal2">Add New Promotions</button>
 
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
