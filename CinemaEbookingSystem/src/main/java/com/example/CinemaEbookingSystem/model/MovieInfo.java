@@ -1,5 +1,7 @@
 package com.example.CinemaEbookingSystem.model;
 
+import com.example.CinemaEbookingSystem.dto.MovieInfoDto;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,34 +10,36 @@ import java.util.List;
 public class MovieInfo {
 
     @Id
-    @GeneratedValue( strategy=GenerationType.AUTO )
+    @GeneratedValue( strategy=GenerationType.IDENTITY )
     private int id;
-
+    
     private String title;
-
     private String category;
 
     @OneToMany( mappedBy = "movie")
     private List<Review> reviewlist = new ArrayList<>();
 
     private String cast;
-
     private String director;
-
     private String producer;
-
     private String synopsis;
-
     private String MPAA_rating;
-
+    private String linkToTrailer;
+    private String linkToPoster;
     private int duration;
-    
-    // TODO - Constructor
-    public MovieInfo() {};
-    
-    // temp constructor for demo use in CheckoutController
-    public MovieInfo(String title) {
-        this.title = title;
+
+    public MovieInfo() {}
+
+    public MovieInfo(MovieInfoDto movieInfoDto) {
+        title = movieInfoDto.getTitle();
+        category = movieInfoDto.getCategory();
+        cast = movieInfoDto.getCast();
+        director = movieInfoDto.getDirector();
+        producer = movieInfoDto.getProducer();
+        synopsis = movieInfoDto.getSynopsis();
+        MPAA_rating = movieInfoDto.getMPAA_rating();
+        linkToTrailer = movieInfoDto.getLinkToTrailer();
+        linkToPoster = movieInfoDto.getLinkToPoster();
     }
 
     public int getId() {
@@ -108,6 +112,14 @@ public class MovieInfo {
 
     public void setMPAA_rating(String MPAA_rating) {
         this.MPAA_rating = MPAA_rating;
+    }
+    
+    public String getLinkToTrailer() {
+        return linkToTrailer;
+    }
+    
+    public String getLinkToPoster() {
+        return linkToPoster;
     }
 
     public int getDuration() {

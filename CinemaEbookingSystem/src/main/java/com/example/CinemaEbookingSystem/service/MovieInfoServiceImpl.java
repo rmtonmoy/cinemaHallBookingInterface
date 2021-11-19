@@ -1,5 +1,6 @@
 package com.example.CinemaEbookingSystem.service;
 
+import com.example.CinemaEbookingSystem.dto.MovieInfoDto;
 import com.example.CinemaEbookingSystem.model.MovieInfo;
 import com.example.CinemaEbookingSystem.repository.MovieInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class MovieInfoServiceImpl implements MovieInfoService{
     {
         this.MovieInfoRepository.save(movieInfo);
     }
+    
+    @Override
+    public List<String> getCategories() {
+        return MovieInfoRepository.getCategories();
+    }
 
     @Override
     public boolean hasMovie(String title){
@@ -44,5 +50,10 @@ public class MovieInfoServiceImpl implements MovieInfoService{
             }
         }
         return null;
+    }
+    
+    @Override
+    public MovieInfo findById(int id) {
+        return MovieInfoRepository.getMovieById(id);
     }
 }

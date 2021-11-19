@@ -54,4 +54,15 @@ public class ShowTime {
     public void setStartingTime(int startingTime) {
         this.startingTime = startingTime;
     }
+    
+    public String getStartingTimeString() {
+        int     hour = startingTime / 60;
+        int     min  = startingTime % 60;
+        boolean pm   = false;
+        if (hour >= 12) {
+            hour -= 12;
+            pm    = true;
+        }
+        return "" + hour + ":" + (min < 10 ? "0" : "") + min + " " + (pm ? "PM" : "AM");
+    }
 }

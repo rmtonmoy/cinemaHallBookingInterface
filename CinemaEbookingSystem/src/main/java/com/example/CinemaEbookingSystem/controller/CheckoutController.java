@@ -28,12 +28,8 @@ public class CheckoutController {
     
     @GetMapping(path = "/book")
     String getBook(Model model, HttpSession session) {
-        List<MovieInfo> movies = Arrays.asList( // TODO: Read from some external file for the list of movies
-            new MovieInfo("Batman"),
-            new MovieInfo("Dune"),
-            new MovieInfo("Venom"),
-            new MovieInfo("Free Guy"),
-            new MovieInfo("Shang-Chi")
+        List<MovieInfo> movies = Arrays.asList(
+            // TODO: Read from some external file for the list of movies
         );
         model.addAttribute("movies", movies);
         

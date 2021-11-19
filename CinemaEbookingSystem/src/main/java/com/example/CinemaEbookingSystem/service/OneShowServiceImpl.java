@@ -49,4 +49,13 @@ public class OneShowServiceImpl implements OneShowService{
         oneShowRepository.save(oneShow);
         return oneShow;
     }
+    
+    @Override
+    public List<OneShow> getAllShowsForMovie(int movieId) {
+        List<OneShow> shows = oneShowRepository.findAll();
+        shows.removeIf(show -> {
+            return show.getMovieInfo().getId() != movieId;
+        });
+        return shows;
+    }
 }

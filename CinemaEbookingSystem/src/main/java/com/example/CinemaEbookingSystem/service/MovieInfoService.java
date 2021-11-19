@@ -10,6 +10,8 @@ import java.util.List;
 public interface MovieInfoService {
     List<MovieInfo> getAllMovieInfo();
     void SaveMovieInfo(MovieInfo movieInfo);
+    List<String> getCategories();
     boolean hasMovie(String title);
     MovieInfo findByTitle(String title);
+    MovieInfo findById(int id);
 }

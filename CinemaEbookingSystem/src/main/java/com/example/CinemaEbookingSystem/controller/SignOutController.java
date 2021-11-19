@@ -14,6 +14,6 @@ public class SignOutController {
     @GetMapping(path = "/logout")
     String logout(Model model, HttpServletRequest request){
         request.getSession().removeAttribute("email");
-        return "movie";
+        return "home";
     }
 }
