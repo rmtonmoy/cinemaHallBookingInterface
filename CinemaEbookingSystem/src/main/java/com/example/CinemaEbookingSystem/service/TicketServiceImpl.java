@@ -30,6 +30,10 @@ public class TicketServiceImpl implements TicketService {
                 continue;
             }
 
+            if(ticket.getShow().getTheater().getId() != oneShow.getTheater().getId()){
+                continue;
+            }
+
             int startA = (ticket.getShow()).getShowTime().getStartingTime();
             int endA = startA + ticket.getShow().getMovieInfo().getDuration();
 
