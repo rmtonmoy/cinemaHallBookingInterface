@@ -23,6 +23,14 @@
     <div th:if="${param.SchedulerSuccess}">
         <div class="alert alert-success">Successfully scheduled the movie!</div>
     </div>
+
+    <div th:if="${param.TimeConflict}">
+        <div class="alert alert-success">Opps! Time conflicts! Could not schedule.</div>
+    </div>
+
+    <div th:if="${param.MovieNotFound}">
+        <div class="alert alert-success">Opps! Movie not found</div>
+    </div>
     <h3>Movies</h3>
     <table class="table table-bordered table-striped">
         <thead>

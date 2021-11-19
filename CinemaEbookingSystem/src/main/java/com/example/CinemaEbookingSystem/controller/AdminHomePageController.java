@@ -68,9 +68,6 @@ public class AdminHomePageController {
 
     @GetMapping(path = "/scheduleMovie/{id}")
     public String scheduleMovie(Model model){
-
-
-
         return "scheduleMovie";
     }
 
@@ -79,10 +76,26 @@ public class AdminHomePageController {
     public SchedulerDto schedulerDto(){ return new SchedulerDto();}
 
     @PostMapping(path = "/scheduleMovie")
-    public String scheduleMovie(@ModelAttribute("schedulerDto") SchedulerDto schedulerDto){
+    public String scheduleMovie(Model model, @ModelAttribute("schedulerDto") SchedulerDto schedulerDto){
+        String date = schedulerDto.getDate();
+        long theaterId = schedulerDto.getTheaterId();
+        int startingAt = schedulerDto.getStartingTimeInMinutes();
+        String movieName = schedulerDto.getMovieTitle();
 
+        if(movieInfoService.hasMovie(movieName)){
+            OneShow oneShow = oneShowService.save(date, theaterId, startingAt, movieName);
+            boolean canAdd = ticketService.addTickets(oneShow);
 
-        return "redirect:/manageMovies?SchedulerSuccess";
+            if(canAdd){
+                return "redirect:/manageMovies?SchedulerSuccess";
+            }
+            else{
+                return "redirect:/manageMovies?TimeConflict";
+            }
+        }
+        else{
+            return "redirect:/manageMovies?MovieNotFound";
+        }
     }
 
     @RequestMapping(value = "assignMovie", method = RequestMethod.GET)

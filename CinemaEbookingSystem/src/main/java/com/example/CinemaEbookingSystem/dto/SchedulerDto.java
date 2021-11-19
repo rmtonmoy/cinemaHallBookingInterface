@@ -11,6 +11,15 @@ public class SchedulerDto {
     public SchedulerDto() {
     }
 
+    public int getStartingTimeInMinutes(){
+        int startingTime = 0;
+        if(AmPm.equals("PM")){
+            startingTime += 12 * 60;
+        }
+        startingTime += StartTimeHr * 60 + StartTimeMin;
+        return startingTime;
+    }
+
     public SchedulerDto(String movieTitle, String date, int theaterId, int startTimeHr, int startTimeMin, String amPm) {
         this.movieTitle = movieTitle;
         this.date = date;
