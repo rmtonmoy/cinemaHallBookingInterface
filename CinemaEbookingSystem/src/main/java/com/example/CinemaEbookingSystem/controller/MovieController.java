@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.Arrays;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MovieController {
@@ -70,6 +71,24 @@ public class MovieController {
         return "orderSummary";
     }
     
+    @GetMapping(path = "/movie")
+    String getMovie(Model model, HttpSession session,
+        @RequestParam(name = "id", required = false) int id) {
+        model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("userName", session.getAttribute("name"));
+        
+        MovieInfo movie = movieInfoService.findById(id);
+        if (movie != null) {
+            model.addAttribute("movie", movie);
+            //String trailerLink = movie.getLinkToTrailer();
+            //model.addAttribute("youtubeId", trailerLink.substring(trailerLink.indexOf("v=") + 2));
+        } else {
+            return "redirect:/search";
+        }
+        
+        return "movie";
+    }
+    
     // =================================================================================================================
     // Search & filter
     
@@ -87,7 +106,7 @@ public class MovieController {
         List<MovieInfo> filtered = new ArrayList(); // ughhhh the memory inefficiencies!!!
         for (MovieInfo info : movies) {
             boolean include = true;
-            if (!(searchParams.title == null || searchParams.title.equals(""))) {
+            if (!(searchParams.title == null || searchParams.title.equals("") || searchParams.title.equals("*"))) {
                 if (!info.getTitle().toUpperCase().contains(searchParams.title.toUpperCase()))
                     include = false;
             }

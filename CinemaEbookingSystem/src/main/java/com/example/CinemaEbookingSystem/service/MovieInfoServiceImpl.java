@@ -51,4 +51,9 @@ public class MovieInfoServiceImpl implements MovieInfoService{
         }
         return null;
     }
+    
+    @Override
+    public MovieInfo findById(int id) {
+        return MovieInfoRepository.getMovieById(id);
+    }
 }

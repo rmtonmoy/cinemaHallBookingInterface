@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <title>Movie Details - Cinema E-Booking System</title>
+    <span th:replace="fragments/head"></span>
+    <style>
+        #poster {
+            float: left;
+            height: 45ch;
+            margin: 0px 2ch;
+        }
+    </style>
+</head>
+
+<body>
+    <nav th:replace="fragments/header"></nav>
+    <main class="container" role="main">
+        <img id="poster" th:src="${movie.linkToPoster}" />
+        <h1 th:text="${movie.title}"></h1>
+        <h3><span th:text="${movie.MPAA_rating}"></span> - <span th:text="${movie.category}"></span></h3>
+        
+        <h2>Synopsis</h2>
+        <p th:text="${movie.synopsis}"></p>
+        
+        <h2>Staff</h2>
+        <p><b>Director:</b> <span th:text="${movie.director}"></span></p>
+        <p><b>Producer:</b> <span th:text="${movie.producer}"></span></p>
+        <p><b>Main Cast:</b> <span th:text="${movie.cast}"></span></p>
+        
+        <h2>Trailer</h2>
+        <video controls>
+            <source th:src="${movie.linkToTrailer}" />
+        </video>
+        <hr/>
+        <h2>Reviews</h2> <!-- TODO: Load reviews for movie -->
+        <p>No reviews found.</p>
+    </main>
+</body>
+</html>

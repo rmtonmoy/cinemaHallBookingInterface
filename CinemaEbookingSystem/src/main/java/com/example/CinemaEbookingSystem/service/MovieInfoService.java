@@ -13,4 +13,5 @@ public interface MovieInfoService {
     List<String> getCategories();
     boolean hasMovie(String title);
     MovieInfo findByTitle(String title);
+    MovieInfo findById(int id);
 }
