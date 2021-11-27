@@ -86,6 +86,7 @@ public class TicketServiceImpl implements TicketService {
         return true;
     }
 
+    //Designed for users
     @Override
     public List<List<String>> generateSchedule() {
         List<List<String>> scheduleTable = new ArrayList<List<String>>();
