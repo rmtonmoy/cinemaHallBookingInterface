@@ -141,6 +141,18 @@ public class AdminHomePageController {
         return "adminHome";
     }
 
+    @GetMapping(path = "/seeSchedule")
+    String seeSchedule(Model model){
+        List<List<String>> scheduleTable = ticketService.generateSchedule();
+        model.addAttribute("scheduleTable", scheduleTable);
 
+        for(List<String> row : scheduleTable){
+            for(String entry: row){
+                System.out.println(entry + " - ");
+            }
+            System.out.println("");
+        }
+        return "seeSchedule";
+    }
 
 }
