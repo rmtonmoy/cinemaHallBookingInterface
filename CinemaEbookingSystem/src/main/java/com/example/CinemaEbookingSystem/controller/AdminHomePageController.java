@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -90,7 +91,7 @@ public class AdminHomePageController {
 
     @PostMapping(path = "/scheduleMovie")
     public String scheduleMovie(Model model, @ModelAttribute("schedulerDto") SchedulerDto schedulerDto){
-        String date = schedulerDto.getDate();
+        Date date = schedulerDto.getDate();
         long theaterId = schedulerDto.getTheaterId();
         int startingAt = schedulerDto.getStartingTimeInMinutes();
         String movieName = schedulerDto.getMovieTitle();
@@ -112,7 +113,7 @@ public class AdminHomePageController {
     }
 
     @RequestMapping(value = "assignMovie", method = RequestMethod.GET)
-    void assignMovie(Model model, @RequestParam("date") String date, @RequestParam("theaterId") long theaterId,
+    void assignMovie(Model model, @RequestParam("date") Date date, @RequestParam("theaterId") long theaterId,
                      @RequestParam("startingAt") int startingAt, @RequestParam("movieName") String movieName)
     {
         if(movieInfoService.hasMovie(movieName)){
