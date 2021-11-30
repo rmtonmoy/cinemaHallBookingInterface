@@ -136,10 +136,10 @@ public class MovieController {
                     include = false;
                 }
             }
-            if (searchParams.getDate() != null) {
+            if (searchParams.date != null) {
                 boolean hasShowing = false;
                 for (OneShow show : oneShowService.getAllShowsForMovie(info.getId())) {
-                    if (isSameDay(searchParams.getDate(), show.getShowTime().getDate())) {
+                    if (isSameDay(searchParams.date, show.getShowTime().getDate())) {
                         hasShowing = true;
                         break;
                     }

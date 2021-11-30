@@ -3,6 +3,7 @@ package com.example.CinemaEbookingSystem.dto;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class MovieSearchDto {
     
@@ -13,7 +14,9 @@ public class MovieSearchDto {
     public String title;
     public String cat; // category
     public String status;
-    public String date; // has to be string since it's delivered from the frontend as a string
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    public Date date; // has to be string since it's delivered from the frontend as a string
     
     // I cannot believe thymeleaf is forcing me to make some blasted one-line getter/setter pairs, jfc
     // I'm not coming within 500 trillion light years of this """""""""""software""""""""""" after this class
@@ -39,17 +42,9 @@ public class MovieSearchDto {
     }
     
     public Date getDate() {
-        if (date != null) {
-            try {
-                Date d = dateFormat.parse(date);
-                return d;
-            } catch(ParseException e) {
-                return null;
-            }
-        }
-        return null;
+        return date;
     }
-    public void setDate(String d) {
+    public void setDate(Date d) {
         date = d;
     }
     
