@@ -19,15 +19,15 @@ public class ShowTime {
     // 1 am     -> 60
     // 1:03 am  -> 63
     // 11:59 pm -> 1439 [ 24 * 60 - 1]
-    String Date;
+    Date date;
     int startingTime;
 
     public ShowTime(){
 
     }
 
-    public ShowTime(String date, int startingTime) {
-        Date = date;
+    public ShowTime(Date date, int startingTime) {
+        this.date = date;
         this.startingTime = startingTime;
     }
 
@@ -39,12 +39,12 @@ public class ShowTime {
         this.id = id;
     }
 
-    public String getDate() {
-        return Date;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDate(String date) {
-        Date = date;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public int getStartingTime() {
@@ -64,5 +64,9 @@ public class ShowTime {
             pm    = true;
         }
         return "" + hour + ":" + (min < 10 ? "0" : "") + min + " " + (pm ? "PM" : "AM");
+    }
+    
+    public String getDateString() {
+        return "" + (date.getMonth() + 1) + "/" + date.getDate();
     }
 }

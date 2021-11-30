@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="/book.js"></script>
     </head>
     
     <body>
@@ -17,29 +18,25 @@
                 <section>
                     <h2>Select Movie</h2>
                     <div th:each="movie : ${movies}"> <!-- this is div abuse :( -->
-                        <input type="radio" name="movie" th:value="${movie.title}">
+                        <input class="movieRadioBtn" type="radio" name="movie" th:data-movie="${movie.id}" th:value="${movie.title}">
                         <span th:text="${movie.title}"></span>
                     </div>
 
                     <div>
                         <h3>Select Day:</h3> <!-- Do this with JavaScript -->
                         <select name="showDate" id="showDate" class="form-control">
-                            <option value="Friday">Friday</option>
-                            <option value="Saturday">Saturday</option>
-                            <option value="Monday">Monday</option>
-                            <option value="Tuesday">Tuesday</option>
-                            <option value="Wednesday">Wednesday</option>
+                            <div th:each="movie : ${movies}">
+                                <option th:each="showing : ${OSS.getAllShowsForMovie(movie.id)}" th:text="${showing.getShowTime().getDateString()}" th:data-movie="${movie.id}"></option>
+                            </div>
                         </select>
                     </div>
 
                     <div>
                         <h3>Showing Time:</h3> <!-- Do this with JavaScript -->
                         <select name="showTime" id="showTime" class="form-control">
-                            <option value="1200P">12:00 PM</option>
-                            <option value="0230P">2:30 PM</option>
-                            <option value="0500P">5:00 PM</option>
-                            <option value="0730P">7:30 PM</option>
-                            <option value="1000P">10:00 PM</option>
+                            <div th:each="movie : ${movies}">
+                                <option th:each="showing : ${OSS.getAllShowsForMovie(movie.id)}" th:text="${showing.getShowTime().getStartingTimeString()}" th:data-movie="${movie.id}"></option>
+                            </div>
                         </select>
                     </div>
                 </section>
