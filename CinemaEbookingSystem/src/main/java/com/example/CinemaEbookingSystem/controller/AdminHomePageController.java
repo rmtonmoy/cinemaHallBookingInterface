@@ -78,10 +78,12 @@ public class AdminHomePageController {
     }
 
     @GetMapping(path = "/scheduleMovie/{id}")
-    public String scheduleMovie(Model model,HttpSession session){
+    public String scheduleMovie(@PathVariable (value = "id") int id, Model model,HttpSession session){
 
         model.addAttribute("userName", session.getAttribute("name"));
         model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("oneShowList", ticketService.generateSchedule(id));
+        model.addAttribute("movieTitle", movieInfoService.findById(id).getTitle());
         return "scheduleMovie";
     }
 

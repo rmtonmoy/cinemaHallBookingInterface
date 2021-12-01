@@ -1,6 +1,7 @@
 package com.example.CinemaEbookingSystem.service;
 
 import com.example.CinemaEbookingSystem.model.*;
+import com.example.CinemaEbookingSystem.repository.OneShowRepository;
 import com.example.CinemaEbookingSystem.repository.TicketRepository;
 import org.apache.tomcat.jni.Local;
 import org.hibernate.dialect.Ingres9Dialect;
@@ -16,6 +17,12 @@ public class TicketServiceImpl implements TicketService {
 
     @Autowired
     TicketRepository ticketRepository;
+
+    @Autowired
+    MovieInfoService movieInfoService;
+
+    @Autowired
+    OneShowRepository oneShowRepository;
 
     public boolean hasTimeConflict(OneShow oneShow){
         MovieInfo movieInfo = oneShow.getMovieInfo();
@@ -167,6 +174,25 @@ public class TicketServiceImpl implements TicketService {
             }
             scheduleTable.add(currentRow);
         }
+        return scheduleTable;
+    }
+
+    @Override
+    public List<String> generateSchedule(int id) {
+        MovieInfo movieInfo = movieInfoService.findById(id);
+        List<OneShow> oneShowList = oneShowRepository.findAll();
+        List<String> scheduleTable = new ArrayList<>();
+
+        for(OneShow oneShow : oneShowList){
+            if(oneShow.getMovieInfo() == movieInfo){
+                String entry =  oneShow.getShowTime().getDateStringWithYear() + " " +
+                                oneShow.getShowTime().getStartingTimeString() + " at theater " +
+                                oneShow.getTheater().getId();
+
+                scheduleTable.add(entry);
+            }
+        }
+        Collections.sort(scheduleTable);
         return scheduleTable;
     }
 }
