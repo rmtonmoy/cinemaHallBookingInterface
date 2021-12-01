@@ -106,7 +106,7 @@ public class TicketServiceImpl implements TicketService {
             for(Ticket ticket : ticketList){
                 OneShow oneShow = ticket.getShow();
                 ShowTime showTime = oneShow.getShowTime();
-                String date = showTime.getDate();
+                String date = showTime.getDate().toString();
                 if(date.equals(formatedDate)){
                     importantTimes.add(showTime.getStartingTime());
                 }
@@ -143,7 +143,7 @@ public class TicketServiceImpl implements TicketService {
                 for(Ticket ticket : ticketList){
                     OneShow oneShow = ticket.getShow();
                     ShowTime showTime = oneShow.getShowTime();
-                    String date = showTime.getDate();
+                    String date = showTime.getDate().toString();
                     if(date.equals(formatedDate) && showTime.getStartingTime() == particularStartingTime){
                         if(movieSet.contains(ticket.getShow().getMovieInfo().getTitle())){
                             continue;
