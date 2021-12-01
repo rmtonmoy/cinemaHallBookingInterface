@@ -69,4 +69,8 @@ public class ShowTime {
     public String getDateString() {
         return "" + (date.getMonth() + 1) + "/" + date.getDate();
     }
+
+    public String getDateStringWithYear(){
+        return (date.getMonth()+1) + "/" + date.getDate() + "/" + (date.getYear()+1900);
+    }
 }

@@ -11,7 +11,7 @@
 <body>
 <h1 th:text="${something}"></h1>
 <nav th:replace="fragments/header"></nav>
-    <h1 style="text-align: center">Schedule Movie</h1>
+    <h1 style="text-align: center">Schedule Movie <a href="#" th:text = "${movieTitle}"></a> </h1>
     <div style=" margin: auto;width: 40%;padding: 20px; background-color: rgba(126, 169, 242, 0.5);">
         <form th:action="@{/scheduleMovie}" method="post" th:object="${schedulerDto}" id="scheduleMovieForm">
             <div class="form-group">
@@ -46,6 +46,25 @@
             <button type="submit" class="btn btn-primary">
                 Save changes
             </button>
+
+            <!-- THE EXISTING SLOTS GO HERE -->
+
+            <br>
+            <br>
+
+            Currently <a href="#" th:text = "${movieTitle}"></a> is being shown in the following slots:
+
+
+            <table class="table table-borderless">
+                <tr th:each="value: ${oneShowList}">
+                        <div th:switch="${value}">
+                            <li>
+                            <input th:case="*" style="background-color:white" type = "text" th:value="${value}" size = "50" readonly>
+                            </li>
+                        </div>
+                </tr>
+            </table><br>
+
         </form>
     </div>
 </body>

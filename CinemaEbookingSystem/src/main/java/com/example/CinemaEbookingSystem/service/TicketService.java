@@ -9,4 +9,5 @@ import java.util.List;
 public interface TicketService {
     boolean addTickets(OneShow oneShow);
     List<List<String>> generateSchedule();
+    List<String> generateSchedule(int id);
 }
