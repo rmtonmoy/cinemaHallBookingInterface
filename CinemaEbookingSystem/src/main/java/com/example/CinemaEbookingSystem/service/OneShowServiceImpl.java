@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,7 +31,7 @@ public class OneShowServiceImpl implements OneShowService{
         - Check the validity of theaterID
      */
     @Override
-    public OneShow save(String date, Long theaterId, int startingAt, String movieName) {
+    public OneShow save(Date date, Long theaterId, int startingAt, String movieName) {
         ShowTime showTime = showTimeService.saveIfNotFound(date, startingAt);
         MovieInfo movieInfo = movieInfoService.findByTitle(movieName);
         Theater theater = theaterService.findById(theaterId);

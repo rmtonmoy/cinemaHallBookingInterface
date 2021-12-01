@@ -5,6 +5,7 @@ package com.example.CinemaEbookingSystem.controller;
 
 import com.example.CinemaEbookingSystem.model.MovieInfo;
 import com.example.CinemaEbookingSystem.service.MovieInfoService;
+import com.example.CinemaEbookingSystem.service.OneShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,9 @@ import javax.servlet.http.HttpSession;
 public class CheckoutController {
     @Autowired
     MovieInfoService movieInfoService;
+    
+    @Autowired
+    OneShowService oneShowService;
 
     @GetMapping(path = "/checkout")
     String getCheckout(Model model, HttpSession session) {
@@ -34,6 +38,7 @@ public class CheckoutController {
     String getBook(Model model, HttpSession session) {
         List<MovieInfo> movies = movieInfoService.listOfCurrentMovies();
         model.addAttribute("movies", movies);
+        model.addAttribute("OSS", oneShowService);
         
         model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("userName", session.getAttribute("name"));

@@ -1,6 +1,5 @@
 package com.example.CinemaEbookingSystem.controller;
 
-import com.example.CinemaEbookingSystem.dto.PaymentCardDto;
 import javax.servlet.http.HttpSession;
 import com.example.CinemaEbookingSystem.model.PaymentCard;
 import com.example.CinemaEbookingSystem.model.Customer;
@@ -49,10 +48,18 @@ public class PaymentCardController {
         model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("userName", session.getAttribute("name"));
 
-        // Create model attribute to bind form data
-        PaymentCard paymentCard = new PaymentCard();
-        model.addAttribute("paymentCard", paymentCard);
-        return "New-Payment-Card";
+        long customerID = customerRepository.findCustomerId(session.getAttribute("email").toString());
+        Customer customer = customerService.getCustomerById(customerID);
+        List<PaymentCard> cardList = customer.getCardlist();
+
+        if (cardList.size() >= 3) {
+            return "redirect:/editPaymentInfo?LimitExceeded";
+        } else {
+            // Create model attribute to bind form data
+            PaymentCard paymentCard = new PaymentCard();
+            model.addAttribute("paymentCard", paymentCard);
+            return "New-Payment-Card";
+        }
     }
 
     @PostMapping(path = "/savePaymentCard")

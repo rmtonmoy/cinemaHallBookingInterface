@@ -1,8 +1,10 @@
 package com.example.CinemaEbookingSystem.dto;
 
+import java.util.Date;
+
 public class SchedulerDto {
     String movieTitle;
-    String date;
+    Date date;
     int theaterId;
     int StartTimeHr;
     int StartTimeMin;
@@ -20,7 +22,7 @@ public class SchedulerDto {
         return startingTime;
     }
 
-    public SchedulerDto(String movieTitle, String date, int theaterId, int startTimeHr, int startTimeMin, String amPm) {
+    public SchedulerDto(String movieTitle, Date date, int theaterId, int startTimeHr, int startTimeMin, String amPm) {
         this.movieTitle = movieTitle;
         this.date = date;
         this.theaterId = theaterId;
@@ -37,11 +39,11 @@ public class SchedulerDto {
         this.movieTitle = movieTitle;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

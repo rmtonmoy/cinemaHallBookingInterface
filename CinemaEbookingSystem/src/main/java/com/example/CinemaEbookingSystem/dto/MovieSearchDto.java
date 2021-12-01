@@ -1,12 +1,22 @@
 package com.example.CinemaEbookingSystem.dto;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class MovieSearchDto {
+    
+    private DateFormat dateFormat = DateFormat.getDateInstance();
     
     // If you make any of these private, I will be very angry
     // -James
     public String title;
     public String cat; // category
     public String status;
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    public Date date; // has to be string since it's delivered from the frontend as a string
     
     // I cannot believe thymeleaf is forcing me to make some blasted one-line getter/setter pairs, jfc
     // I'm not coming within 500 trillion light years of this """""""""""software""""""""""" after this class
@@ -29,6 +39,13 @@ public class MovieSearchDto {
     }
     public void setStatus(String s) {
         status = s;
+    }
+    
+    public Date getDate() {
+        return date;
+    }
+    public void setDate(Date d) {
+        date = d;
     }
     
 }

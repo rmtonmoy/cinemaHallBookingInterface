@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.CinemaEbookingSystem.model.Admin;
+import com.example.CinemaEbookingSystem.model.OneShow;
 import com.example.CinemaEbookingSystem.repository.AdminRepository;
 import com.example.CinemaEbookingSystem.service.OneShowService;
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.Arrays;
+import java.util.Date;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -99,6 +101,12 @@ public class MovieController {
     // =================================================================================================================
     // Search & filter
     
+    private boolean isSameDay(Date a, Date b) {
+        return a.getYear()  == b.getYear()
+            && a.getMonth() == b.getMonth()
+            && a.getDate()  == b.getDate();
+    }
+    
     @GetMapping(path = "/search")
     String getSearch(Model model, HttpSession session, @ModelAttribute("searchParams") MovieSearchDto searchParams) {
         model.addAttribute("email", session.getAttribute("email"));
@@ -125,6 +133,18 @@ public class MovieController {
                 if (searchParams.status.equals("showing") && oneShowService.getAllShowsForMovie(info.getId()).isEmpty()) {
                     include = false;
                 } else if (searchParams.status.equals("soon") && !oneShowService.getAllShowsForMovie(info.getId()).isEmpty()) {
+                    include = false;
+                }
+            }
+            if (searchParams.date != null) {
+                boolean hasShowing = false;
+                for (OneShow show : oneShowService.getAllShowsForMovie(info.getId())) {
+                    if (isSameDay(searchParams.date, show.getShowTime().getDate())) {
+                        hasShowing = true;
+                        break;
+                    }
+                }
+                if (!hasShowing) {
                     include = false;
                 }
             }
