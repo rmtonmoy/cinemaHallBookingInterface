@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Edit Profile - Cinema E-Booking System</title>
+  <title>Admin Edit Profile - Cinema E-Booking System</title>
   <span th:replace="fragments/head"></span>
   <style>
     .navbar {
@@ -18,12 +18,12 @@
       font-weight: bold;
     }
 
-    #sidebar {
-      margin-top: 1.5em;
+    #main {
+      margin-left: 13%;
     }
 
     #main h1{
-      margin-left: 1.5em;
+      margin-left: 2em;
     }
 
     #cancel {
@@ -40,25 +40,14 @@
 </head>
 
 <body>
-  <nav th:replace="fragments/header"></nav>
+  <nav th:replace="fragments/adminHeader"></nav>
 
   <div class="container-fluid">       
-    <div class="row">     
-      <div class="col-sm-3 col-md-2 sidebar" id="sidebar"> 
-        <div class="d-flex flex-column">
-          <ul class="nav nav-pills nav-stacked flex-column" role="tablist">
-            <li class="nav-link active"><a th:href="@{/editProfile}">Personal Info</a></li>
-            <li class="nav-link"><a th:href="@{/editPaymentInfo}">Payment Info</a></li>
-            <li class="nav-link"><a th:href="@{/orderHistory}">Order History</a></li>        
-          </ul>      
-        </div>       
-      </div>                       
-
+    <div class="row">                          
       <div class="col-sm-9 main" id="main">
         <h1><b>Edit Profile</b></h1><br><br>
-        <form th:action="@{/saveCustomerInfo}" th:object="${customer}" method="POST" class="form-horizontal">
+        <form th:action="@{/saveAdminInfo}" th:object="${admin}" method="POST" class="form-horizontal">
           <input type="hidden" th:field="*{id}">
-          <input type="hidden" th:field="*{status}">
           <input type="hidden" th:field="*{password}">
           <div class="form-group">
             <label class="control-label col-sm-2" for="fname">First name</label>
@@ -85,27 +74,20 @@
             </div>
           </div>
           <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-9">
-              <div class="checkbox">
-                <label><input type="checkbox"> Subscribe to receive promos</label>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <a class="col-sm-offset-2 col-sm-2" th:href="@{/editProfile/changePassword}">Change password</a>
+            <a class="col-sm-offset-2 col-sm-2" th:href="@{/adminHome/changePassword}">Change password</a>
           </div>
           <div class="form-group">        
             <div class="col-sm-offset-2 col-sm-10">
               <button type="submit" class="btn btn-default">Save Changes</button>
-              <a th:href="@{/editProfile}" id="cancel">Cancel</a>
+              <a th:href="@{/adminHome/editProfile}" id="cancel">Cancel</a>
             </div>
           </div>
         </form>
         <div th:if="${param.SuccessInfo}">
-          <div class="alert alert-success">Success! Your information has been updated</div>
+            <div class="alert alert-success">Success! Your information has been updated</div>
         </div>
         <div th:if="${param.SuccessPassword}">
-          <div class="alert alert-success">Success! Your password has been changed</div>
+            <div class="alert alert-success">Success! Your password has been changed</div>
         </div>
       </div> 
     </div> 

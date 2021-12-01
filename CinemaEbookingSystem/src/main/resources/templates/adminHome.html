@@ -27,7 +27,8 @@
     }
 
     #main h1 {
-      margin-left: 1.5em;
+      margin-left: 0.75em;
+      margin-bottom: 0.5em;
     }
 
     #main a, a:hover {
@@ -53,7 +54,7 @@
   </style>
 </head>
 <body>
-  <nav th:replace="fragments/header"></nav>
+  <nav th:replace="fragments/adminHeader"></nav>
 
   <div class="container-fluid">       
     <div class="row">     
@@ -70,7 +71,7 @@
       </div>                       
 
       <div class="col-sm-9 main" id="main">
-        <h1 th:text="${'Hi, ' + #strings.substring(userName, 0, #strings.indexOf(userName, ' '))}"></h1><br>
+        <h1><b>Admin Dashboard</b></h1><br>
         <a th:href="@{/manageMovies}">
           <div class="card">
             <img src="https://m.media-amazon.com/images/I/61hhkAf3LgL._AC_SL1000_.jpg" width="100%" height="175px">

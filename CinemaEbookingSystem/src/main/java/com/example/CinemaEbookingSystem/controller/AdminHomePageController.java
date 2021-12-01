@@ -3,9 +3,12 @@ package com.example.CinemaEbookingSystem.controller;
 import com.example.CinemaEbookingSystem.dto.MovieDto;
 import com.example.CinemaEbookingSystem.dto.TheaterDto;
 import com.example.CinemaEbookingSystem.dto.SchedulerDto;
+import com.example.CinemaEbookingSystem.dto.PasswordDto;
+import com.example.CinemaEbookingSystem.model.Admin;
 import com.example.CinemaEbookingSystem.model.MovieInfo;
 import com.example.CinemaEbookingSystem.model.OneShow;
 import com.example.CinemaEbookingSystem.model.Theater;
+import com.example.CinemaEbookingSystem.repository.AdminRepository;
 import com.example.CinemaEbookingSystem.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +35,9 @@ public class AdminHomePageController {
 
     @Autowired
     TheaterService theaterService;
+
+    @Autowired
+    AdminRepository adminRepository;
 
     @ModelAttribute("theaterDto")
     public TheaterDto theaterDto(){ return new TheaterDto();}
@@ -156,6 +162,34 @@ public class AdminHomePageController {
             System.out.println("");
         }
         return "seeSchedule";
+    }
+
+    @GetMapping(path = "/adminHome/editProfile")
+    public String adminEditProfile(Model model, HttpSession session) {
+        model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("userName", session.getAttribute("name"));
+        
+        Admin admin = adminRepository.findByEmail(session.getAttribute("email").toString());
+        
+        model.addAttribute("admin", admin);
+        return "adminEditProfile";
+    }
+
+    @PostMapping(path = "/saveAdminInfo")
+    public String saveAdminInfo(@ModelAttribute("admin") Admin admin) {
+       
+        // Save/update admin info in database
+        adminRepository.save(admin);
+        return "redirect:/adminHome/editProfile?SuccessInfo";
+    }
+
+    @GetMapping(path = "/adminHome/changePassword")
+    public String changePassword(Model model, HttpSession session) {
+        model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("userName", session.getAttribute("name"));
+        model.addAttribute("passwordDto", new PasswordDto());
+        
+        return "adminChangePassword";
     }
 
 }
