@@ -25,7 +25,10 @@ public class Ticket {
     @JoinColumn(name = "promotion_id")
     Promotion promotion;
 
-    boolean isBooked;
+    boolean isPurchased;
+    boolean isInCart;
+
+
 
     public Ticket(){
 
@@ -37,7 +40,42 @@ public class Ticket {
         this.ticketCn = ticketCn;
         this.typeOfTicket = typeOfTicket;
         this.promotion = promotion;
-        this.isBooked = isBooked;
+        this.isPurchased = isBooked;
+    }
+
+    public Ticket(Long id, OneShow oneShow, int ticketRn, int ticketCn, TypeOfTicket typeOfTicket, Promotion promotion, boolean isPurchased, boolean isInCart) {
+        this.id = id;
+        this.oneShow = oneShow;
+        this.ticketRn = ticketRn;
+        this.ticketCn = ticketCn;
+        this.typeOfTicket = typeOfTicket;
+        this.promotion = promotion;
+        this.isPurchased = isPurchased;
+        this.isInCart = isInCart;
+    }
+
+    public OneShow getOneShow() {
+        return oneShow;
+    }
+
+    public void setOneShow(OneShow oneShow) {
+        this.oneShow = oneShow;
+    }
+
+    public TypeOfTicket getTypeOfTicket() {
+        return typeOfTicket;
+    }
+
+    public void setTypeOfTicket(TypeOfTicket typeOfTicket) {
+        this.typeOfTicket = typeOfTicket;
+    }
+
+    public boolean isInCart() {
+        return isInCart;
+    }
+
+    public void setInCart(boolean inCart) {
+        isInCart = inCart;
     }
 
     public Long getId() {
@@ -88,11 +126,11 @@ public class Ticket {
         this.promotion = promotion;
     }
 
-    public boolean isBooked() {
-        return isBooked;
+    public boolean isPurchased() {
+        return isPurchased;
     }
 
-    public void setBooked(boolean booked) {
-        isBooked = booked;
+    public void setPurchased(boolean purchased) {
+        isPurchased = purchased;
     }
 }

@@ -3,13 +3,9 @@ package com.example.CinemaEbookingSystem.service;
 import com.example.CinemaEbookingSystem.model.*;
 import com.example.CinemaEbookingSystem.repository.OneShowRepository;
 import com.example.CinemaEbookingSystem.repository.TicketRepository;
-import org.apache.tomcat.jni.Local;
-import org.hibernate.dialect.Ingres9Dialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.CollationElementIterator;
-import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -66,7 +62,7 @@ public class TicketServiceImpl implements TicketService {
             for(int column = 1; column <= theater.getMaxC(); column++){
                 Ticket ticket = new Ticket();
                 ticket.setPromotion(null);
-                ticket.setBooked(false);
+                ticket.setPurchased(false);
                 ticket.setTicketType(null);
                 ticket.setTicketRn(row);
                 ticket.setTicketCn(column);
