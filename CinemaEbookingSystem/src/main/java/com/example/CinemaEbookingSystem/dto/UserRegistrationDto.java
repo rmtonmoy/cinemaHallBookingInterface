@@ -14,6 +14,7 @@ public class UserRegistrationDto {
     @Enumerated(EnumType.STRING)
     private UserStatus status= UserStatus.Inactive;
     private boolean isRegisteredForPromo;
+    private String vcode;
 
 
     public UserRegistrationDto(){
@@ -28,7 +29,7 @@ public class UserRegistrationDto {
         this.dob = dob;
         this.isRegisteredForPromo = isRegisteredForPromo;
     }
-    public UserRegistrationDto(String firstName, String lastName, String password, String email, String dob)
+    public UserRegistrationDto(String firstName, String lastName, String password, String email, String dob, String vcode)
     {
         super();
         this.firstName = firstName;
@@ -36,6 +37,7 @@ public class UserRegistrationDto {
         this.email = email;
         this.password = password;
         this.dob = dob;
+        this.vcode = vcode;
     }
 
     public UserStatus getStatus() {
@@ -76,4 +78,12 @@ public class UserRegistrationDto {
     }
     public boolean isIsRegisteredForPromo() { return isRegisteredForPromo; }
     public void setIsRegisteredForPromo(boolean registeredForPromo) { isRegisteredForPromo = registeredForPromo; }
+
+    public String getVcode() {
+        return vcode;
+    }
+
+    public void setVcode(String vcode) {
+        this.vcode = vcode;
+    }
 }

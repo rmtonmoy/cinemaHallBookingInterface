@@ -140,6 +140,19 @@ public class EmailServiceImpl implements EmailService {
 
         return verificationCode;
     }
+    @Override
+    public String createVerificationCodeForAdmin(String email) {
+        String shortEmail = "admin"+email.substring(0, 2);
+        String verificationCode = "";
+        StringBuilder sb = new StringBuilder();
+        char[] letters = shortEmail.toCharArray();
+        for (char ch : letters) {
+            sb.append((byte) ch);
+        }
+        verificationCode = sb.toString();
+
+        return verificationCode;
+    }
 
     public boolean verifyCustomerRP(PasswordAndVerificationDto passwordAndVerificationDto)
     {
@@ -169,7 +182,8 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public void sendAdminRequest(String email) {
         String subject = "Admin Invitation";
-        String body = " Please go to this link: http://localhost:8080/registerAsAdmin to register as admin for the Cinema E-booking System";
+        String body = " Please go to this link: http://localhost:8080/registerAsAdmin to register as admin for the Cinema E-booking System." +
+                "Your verification code is "+ createVerificationCodeForAdmin(email);
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("se.projectgroupc4@gmail.com");
         message.setTo(email);

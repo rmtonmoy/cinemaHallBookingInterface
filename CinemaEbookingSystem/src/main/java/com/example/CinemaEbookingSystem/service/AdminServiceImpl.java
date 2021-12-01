@@ -17,24 +17,31 @@ public class AdminServiceImpl implements AdminService{
     @Autowired
     AdminRepository adminRepository;
 
+    @Autowired
+    EmailService emailService;
+
     @Override
     public List<Admin> getAllAdmins() {
         return adminRepository.findAll();
     }
 
     @Override
-    public boolean save(UserRegistrationDto userRegistrationDto) {
+    public int save(UserRegistrationDto userRegistrationDto) {
         Admin foundAdmin = adminRepository.findByEmail(userRegistrationDto.getEmail());
         if(foundAdmin == null) {
-            Admin admin = new Admin(userRegistrationDto.getFirstName(), userRegistrationDto.getLastName(),
-                    userRegistrationDto.getPassword(), userRegistrationDto.getEmail(),
-                    userRegistrationDto.getDob());
+            if((emailService.createVerificationCodeForAdmin(userRegistrationDto.getEmail())).equals(userRegistrationDto.getVcode())) {
+                Admin admin = new Admin(userRegistrationDto.getFirstName(), userRegistrationDto.getLastName(),
+                        userRegistrationDto.getPassword(), userRegistrationDto.getEmail(),
+                        userRegistrationDto.getDob());
 
-            adminRepository.save(admin);
-            return true;
+                adminRepository.save(admin);
+                return 0;
+            }
+            else return 1;
+
         }
         else
-            return false;
+            return 2;
     }
 
 }

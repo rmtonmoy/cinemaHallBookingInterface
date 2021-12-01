@@ -10,5 +10,5 @@ import java.util.List;
 @Component
 public interface AdminService {
     List<Admin> getAllAdmins();
-    boolean save(UserRegistrationDto userRegistrationDto);
+    int save(UserRegistrationDto userRegistrationDto);
 }

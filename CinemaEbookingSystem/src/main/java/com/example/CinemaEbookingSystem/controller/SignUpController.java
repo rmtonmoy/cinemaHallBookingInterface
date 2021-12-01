@@ -109,14 +109,16 @@ public class SignUpController {
     @PostMapping(path = "/registerAsAdmin")
     public String registerAdminAccount(@ModelAttribute("admin") UserRegistrationDto registrationDto) {
 
-        boolean newAdmin = adminService.save(registrationDto);
-        if(newAdmin == true)
+        int newAdmin = adminService.save(registrationDto);
+        if(newAdmin == 0)
         {
             return "redirect:/registerAsAdmin?success";
         }
-        else
+        else if(newAdmin == 1)
         {
-            return "redirect:/registerAsAdmin?failure";
+            return "redirect:/registerAsAdmin?failure1";
         }
+        else
+            return "redirect:/registerAsAdmin?failure2";
     }
 }
