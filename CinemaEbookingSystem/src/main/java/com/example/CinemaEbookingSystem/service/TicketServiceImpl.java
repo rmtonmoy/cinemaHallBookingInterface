@@ -2,6 +2,7 @@ package com.example.CinemaEbookingSystem.service;
 
 import com.example.CinemaEbookingSystem.model.*;
 import com.example.CinemaEbookingSystem.repository.OneShowRepository;
+import com.example.CinemaEbookingSystem.repository.TicketPriceRepository;
 import com.example.CinemaEbookingSystem.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -191,4 +192,21 @@ public class TicketServiceImpl implements TicketService {
         Collections.sort(scheduleTable);
         return scheduleTable;
     }
+
+    @Autowired
+    TicketPriceRepository ticketPriceRepository;
+
+    @Override
+    public List<TicketPrice> allTicketPrice() {
+            return ticketPriceRepository.findAll();
+        }
+
+    @Override
+    public void savePrice(TypeOfTicket typeOfTicket, String price) {
+        TicketPrice ticketPrice = new TicketPrice(typeOfTicket,price);
+        //System.out.println("typeeeeeeeeeee "+ typeOfTicket);
+        //System.out.println("priceeeeeeeee " + price);
+        ticketPriceRepository.updatePrice(typeOfTicket.toString(),price);
+    }
+
 }

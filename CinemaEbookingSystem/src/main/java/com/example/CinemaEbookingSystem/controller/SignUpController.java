@@ -4,6 +4,7 @@ import com.example.CinemaEbookingSystem.dto.PaymentCardDto;
 import com.example.CinemaEbookingSystem.dto.UserRegistrationDto;
 import com.example.CinemaEbookingSystem.model.Customer;
 import com.example.CinemaEbookingSystem.model.PaymentCard;
+import com.example.CinemaEbookingSystem.service.AdminService;
 import com.example.CinemaEbookingSystem.service.CustomerService;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class SignUpController {
 
     private CustomerService customerService;
 
+    @Autowired
+    AdminService adminService;
+
     public SignUpController(CustomerService customerService) {
         super();
         this.customerService = customerService;
@@ -30,6 +34,9 @@ public class SignUpController {
     public UserRegistrationDto userRegistrationDto() {
         return new UserRegistrationDto();
     }
+
+    @ModelAttribute("admin")
+    public UserRegistrationDto userRegistrationDto2(){ return new UserRegistrationDto(); }
 
     @ModelAttribute("customer_payment_card_1")
     public PaymentCardDto paymentCardDto() {
@@ -90,5 +97,28 @@ public class SignUpController {
             || (cardType       == null || cardType.equals(""))
             || (expirationDate == null || expirationDate.equals(""))
             || (billingAddress == null || billingAddress.equals(""));
+    }
+
+    @GetMapping(path = "/registerAsAdmin")
+    public String showAdminRegistrationForm(Model model, HttpSession session) {
+        model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("userName", session.getAttribute("name"));
+        return "registerAsAdmin";
+    }
+
+    @PostMapping(path = "/registerAsAdmin")
+    public String registerAdminAccount(@ModelAttribute("admin") UserRegistrationDto registrationDto) {
+
+        int newAdmin = adminService.save(registrationDto);
+        if(newAdmin == 0)
+        {
+            return "redirect:/registerAsAdmin?success";
+        }
+        else if(newAdmin == 1)
+        {
+            return "redirect:/registerAsAdmin?failure1";
+        }
+        else
+            return "redirect:/registerAsAdmin?failure2";
     }
 }
