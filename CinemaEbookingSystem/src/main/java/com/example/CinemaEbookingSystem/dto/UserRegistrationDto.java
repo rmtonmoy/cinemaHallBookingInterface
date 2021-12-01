@@ -12,12 +12,11 @@ public class UserRegistrationDto {
     private String password;
     private String dob;
     @Enumerated(EnumType.STRING)
-    private UserStatus status;
+    private UserStatus status= UserStatus.Inactive;
     private boolean isRegisteredForPromo;
 
 
     public UserRegistrationDto(){
-        this.status = UserStatus.Inactive;
     }
 
     public UserRegistrationDto(String firstName, String lastName, String password, String email, String dob, boolean isRegisteredForPromo) {
@@ -27,8 +26,16 @@ public class UserRegistrationDto {
         this.email = email;
         this.password = password;
         this.dob = dob;
-        this.status = UserStatus.Inactive;
         this.isRegisteredForPromo = isRegisteredForPromo;
+    }
+    public UserRegistrationDto(String firstName, String lastName, String password, String email, String dob)
+    {
+        super();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.dob = dob;
     }
 
     public UserStatus getStatus() {

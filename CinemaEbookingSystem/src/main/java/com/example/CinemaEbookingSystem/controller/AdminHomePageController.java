@@ -3,6 +3,7 @@ package com.example.CinemaEbookingSystem.controller;
 import com.example.CinemaEbookingSystem.dto.MovieDto;
 import com.example.CinemaEbookingSystem.dto.TheaterDto;
 import com.example.CinemaEbookingSystem.dto.SchedulerDto;
+import com.example.CinemaEbookingSystem.model.Admin;
 import com.example.CinemaEbookingSystem.model.MovieInfo;
 import com.example.CinemaEbookingSystem.model.OneShow;
 import com.example.CinemaEbookingSystem.model.Theater;
@@ -19,6 +20,9 @@ import java.util.List;
 public class AdminHomePageController {
     @Autowired
     PopulateDBService populateDBService;
+
+    @Autowired
+    EmailService emailService;
 
     @Autowired
     MovieInfoService movieInfoService;
@@ -47,6 +51,11 @@ public class AdminHomePageController {
         model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("listTheater", theaterList);
         return "addTheater";
+    }
+    @RequestMapping("/addNewAdmin")
+    public String addNewAdmin(Model model, @RequestParam String adminEmail) {
+        emailService.sendAdminRequest(adminEmail);
+        return "redirect:/adminHome";
     }
 
     @PostMapping(path = "/addTheater")

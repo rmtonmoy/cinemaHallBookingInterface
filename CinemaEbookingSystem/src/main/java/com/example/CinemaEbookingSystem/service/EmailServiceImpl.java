@@ -165,4 +165,19 @@ public class EmailServiceImpl implements EmailService {
         Customer customer = customerRepository.findByEmail(passwordAndVerificationDto.getEmail());
         customer.setPassword(Base64.getEncoder().encodeToString(passwordAndVerificationDto.getNewPassword().getBytes()));
     }
+
+    @Override
+    public void sendAdminRequest(String email) {
+        String subject = "Admin Invitation";
+        String body = " Please go to this link: http://localhost:8080/registerAsAdmin to register as admin for the Cinema E-booking System";
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("se.projectgroupc4@gmail.com");
+        message.setTo(email);
+        message.setText(body);
+        message.setSubject(subject);
+
+        mailSender.send(message);
+
+        System.out.println("Mail sent successfully\n");
+    }
 }
