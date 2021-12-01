@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Admin Home - Cinema E-booking System</title>
+    <span th:replace="fragments/head"></span>
+    <style>
+    .navbar {
+      border-radius: 0;
+    }
+
+    .nav-pills .nav-link a {
+      color: rgb(43, 43, 43);
+    }
+
+    .nav-pills .nav-link.active a {
+      color: rgb(43, 43, 43);
+      background-color: lightgray;
+      font-weight: bold;
+    }
+
+    #sidebar {
+      margin-top: 1.5em;
+    }
+
+    #main div {
+      display: inline-block;
+    }
+
+    #main h1 {
+      margin-left: 1.5em;
+    }
+
+    #main a, a:hover {
+      color: rgb(75, 75, 75);
+      text-decoration: none;
+    }
+
+    .card {
+      margin: 1.5em 0em 3em 3em;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+    .card-body {
+      padding: 4px 16px;
+    }
+    .centertable {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+<nav th:replace="fragments/header"></nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar" id="sidebar">
+            <div class="d-flex flex-column">
+                <ul class="nav nav-pills nav-stacked flex-column" role="tablist">
+                    <li class="nav-link active"><a th:href="@{/adminHome}">Admin Home</a></li>
+                    <li class="nav-link"><a th:href="@{/manageMovies}">Movies</a></li>
+                    <li class="nav-link"><a th:href="@{/managePromo}">Promotions</a></li>
+                    <li class="nav-link"><a th:href="@{/addTheater}">Theaters</a></li>
+                    <li class="nav-link"><a th:href="@{#}">Users</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-sm-9 main" id="main">
+            <h1 th:text="${'Hi, ' + #strings.substring(userName, 0, #strings.indexOf(userName, ' '))}"></h1><br>
+            <table class="table table-bordered table-striped centertable">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Ticket Type</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="TicketPrice : ${ListofTicketPrice}">
+                    <td th:text = "${TicketPrice.id}"></td>
+                    <td th:text = "${TicketPrice.typeOfTicket}"></td>
+                    <td th:text = "${TicketPrice.price}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal2">Change Price</button>
+        </div>
+    </div>
+</div>
+<div class="modal_container">
+    <div class="modal fade" id="formModal2" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Change Ticket Price
+                    </h4>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form th:action="@{/manageTickets}" th:object="${ticketP}" method="post" id ="changePriceForm" role="form">
+                        <div class="form-group">
+                            <select id="types" name="TicketType" th:field="${ticketP.typeOfTicket}">
+                                <option th:value="Child">Child</option>
+                                <option th:value="Adult">Adult</option>
+                                <option th:value="Senior">Senior</option>
+                                <option th:value="Student">Student</option>
+                            </select>
+                            <label for="ticketprice">Set Price</label>
+                            <input type="text" class="form-control" th:field="${ticketP.price}" name="ticketPrice"
+                                   id="ticketprice" placeholder="Enter price"/>
+                        </div>
+                    </form>
+                </div>
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" onclick="form_submit()" class="btn btn-primary" data-dismiss="modal">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function form_submit() {
+        document.getElementById("changePriceForm").submit();
+   }
+</script>
+</body>
+</html>

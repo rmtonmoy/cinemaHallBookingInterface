@@ -1,0 +1,47 @@
+package com.example.CinemaEbookingSystem.model;
+
+import javax.persistence.*;
+
+@Entity
+public class TicketPrice {
+
+    @Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private TypeOfTicket typeOfTicket;
+
+    private String price;
+
+    public TicketPrice(TypeOfTicket typeOfTicket, String price) {
+        this.typeOfTicket= typeOfTicket;
+        this.price= price;
+    }
+    public TicketPrice(){}
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public TypeOfTicket getTypeOfTicket() {
+        return typeOfTicket;
+    }
+
+    public void setTypeOfTicket(TypeOfTicket typeOfTicket) {
+        this.typeOfTicket = typeOfTicket;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+}

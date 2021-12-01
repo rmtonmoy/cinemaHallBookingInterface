@@ -3,10 +3,7 @@ package com.example.CinemaEbookingSystem.controller;
 import com.example.CinemaEbookingSystem.dto.MovieDto;
 import com.example.CinemaEbookingSystem.dto.TheaterDto;
 import com.example.CinemaEbookingSystem.dto.SchedulerDto;
-import com.example.CinemaEbookingSystem.model.Admin;
-import com.example.CinemaEbookingSystem.model.MovieInfo;
-import com.example.CinemaEbookingSystem.model.OneShow;
-import com.example.CinemaEbookingSystem.model.Theater;
+import com.example.CinemaEbookingSystem.model.*;
 import com.example.CinemaEbookingSystem.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -162,6 +159,28 @@ public class AdminHomePageController {
             System.out.println("");
         }
         return "seeSchedule";
+    }
+
+
+    @ModelAttribute("ticketP")
+    public TicketPrice ticketPrice(){ return new TicketPrice();}
+
+    @GetMapping(path = "/manageTickets")
+    public String showAllTicketPrice(Model model, HttpSession session){
+        List<TicketPrice> ticketPrice = ticketService.allTicketPrice();
+        model.addAttribute("something", "Cinema E-booking System");
+        model.addAttribute("userName", session.getAttribute("name"));
+        model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("ListofTicketPrice", ticketPrice);
+        return "manageTickets";
+    }
+
+    @PostMapping(path = "/manageTickets")
+    public String saveTicketPrice(@ModelAttribute("ticketP") TicketPrice ticketPrice){
+        System.out.println("typeeeeeeeeeee "+ ticketPrice.getTypeOfTicket());
+        System.out.println("priceeeeeeeee " + ticketPrice.getPrice());
+        ticketService.savePrice(ticketPrice.getTypeOfTicket(),ticketPrice.getPrice());
+        return "redirect:/manageTickets";
     }
 
 }
