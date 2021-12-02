@@ -3,6 +3,7 @@ package com.example.CinemaEbookingSystem.controller;
 import javax.servlet.http.HttpSession;
 
 import com.example.CinemaEbookingSystem.dto.PasswordDto;
+import com.example.CinemaEbookingSystem.model.Booking;
 import com.example.CinemaEbookingSystem.model.Customer;
 import com.example.CinemaEbookingSystem.repository.CustomerRepository;
 import com.example.CinemaEbookingSystem.service.CustomerService;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 public class CustomerController {
@@ -66,5 +69,18 @@ public class CustomerController {
         model.addAttribute("passwordDto", new PasswordDto());
         
         return "changePassword";
+    }
+
+    @GetMapping(path = "/orderHistory")
+    public String editPaymentInfo(Model model, HttpSession session){
+        model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("userName", session.getAttribute("name"));
+        
+        long customerID = customerRepository.findCustomerId(session.getAttribute("email").toString());
+        Customer customer = customerService.getCustomerById(customerID);
+        List<Booking> bookings = customer.getBooking();
+        
+        model.addAttribute("bookings", bookings);
+        return "Order-History";
     }
 }
