@@ -1,5 +1,6 @@
 package com.example.CinemaEbookingSystem.service;
 
+import com.example.CinemaEbookingSystem.controller.SignOutController;
 import com.example.CinemaEbookingSystem.model.*;
 import com.example.CinemaEbookingSystem.repository.OneShowRepository;
 import com.example.CinemaEbookingSystem.repository.TicketPriceRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.Arrays;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -29,7 +31,7 @@ public class TicketServiceImpl implements TicketService {
         int endB = startB + oneShow.getMovieInfo().getDuration();
 
         for(Ticket ticket: ticketList){
-            if(ticket.getShow().getShowTime().getDate().equals(oneShow.getShowTime().getDate()) == false){
+            if(ticket.getShow().getShowTime().getDateStringWithYear().equals(oneShow.getShowTime().getDateStringWithYear()) == false){
                 continue;
             }
 
@@ -128,6 +130,17 @@ public class TicketServiceImpl implements TicketService {
         Set<Integer> setOfImportantTimes = new HashSet<>(importantTimes);
         importantTimes = new ArrayList<>(setOfImportantTimes);
 
+        // Sad life - couldn't use java to sort so had to write my own sort
+        for(int i = 0; i < importantTimes.size(); i++){
+            for(int j = 0; j + 1 < importantTimes.size(); j++){
+                if(importantTimes.get(j) > importantTimes.get(j+1)){
+                    int temp = importantTimes.get(j);
+                    importantTimes.set(j, importantTimes.get(j + 1));
+                    importantTimes.set(j + 1, temp);
+                }
+            }
+        }
+
 
         for(Integer particularStartingTime : importantTimes){
             ShowTime dummyShowTime = new ShowTime();
@@ -136,6 +149,9 @@ public class TicketServiceImpl implements TicketService {
 
             List<String> currentRow = new ArrayList<>();
             currentRow.add(formatedStartingTime);
+
+            //Debug dump
+            System.out.println("->" + particularStartingTime);
 
             for(int i = 1; i <= 7; i++){
                 Integer day = today.get(Calendar.DAY_OF_MONTH);
@@ -174,6 +190,16 @@ public class TicketServiceImpl implements TicketService {
         return scheduleTable;
     }
 
+    public boolean hasAtLeastOneTicket(OneShow oneShow){
+        List<Ticket> ticketList = ticketRepository.findAll();
+        for(Ticket ticket : ticketList){
+            if(ticket.getOneShow() == oneShow){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public List<String> generateSchedule(int id) {
         MovieInfo movieInfo = movieInfoService.findById(id);
@@ -181,7 +207,7 @@ public class TicketServiceImpl implements TicketService {
         List<String> scheduleTable = new ArrayList<>();
 
         for(OneShow oneShow : oneShowList){
-            if(oneShow.getMovieInfo() == movieInfo){
+            if(oneShow.getMovieInfo() == movieInfo && hasAtLeastOneTicket(oneShow)){
                 String entry =  oneShow.getShowTime().getDateStringWithYear() + " " +
                                 oneShow.getShowTime().getStartingTimeString() + " at theater " +
                                 oneShow.getTheater().getId();

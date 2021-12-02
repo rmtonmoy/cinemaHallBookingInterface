@@ -20,6 +20,9 @@ public class MovieInfoServiceImpl implements MovieInfoService{
     @Autowired
     private OneShowRepository oneShowRepository;
 
+    @Autowired
+    private TicketService ticketService;
+
     @Override
     public List<MovieInfo> getAllMovieInfo(){
         return movieInfoRepository.findAll();
@@ -74,7 +77,7 @@ public class MovieInfoServiceImpl implements MovieInfoService{
     public boolean hasBeenScheduled(int id) {
         List<OneShow> oneShowList = oneShowRepository.findAll();
         for(OneShow oneShow : oneShowList){
-            if(oneShow.getMovieInfo().getId() == id){
+            if(oneShow.getMovieInfo().getId() == id && ticketService.hasAtLeastOneTicket(oneShow)){
                 return true;
             }
         }
