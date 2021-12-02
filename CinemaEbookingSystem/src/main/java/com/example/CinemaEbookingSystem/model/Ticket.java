@@ -30,6 +30,8 @@ public class Ticket {
 
 
 
+    long customerId;
+
     public Ticket(){
 
     }
@@ -76,6 +78,30 @@ public class Ticket {
 
     public void setInCart(boolean inCart) {
         isInCart = inCart;
+    }
+
+    public OneShow getOneShow() {
+        return oneShow;
+    }
+
+    public void setOneShow(OneShow oneShow) {
+        this.oneShow = oneShow;
+    }
+
+    public TypeOfTicket getTypeOfTicket() {
+        return typeOfTicket;
+    }
+
+    public void setTypeOfTicket(TypeOfTicket typeOfTicket) {
+        this.typeOfTicket = typeOfTicket;
+    }
+
+    public long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(long customerId) {
+        this.customerId = customerId;
     }
 
     public Long getId() {
