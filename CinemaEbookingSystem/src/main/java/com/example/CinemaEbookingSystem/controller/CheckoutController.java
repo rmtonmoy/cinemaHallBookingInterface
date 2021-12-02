@@ -47,9 +47,14 @@ public class CheckoutController {
         List<MovieInfo> movies = movieInfoService.listOfCurrentMovies();
         model.addAttribute("movies", movies);
         model.addAttribute("OSS", oneShowService);
-        
+
+        model.addAttribute("something", "Cinema E-booking System");
         model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("userName", session.getAttribute("name"));
+        if(session.getAttribute("email")==null)
+        {
+            return "redirect:/signin";
+        }
         return "book";
     }
 
