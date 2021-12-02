@@ -82,6 +82,10 @@ public class CheckoutController {
 
         for (i = 0; i < tickets.size(); i++) {
             Ticket ticket = tickets.get(i);
+            if(ticket.isInCart() == false){
+                continue;
+            }
+
             //System.out.println("cart test   " + ticketService.getTicketPriceByType(ticket.getTicketType().toString()));
             cartItem =new CartItem(ticket.getId(),ticket.getCustomerId(),
                     ticket.getShow(),ticket.getTypeOfTicket(),ticketService.getTicketPriceByType(ticket.getTicketType().toString()));
@@ -90,14 +94,11 @@ public class CheckoutController {
         }
 
         CartTotal cartTotal;
-        if(i==0)
-            cartTotal = new CartTotal();
-        else {
-            bookingFee = Float.parseFloat(ticketService.getBookingFee());
-            salesTax = subtotal * 4 / 100;
-            orderTotal = Float.parseFloat(String.format("%.2f", subtotal + bookingFee + salesTax));
-            cartTotal = new CartTotal(subtotal, salesTax, bookingFee, orderTotal);
-        }
+        bookingFee = Float.parseFloat(ticketService.getBookingFee());
+        salesTax = subtotal * 4 / 100;
+        orderTotal = Float.parseFloat(String.format("%.2f", subtotal + bookingFee + salesTax));
+        cartTotal = new CartTotal(subtotal, salesTax, bookingFee, orderTotal);
+
         model.addAttribute("CartItem", cartItems);
         model.addAttribute("CartTotal", cartTotal);
         return "viewCart";
@@ -121,6 +122,9 @@ public class CheckoutController {
 
         for (i = 0; i < tickets.size(); i++) {
             Ticket ticket = tickets.get(i);
+            if(ticket.isInCart() == false){
+                continue;
+            }
             //System.out.println("cart test   " + ticketService.getTicketPriceByType(ticket.getTicketType().toString()));
             cartItem =new CartItem(ticket.getId(),ticket.getCustomerId(),
                     ticket.getShow(),ticket.getTypeOfTicket(),ticketService.getTicketPriceByType(ticket.getTicketType().toString()));

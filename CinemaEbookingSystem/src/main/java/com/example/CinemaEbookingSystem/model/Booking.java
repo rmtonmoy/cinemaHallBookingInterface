@@ -57,4 +57,12 @@ public class Booking {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public List<Ticket> getTicketList() {
+        return ticketList;
+    }
+
+    public void setTicketList(List<Ticket> ticketList) {
+        this.ticketList = ticketList;
+    }
 }
