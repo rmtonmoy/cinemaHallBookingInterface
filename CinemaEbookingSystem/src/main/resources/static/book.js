@@ -99,39 +99,28 @@ function createTicket(num) {
     </select>
 
     <h3>Seat:</h3>
-    <h4>Available Seating</h4>
-
-    <div class="container">
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary">A1</button>
-            <button type="button" class="btn btn-primary">A2</button>
-            <button type="button" class="btn btn-primary">A3</button>
-            <button type="button" class="btn btn-primary">A4</button>
-        </div>
-    </div>
-    <div class="container">
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary">B1</button>
-            <button type="button" class="btn btn-primary">B2</button>
-            <button type="button" class="btn btn-primary">B3</button>
-            <button type="button" class="btn btn-primary">B4</button>
-        </div>
-    </div>
-    <div class="container">
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary">C1</button>
-            <button type="button" class="btn btn-primary">C2</button>
-            <button type="button" class="btn btn-primary">C3</button>
-            <button type="button" class="btn btn-primary">C4</button>
-        </div>
-    </div>
-    <div class="container">
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary">D1</button>
-            <button type="button" class="btn btn-primary">D2</button>
-            <button type="button" class="btn btn-primary">D3</button>
-            <button type="button" class="btn btn-primary">D4</button>
-        </div>
-    </div>
+    <!-- <h4>Available Seating</h4> -->
+    ${createSeatingChart()}
 </div>`;
+}
+
+function createSeatingChart(num) {
+    let arr = getTheaterStats();
+    return _createSeatingChart(num, arr[0], arr[1], arr[2]);
+}
+
+function getTheaterStats() {
+    // TODO: ajax
+}
+
+function _createSeatingChart(num, row, col, taken) {
+    let str = '<div class="seatingChart">';
+    for (let r = 1; r <= row; r++) {
+        str += '<div class="container"><div class="btn-group">'
+        for (let c = 1; c <= col; c++) {
+            str += `<button th:field="*{tickets[${num}].type}" type="button" class="btn btn-primary" data-id="${r}-${c}">${r}-${c}</button>`;
+        }
+        str += '</div></div>';
+    }
+    return str;
 }
