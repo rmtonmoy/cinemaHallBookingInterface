@@ -27,6 +27,8 @@ public class Ticket {
 
     boolean isBooked;
 
+    long customerId;
+
     public Ticket(){
 
     }
@@ -38,6 +40,30 @@ public class Ticket {
         this.typeOfTicket = typeOfTicket;
         this.promotion = promotion;
         this.isBooked = isBooked;
+    }
+
+    public OneShow getOneShow() {
+        return oneShow;
+    }
+
+    public void setOneShow(OneShow oneShow) {
+        this.oneShow = oneShow;
+    }
+
+    public TypeOfTicket getTypeOfTicket() {
+        return typeOfTicket;
+    }
+
+    public void setTypeOfTicket(TypeOfTicket typeOfTicket) {
+        this.typeOfTicket = typeOfTicket;
+    }
+
+    public long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(long customerId) {
+        this.customerId = customerId;
     }
 
     public Long getId() {

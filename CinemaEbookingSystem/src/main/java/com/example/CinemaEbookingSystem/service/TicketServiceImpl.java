@@ -206,11 +206,26 @@ public class TicketServiceImpl implements TicketService {
         }
 
     @Override
+    public String getTicketPriceByType(String type) {
+        return ticketPriceRepository.getPriceByType(type);
+    }
+
+    @Override
     public void savePrice(TypeOfTicket typeOfTicket, String price) {
         TicketPrice ticketPrice = new TicketPrice(typeOfTicket,price);
         //System.out.println("typeeeeeeeeeee "+ typeOfTicket);
         //System.out.println("priceeeeeeeee " + price);
         ticketPriceRepository.updatePrice(typeOfTicket.toString(),price);
+    }
+
+    @Override
+    public Ticket getById(long id) {
+        return ticketRepository.findByID(id);
+    }
+
+    @Override
+    public void deleteFromCart(long id) {
+        ticketRepository.deleteFromCart(id);
     }
 
 }

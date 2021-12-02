@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Edit Profile - Cinema E-Booking System</title>
+    <span th:replace="fragments/head"></span>
+    <style>
+    .navbar {
+      border-radius: 0;
+    }
+
+    .nav-pills .nav-link a{
+      color: rgb(43, 43, 43);
+    }
+
+    .nav-pills .nav-link.active a{
+      color: rgb(43, 43, 43);
+      background-color: lightgray;
+      font-weight: bold;
+    }
+
+    #sidebar {
+      margin-top: 1.5em;
+    }
+
+    #main h1{
+      margin-left: 1.5em;
+    }
+
+    #cancel {
+      margin-left: 1em;
+    }
+
+    .alert {
+      text-align: center;
+      width: 50%;
+      margin-top: 2em;
+      margin-left: 30%;
+    }
+  </style>
+</head>
+
+<body>
+<nav th:replace="fragments/header"></nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar" id="sidebar">
+            <div class="d-flex flex-column">
+                <ul class="nav nav-pills nav-stacked flex-column" role="tablist">
+                    <li class="nav-link active"><a th:href="@{/editProfile}">Personal Info</a></li>
+                    <li class="nav-link"><a th:href="@{/editPaymentInfo}">Payment Info</a></li>
+                    <li class="nav-link"><a th:href="@{/orderHistory}">Order History</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-sm-9 main" id="main">
+            <h1><b>Your Cart</b></h1><br><br>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>ITEM</th>
+                    <th>SHOWTIME</th>
+                    <th>TICKET TYPE</th>
+                    <th>ACTION</th>
+                    <th>SUBTOTAL</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="Item : ${CartItem}">
+                    <td th:text = "${Item.movieName}"></td>
+                    <td th:text = "${Item.showTime}"></td>
+                    <td th:text = "${Item.ticketType}"></td>
+                    <td><a th:href="@{/performDeleteFromCartOperation/{id}(id=${Item.id})}">Remove</a></td>
+                    <td th:text = "${Item.price}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="text-align: right;">
+                Cart Subtotal = <br>
+                Sales Tax = <br>
+                Booking fee = <br>
+                Order Total = <br>
+
+            </div>
+<!--            <div th:object="$CartTotal">-->
+<!--                Cart Subtotal = <b th:text = "$CartTotal.CartTotal"></b><br>-->
+<!--                Sales Tax = <b th:text = "$CartTotal.SalesTax"></b>-->
+<!--                Booking fee = <b th:text = "$CartTotal.BookingFee"></b>-->
+<!--                Order Total = <b th:text = "$CartTotal.OrderTotal"></b>-->
+
+<!--            </div>-->
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
