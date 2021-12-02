@@ -208,5 +208,10 @@ public class TicketServiceImpl implements TicketService {
         //System.out.println("priceeeeeeeee " + price);
         ticketPriceRepository.updatePrice(typeOfTicket.toString(),price);
     }
+    
+    @Override
+    public List<Ticket> getTicketsForShowId(long id) {
+        return ticketRepository.getTicketsForShowId(id);
+    }
 
 }
