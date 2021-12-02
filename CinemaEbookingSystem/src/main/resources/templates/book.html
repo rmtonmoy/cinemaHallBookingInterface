@@ -24,7 +24,7 @@
                     </div>
 
                     <div>
-                        <h3>Select Day:</h3> <!-- Do this with JavaScript -->
+                        <h3>Select Day:</h3>
                         <select name="showDate" id="showDate" class="form-control">
                             <div th:each="movie : ${movies}">
                                 <option th:each="showing : ${OSS.getAllShowsForMovie(movie.id)}"
@@ -33,15 +33,29 @@
                             </div>
                         </select>
                     </div>
+                    
+                    <div>
+                        <h3>Select Theater:</h3>
+                        <select name="theater" id="theater" class="form-control">
+                            <div th:each="movie : ${movies}">
+                                <option th:each="showing : ${OSS.getAllShowsForMovie(movie.id)}"
+                                        th:text="'Theater ' + ${showing.getTheater().id}"
+                                        th:data-movie="${movie.id}"
+                                        th:data-showing-date="${showing.getShowTime().getDateString()}"
+                                        th:data-theater="${showing.getTheater().id}"></option>
+                            </div>
+                        </select>
+                    </div>
 
                     <div>
-                        <h3>Showing Time:</h3> <!-- Do this with JavaScript -->
+                        <h3>Showing Time:</h3>
                         <select name="showTime" id="showTime" class="form-control">
                             <div th:each="movie : ${movies}">
                                 <option th:each="showing : ${OSS.getAllShowsForMovie(movie.id)}"
                                         th:text="${showing.getShowTime().getStartingTimeString()}"
                                         th:data-movie="${movie.id}"
                                         th:data-showing-date="${showing.getShowTime().getDateString()}"
+                                        th:data-theater="${showing.getTheater().id}"
                                         th:value="${showing.id}"></option>
                             </div>
                         </select>

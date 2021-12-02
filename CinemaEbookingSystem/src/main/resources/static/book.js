@@ -2,6 +2,15 @@
 // Handles swapping out booking time options based on movie selected
 "use strict";
 
+function doAttributesMatch(a, b, attributes) {
+    for (let attr of attributes) {
+        if (a.attr(attr) != b.attr(attr)) {
+            return false;
+        }
+    }
+    return true;
+}
+
 $(document).ready(function() {
     let ticketIndex = -1;
     
@@ -17,16 +26,33 @@ $(document).ready(function() {
             }
         });
         $("#showDate").val(0);
+        $("#theater").val(0);
         $("#showTime").val(0);
     });
     
     $("#showDate").change(function() {
         let selected = $(this).find(":selected");
         let id       = selected.attr("data-movie");
-        $("#showTime > option").each(function() {
-            console.log("showing show time");
+        $("#theater > option").each(function() {
+            console.log("showing theaters");
             let opt = $(this);
-            if (opt.attr("data-movie") == id && opt.attr("data-showing-date") == selected.attr("data-showing-date")) {
+            if (doAttributesMatch(opt, selected, ["data-movie", "data-showing-date"])) {
+                opt.show();
+            } else {
+                opt.hide();
+            }
+            $("#theater").val(0);
+            $("#showTime").val(0);
+        });
+    });
+    
+    $("#theater").change(function() {
+        let selected = $(this).find(":selected");
+        let id       = selected.attr("data-movie");
+        $("#showTime > option").each(function() {
+            console.log("showing show times");
+            let opt = $(this);
+            if (doAttributesMatch(opt, selected, ["data-movie", "data-showing-date", "data-theater"])) {
                 opt.show();
             } else {
                 opt.hide();
@@ -34,6 +60,10 @@ $(document).ready(function() {
             $("#showTime").val(0);
         });
     });
+    
+    $("#showTime").change(function() {
+        // placeholder
+    })
     
     $("#addTicketBtn").click(function() {
         ticketIndex++;
@@ -55,6 +85,7 @@ $(document).ready(function() {
         $(this).hide();
     });
     $("#showDate").val(0);
+    $("#theater").val(0);
     $("#showTime").val(0);
 });
 
