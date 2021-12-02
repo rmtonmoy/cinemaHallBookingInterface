@@ -13,8 +13,10 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@OneToMany(mappedBy = "ticket_list")
-    //private List<Ticket> ticketList = new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name = "booking_id")    // This column will be added to the "Ticket" table
+                                        // hence such naming
+    private List<Ticket> ticketList = new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name = "card_info")
