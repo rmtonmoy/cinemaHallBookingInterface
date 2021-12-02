@@ -91,7 +91,9 @@
                 </tr>
                 </tbody>
             </table>
+            Booking Fee : <span th:text = "${BookingFee}"></span><br>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal2">Change Price</button>
+
         </div>
     </div>
 </div>
@@ -124,7 +126,10 @@
                             </select>
                             <label for="ticketprice">Set Price</label>
                             <input type="text" class="form-control" th:field="${ticketP.price}" name="ticketPrice"
-                                   id="ticketprice" placeholder="Enter price"/>
+                                   id="ticketprice" placeholder="Enter price"/><br>
+                            <label for="bookingfee">Booking Fee</label>
+                            <input type="text" class="form-control" th:field="${ticketP.bookingFee}" name="bookingfee"
+                                id = "bookingfee" th:placeholder="${ticketP.bookingFee}">
                         </div>
                     </form>
                 </div>

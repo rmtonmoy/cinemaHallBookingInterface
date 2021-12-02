@@ -15,8 +15,8 @@ public class CartTotal {
         this.SalesTax = salesTax;
         this.BookingFee = bookingFee;
         this.OrderTotal = orderTotal;
-        int OrderTotalInt = (int) OrderTotal;
-        this.OrderTotalM100 = String.valueOf(OrderTotalInt*100);
+        int OrderTotalInt100 = (int) (OrderTotal*100);
+        this.OrderTotalM100 = String.valueOf(OrderTotalInt100);
     }
 
     public String getOrderTotalM100() {

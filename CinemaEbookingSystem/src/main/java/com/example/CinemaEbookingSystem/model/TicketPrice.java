@@ -20,6 +20,7 @@ public class TicketPrice {
     public TicketPrice(TypeOfTicket typeOfTicket, String price) {
         this.typeOfTicket= typeOfTicket;
         this.price= price;
+        this.bookingFee = "2";
     }
 
     public String getBookingFee() {

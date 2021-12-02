@@ -201,6 +201,7 @@ public class AdminHomePageController {
             model.addAttribute("userName", session.getAttribute("name"));
             model.addAttribute("email", session.getAttribute("email"));
             model.addAttribute("ListofTicketPrice", ticketPrice);
+            model.addAttribute("BookingFee",ticketService.getBookingFee());
             return "manageTickets";
         } else {
             return "redirect:/";
@@ -209,9 +210,8 @@ public class AdminHomePageController {
 
     @PostMapping(path = "/manageTickets")
     public String saveTicketPrice(@ModelAttribute("ticketP") TicketPrice ticketPrice) {
-        System.out.println("typeeeeeeeeeee "+ ticketPrice.getTypeOfTicket());
-        System.out.println("priceeeeeeeee " + ticketPrice.getPrice());
         ticketService.savePrice(ticketPrice.getTypeOfTicket(),ticketPrice.getPrice());
+        ticketService.updateBookingFeeForAll(ticketPrice.getBookingFee());
         return "redirect:/manageTickets";
     }
     

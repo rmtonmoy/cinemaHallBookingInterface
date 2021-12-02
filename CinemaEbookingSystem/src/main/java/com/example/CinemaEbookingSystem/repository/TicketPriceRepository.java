@@ -31,6 +31,6 @@ public interface TicketPriceRepository extends JpaRepository<TicketPrice, Long> 
     @Transactional
     @Modifying
     @Query(
-            value = "UPDATE ticket_price set booking_fee = ?1 WHERE id is not null", nativeQuery = true)
-    void updateBookingFee(String bookingFee);
+            value = "UPDATE ticket_price set booking_fee = ?1 WHERE id = ?2", nativeQuery = true)
+    void updateBookingFee(String bookingFee, int id);
 }

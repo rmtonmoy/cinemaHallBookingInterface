@@ -258,7 +258,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void updateBookingFeeForAll(String bookingFee) {
-        ticketPriceRepository.updateBookingFee(bookingFee);
+        for(int i = 0; i<4 ; i++){
+            ticketPriceRepository.updateBookingFee(bookingFee, i);
+        }
     }
 
 }
