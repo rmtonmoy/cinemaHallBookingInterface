@@ -21,8 +21,8 @@ public class RestfulController {
         Theater theater      = tickets.get(0).getOneShow().getTheater();
         boolean[][] avail    = new boolean[theater.getMaxR()][theater.getMaxC()];
         for (Ticket ticket : tickets) {
-            avail[ticket.getTicketRn()][ticket.getTicketCn()] = ticket.isInCart() || ticket.isPurchased();
+            avail[ticket.getTicketRn() - 1][ticket.getTicketCn() - 1] = ticket.isInCart() || ticket.isPurchased();
         }
-        return new TheaterStats(id, avail);
+        return new TheaterStats(id, theater.getMaxR(), theater.getMaxC(), avail);
     }
 }

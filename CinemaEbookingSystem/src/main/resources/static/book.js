@@ -107,18 +107,20 @@ function createTicket(num) {
 }
 
 function createSeatingChart(num) {
-    let arr = getTheaterStats();
-    return _createSeatingChart(num, arr[0], arr[1], arr[2]);
+    let stats = getTheaterStats();
+    return _createSeatingChart(num, stats.rows, stats.cols, stats.availability);
 }
 
 function getTheaterStats() {
-    $.get("/book/gettheaterstats?id=" + showId, null, function(data, status, jqXHR) {
-        // TODO: process response
-        console.log(data);
-    }, "json");
-    return [5, 5];
+    return $.ajax({
+        type:  "GET",
+        url:   "/book/gettheaterstats?id=" + showId,
+        async: false
+    }).responseJSON;
 }
 
+// `taken` is a 2D array of booleans representing if each seat is taken or not. Access a seat via taken[row][column].
+// false indicates the seat is FREE, true indicates the seat is TAKEN.
 function _createSeatingChart(num, row, col, taken) {
     let str = '<div class="seatingChart">';
     for (let r = 1; r <= row; r++) {
