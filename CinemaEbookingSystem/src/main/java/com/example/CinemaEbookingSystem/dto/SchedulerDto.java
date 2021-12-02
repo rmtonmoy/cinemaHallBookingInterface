@@ -18,6 +18,11 @@ public class SchedulerDto {
         if(AmPm.equals("PM")){
             startingTime += 12 * 60;
         }
+
+        if(StartTimeHr == 12){
+            return startingTime + StartTimeMin;
+        }
+
         startingTime += StartTimeHr * 60 + StartTimeMin;
         return startingTime;
     }

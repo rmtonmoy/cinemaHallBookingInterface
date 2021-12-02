@@ -57,18 +57,18 @@
   </style>
 </head>
 <body>
-<nav th:replace="fragments/header"></nav>
+<nav th:replace="fragments/adminHeader"></nav>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar" id="sidebar">
             <div class="d-flex flex-column">
                 <ul class="nav nav-pills nav-stacked flex-column" role="tablist">
-                    <li class="nav-link active"><a th:href="@{/adminHome}">Admin Home</a></li>
+                    <li class="nav-link"><a th:href="@{/adminHome}">Admin Home</a></li>
                     <li class="nav-link"><a th:href="@{/manageMovies}">Movies</a></li>
                     <li class="nav-link"><a th:href="@{/managePromo}">Promotions</a></li>
                     <li class="nav-link"><a th:href="@{/addTheater}">Theaters</a></li>
-                    <li class="nav-link"><a th:href="@{#}">Users</a></li>
+                    <li class="nav-link active"><a th:href="@{/manageTickets}">Tickets</a></li>
                 </ul>
             </div>
         </div>

@@ -13,12 +13,18 @@ public class ShowTimeServiceImpl implements ShowTimeService{
     @Autowired
     ShowTimeRepository showTimeRepository;
 
+    private boolean isSameDay(Date a, Date b) {
+        return a.getYear()  == b.getYear()
+                && a.getMonth() == b.getMonth()
+                && a.getDate()  == b.getDate();
+    }
+
     @Override
     public ShowTime saveIfNotFound(Date date, int startingAt) {
         List<ShowTime> showTimeList = showTimeRepository.findAll();
 
         for(ShowTime showTime : showTimeList){
-            if(showTime.getDate().equals(date) && showTime.getStartingTime() == startingAt){
+            if(isSameDay(showTime.getDate(), date) && showTime.getStartingTime() == startingAt){
                 return showTime;
             }
         }
