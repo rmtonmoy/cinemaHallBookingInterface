@@ -67,8 +67,11 @@
             
             <div th:if="${date == null}">
                 <h4>Showing Dates</h4>
-                <ul>
+                <ul th:unless="${ #lists.isEmpty( OSS.getAllShowsForMovie(movie.getId()) ) }">
                     <li th:each="show : ${OSS.getAllShowsForMovie(movie.getId())}" th:text="${show.getShowTime().getDateString()}"></li>
+                </ul>
+                <ul th:if="${ #lists.isEmpty( OSS.getAllShowsForMovie(movie.getId()) ) }">
+                    <li>No showings available at this time</li>
                 </ul>
             </div>
             <div th:if="${date != null}">
@@ -79,8 +82,7 @@
             </div>
             
             <div class="item">
-                <iframe width=40% height="300" th:src="${movie.linkToTrailer}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </a>
+                <iframe width="40%" height="300" th:src="${movie.linkToTrailer}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             
             <!-- <a class="btn btn-primary" th:href="${movie.linkToTrailer}" target="_blank" rel="noopener noreferrer external">Watch Trailer</a> -->
