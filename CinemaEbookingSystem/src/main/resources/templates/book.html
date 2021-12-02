@@ -51,51 +51,11 @@
                 <section>
                     <h2>Select Tickets</h2>
                     
-                    <div id="ticket1"> <!-- In the future, IDs will be used by JS to track what tickets are being added -->
-
-                        <div class="form-group">
-                            <label for="typeOfTicket">Ticket Type:</label>
-                            <select name="typeOfTicket" id="typeOfTicket" class="form-control col-1">
-                                <option value="adult">Adult</option>
-                                <option value="child">Child</option>
-                            </select>
-                        
-                        <h3>Seat:</h3>
-                        <h4>Available Seating</h4>
-
-                        <div class="container">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary">A1</button>
-                                <button type="button" class="btn btn-primary">A2</button>
-                                <button type="button" class="btn btn-primary">A3</button>
-                                <button type="button" class="btn btn-primary">A4</button>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary">B1</button>
-                                <button type="button" class="btn btn-primary">B2</button>
-                                <button type="button" class="btn btn-primary">B3</button>
-                                <button type="button" class="btn btn-primary">B4</button>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary">C1</button>
-                                <button type="button" class="btn btn-primary">C2</button>
-                                <button type="button" class="btn btn-primary">C3</button>
-                                <button type="button" class="btn btn-primary">C4</button>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary">D1</button>
-                                <button type="button" class="btn btn-primary">D2</button>
-                                <button type="button" class="btn btn-primary">D3</button>
-                                <button type="button" class="btn btn-primary">D4</button>
-                            </div>
-                        </div>
-                    </div>
+                    <div id="ticketContainer"></div>
+                    
+                    <button id="addTicketBtn" type="button" class="btn btn-primary">Add Ticket</button>
+                    <button id="rmTicketBtn" type="button" class="btn btn-danger invisible">Remove Last Ticket</button>
+                    <br/>
                 </section>
                 <br/><br/>
                 <button id="submitBtn" type='submit'>Add Tickets to Cart</button>
