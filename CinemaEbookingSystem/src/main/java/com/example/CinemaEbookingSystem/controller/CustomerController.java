@@ -30,7 +30,7 @@ public class CustomerController {
         customerService.saveCustomer(customer);
 
         // Return to Edit-Profile.html 
-        return "redirect:/editProfile";
+        return "redirect:/editProfile?SuccessInfo";
     }
     
     @PostMapping(path = "/editProfile/changePassword")
@@ -40,7 +40,7 @@ public class CustomerController {
         if (!(customerService.isCorrectPassword(customerID, passwordDto))) {
             return "redirect:/editProfile/changePassword?IncorrectPassword";
         } else {
-            return "redirect:/editProfile?Success";
+            return "redirect:/editProfile?SuccessPassword";
         }
     }
 
