@@ -4,6 +4,9 @@
     <title>Cinema E-booking System</title>
     <span th:replace="fragments/head"></span>
     <style>
+        .navbar {
+            border-radius: 0;
+        }
         .navbar-nav.navbar-center {
             position: absolute;
             left: 50%;
@@ -16,8 +19,7 @@
     </style>
 </head>
 <body>
-<h1 th:text="${something}"></h1>
-<nav th:replace="fragments/header"></nav>
+<nav th:replace="fragments/adminHeader"></nav>
 <div class="table _container" style="text-align: center;">
 
     <div th:if="${param.SchedulerSuccess}">

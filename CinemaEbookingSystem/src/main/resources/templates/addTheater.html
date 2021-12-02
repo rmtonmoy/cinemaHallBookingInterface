@@ -6,12 +6,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .navbar {
+            border-radius: 0;
+        }
+    </style>
 </head>
 <body>
-<h1 th:text="${something}"></h1>
-<nav th:replace="fragments/header"></nav>
+<nav th:replace="fragments/adminHeader"></nav>
 
-<h3>List of Theaters</h3>
+<h2>List of Theaters</h2>
 <table class="table table-bordered table-striped">
     <thead>
     <tr style="background-color: #5bbfde">
