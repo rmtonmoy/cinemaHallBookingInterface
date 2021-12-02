@@ -14,4 +14,5 @@ public interface TicketService {
     List<String> generateSchedule(int id);
     List<TicketPrice> allTicketPrice();
     void savePrice(TypeOfTicket typeOfTicket,String price);
+    boolean hasAtLeastOneTicket(OneShow oneShow);
 }
