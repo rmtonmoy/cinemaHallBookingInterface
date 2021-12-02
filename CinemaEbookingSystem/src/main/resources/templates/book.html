@@ -26,7 +26,7 @@
                         <h3>Select Day:</h3> <!-- Do this with JavaScript -->
                         <select name="showDate" id="showDate" class="form-control">
                             <div th:each="movie : ${movies}">
-                                <option th:each="showing : ${OSS.getAllShowsForMovie(movie.id)}" th:text="${showing.getShowTime().getDateString()}" th:data-movie="${movie.id}"></option>
+                                <option th:each="showing : ${OSS.getAllShowsForMovie(movie.id)}" th:text="${showing.getShowTime().getDateString()}" th:data-movie="${movie.id}" th:data-showing-date="${showing.getShowTime().getDateString()}"></option>
                             </div>
                         </select>
                     </div>
@@ -35,7 +35,7 @@
                         <h3>Showing Time:</h3> <!-- Do this with JavaScript -->
                         <select name="showTime" id="showTime" class="form-control">
                             <div th:each="movie : ${movies}">
-                                <option th:each="showing : ${OSS.getAllShowsForMovie(movie.id)}" th:text="${showing.getShowTime().getStartingTimeString()}" th:data-movie="${movie.id}"></option>
+                                <option th:each="showing : ${OSS.getAllShowsForMovie(movie.id)}" th:text="${showing.getShowTime().getStartingTimeString()}" th:data-movie="${movie.id}" th:data-showing-date="${showing.getShowTime().getDateString()}"></option>
                             </div>
                         </select>
                     </div>
