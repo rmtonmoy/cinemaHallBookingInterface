@@ -64,13 +64,6 @@ public class MovieController {
         return "registrationconfirmation";
     }
 
-    @GetMapping(path = "/orderHistory")
-    String getOrderHistory(Model model, HttpSession session) {
-        model.addAttribute("email", session.getAttribute("email"));
-        model.addAttribute("userName", session.getAttribute("name"));
-        return "Order-History";
-    }
-
     @GetMapping(path = "/orderSummary")
     String orderSummary(Model model, HttpSession session){
         model.addAttribute("email", session.getAttribute("email"));
