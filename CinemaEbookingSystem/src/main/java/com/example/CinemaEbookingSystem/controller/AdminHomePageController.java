@@ -193,6 +193,8 @@ public class AdminHomePageController {
         System.out.println("priceeeeeeeee " + ticketPrice.getPrice());
         ticketService.savePrice(ticketPrice.getTypeOfTicket(),ticketPrice.getPrice());
         return "redirect:/manageTickets";
+    }
+    
     @GetMapping(path = "/adminHome/editProfile")
     public String adminEditProfile(Model model, HttpSession session) {
         model.addAttribute("email", session.getAttribute("email"));
