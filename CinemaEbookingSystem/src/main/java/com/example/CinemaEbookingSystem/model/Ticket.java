@@ -144,4 +144,6 @@ public class Ticket {
     public void setPurchased(boolean purchased) {
         isPurchased = purchased;
     }
+
+
 }

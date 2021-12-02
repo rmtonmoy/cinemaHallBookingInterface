@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Edit Profile - Cinema E-Booking System</title>
+    <span th:replace="fragments/head"></span>
+    <style>
+    .navbar {
+      border-radius: 0;
+    }
+
+    .nav-pills .nav-link a{
+      color: rgb(43, 43, 43);
+    }
+
+    .nav-pills .nav-link.active a{
+      color: rgb(43, 43, 43);
+      background-color: lightgray;
+      font-weight: bold;
+    }
+
+    #sidebar {
+      margin-top: 1.5em;
+    }
+
+    #main h1{
+      margin-left: 1.5em;
+    }
+
+    #cancel {
+      margin-left: 1em;
+    }
+
+    .alert {
+      text-align: center;
+      width: 50%;
+      margin-top: 2em;
+      margin-left: 30%;
+    }
+  </style>
+</head>
+
+<body>
+<nav th:replace="fragments/header"></nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar" id="sidebar">
+            <div class="d-flex flex-column">
+                <ul class="nav nav-pills nav-stacked flex-column" role="tablist">
+                    <li class="nav-link active"><a th:href="@{/editProfile}">Personal Info</a></li>
+                    <li class="nav-link"><a th:href="@{/editPaymentInfo}">Payment Info</a></li>
+                    <li class="nav-link"><a th:href="@{/orderHistory}">Order History</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-sm-9 main" id="main">
+            <h1><b>List Of Tickets</b></h1><br><br>
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>ITEM</th>
+                    <th>SHOWTIME</th>
+                    <th>TICKET TYPE</th>
+                    <th>SUBTOTAL</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="Item : ${CartItem}">
+                    <td th:text = "${Item.movieName}"></td>
+                    <td th:text = "${Item.showTime}"></td>
+                    <td th:text = "${Item.ticketType}"></td>
+                    <td th:text = "${Item.price}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="text-align: right;" th:object="${CartTotal}">
+                Cart Subtotal   =   $<b th:text = "${CartTotal.Subtotal}"></b><br>
+                Sales Tax(4%)   =   $<b th:text = "${CartTotal.SalesTax}"></b><br>
+                Booking fee   =   $<b th:text = "${CartTotal.BookingFee}"></b><br>
+                <hr>
+                <h3>Order Total   =   $<b th:text = "${CartTotal.OrderTotal}"></b><br></h3>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
