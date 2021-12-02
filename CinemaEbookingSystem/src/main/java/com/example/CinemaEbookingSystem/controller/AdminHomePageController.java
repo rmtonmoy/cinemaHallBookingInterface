@@ -41,6 +41,9 @@ public class AdminHomePageController {
     TheaterService theaterService;
 
     @Autowired
+    AdminService adminService;
+
+    @Autowired
     AdminRepository adminRepository;
 
     @ModelAttribute("theaterDto")
@@ -223,4 +226,14 @@ public class AdminHomePageController {
         return "adminChangePassword";
     }
 
+    @PostMapping(path = "/adminHome/changePassword")
+    public String changePassword(@ModelAttribute("passwordDto") PasswordDto passwordDto, HttpSession session) {
+        String adminEmail = session.getAttribute("email").toString();
+        
+        if (!(adminService.isCorrectPassword(adminEmail, passwordDto))) {
+            return "redirect:/adminHome/changePassword?IncorrectPassword";
+        } else {
+            return "redirect:/adminHome/editProfile?SuccessPassword";
+        }
+    }
 }
