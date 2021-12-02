@@ -146,12 +146,18 @@ public class MovieController {
                 }
                 if (!hasShowing) {
                     include = false;
+                } else {
+                    // TODO display show dates if date-less search; show times as well on dated searches
                 }
             }
             
             if (include)
                 filtered.add(info);
         }
+        if (searchParams.date != null) {
+            model.addAttribute("date", searchParams.date);
+        }
+        model.addAttribute("OSS", oneShowService);
         model.addAttribute("movies", filtered);
         return "search";
     }

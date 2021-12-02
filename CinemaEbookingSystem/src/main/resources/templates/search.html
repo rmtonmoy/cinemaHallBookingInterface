@@ -64,16 +64,28 @@
                 <h3 th:text="${movie.title}"></h3>
                 <p th:text="${movie.MPAA_rating}"></p>
             </div>
-
+            
+            <div th:if="${date == null}">
+                <h4>Showing Dates</h4>
+                <ul>
+                    <li th:each="show : ${OSS.getAllShowsForMovie(movie.getId())}" th:text="${show.getShowTime().getDateString()}"></li>
+                </ul>
+            </div>
+            <div th:if="${date != null}">
+                <h4>Showing Times</h4>
+                <ul>
+                    <li th:each="show : ${OSS.getAllShowsForMovie(movie.getId())}" th:text="${show.getShowTime().getStartingTimeString()}"></li>
+                </ul>
+            </div>
+            
             <div class="item">
                 <iframe width=40% height="300" th:src="${movie.linkToTrailer}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </a>
             </div>
-            <!-- TODO: link to movie info page -->
-            <a class="btn btn-primary" th:href="'/movie?id=' + ${movie.id}">View Info</a>
-            <br>
-
+            
             <!-- <a class="btn btn-primary" th:href="${movie.linkToTrailer}" target="_blank" rel="noopener noreferrer external">Watch Trailer</a> -->
+            <a class="btn btn-primary" th:href="'/movie?id=' + ${movie.id}">View Info</a>
+            <br/>
         </div>
         <p th:if="${#lists.isEmpty(movies)}">No movies found.</p>
     </main>
