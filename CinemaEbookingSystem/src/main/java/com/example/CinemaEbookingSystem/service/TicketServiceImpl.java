@@ -220,8 +220,19 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public String getBookingFee() {
+        System.out.println("booking fee = " + ticketPriceRepository.getBookingFee());
+        return ticketPriceRepository.getBookingFee();
+    }
+
+    @Override
     public void deleteFromCart(long id) {
         ticketRepository.deleteFromCart(id);
+    }
+
+    @Override
+    public void updateBookingFeeForAll(String bookingFee) {
+        ticketPriceRepository.updateBookingFee(bookingFee);
     }
 
 }

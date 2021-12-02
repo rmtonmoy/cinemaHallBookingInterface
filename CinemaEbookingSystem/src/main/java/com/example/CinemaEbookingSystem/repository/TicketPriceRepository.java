@@ -22,4 +22,15 @@ public interface TicketPriceRepository extends JpaRepository<TicketPrice, Long> 
             value = "SELECT price FROM ticket_price WHERE type_of_ticket = ?1",
             nativeQuery = true)
     String getPriceByType(String typeOfTicket);
+
+    @Query(
+            value = "SELECT booking_fee FROM ticket_price WHERE id=1",
+            nativeQuery = true)
+    String getBookingFee();
+
+    @Transactional
+    @Modifying
+    @Query(
+            value = "UPDATE ticket_price set booking_fee = ?1 WHERE id is not null", nativeQuery = true)
+    void updateBookingFee(String bookingFee);
 }

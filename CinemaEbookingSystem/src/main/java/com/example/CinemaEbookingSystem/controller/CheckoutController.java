@@ -31,16 +31,16 @@ public class CheckoutController {
     @Autowired
     OneShowService oneShowService;
 
-    @GetMapping(path = "/checkout")
-    String getCheckout(Model model, HttpSession session) {
-        model.addAttribute("subtotal", 0.00);
-        model.addAttribute("tax", 0.00);
-        model.addAttribute("total", 0.00);
-        
-        model.addAttribute("email", session.getAttribute("email"));
-        model.addAttribute("userName", session.getAttribute("name"));
-        return "checkout";
-    }
+//    @GetMapping(path = "/checkout")
+//    String getCheckout(Model model, HttpSession session) {
+//        model.addAttribute("subtotal", 0.00);
+//        model.addAttribute("tax", 0.00);
+//        model.addAttribute("total", 0.00);
+//
+//        model.addAttribute("email", session.getAttribute("email"));
+//        model.addAttribute("userName", session.getAttribute("name"));
+//        return "checkout";
+//    }
     
     @GetMapping(path = "/book")
     String getBook(Model model, HttpSession session) {
@@ -72,13 +72,29 @@ public class CheckoutController {
         List<Ticket> tickets = ticketRepository.findByCID(customer.getId());
 
         List<CartItem> cartItems = new ArrayList<CartItem>();
-        for (int i = 0; i < tickets.size(); i++) {
+        float subtotal=0, bookingFee=0, salesTax=0, orderTotal=0; int i;
+        CartItem cartItem;
+
+        for (i = 0; i < tickets.size(); i++) {
             Ticket ticket = tickets.get(i);
-            System.out.println("lallalalala   " + ticketService.getTicketPriceByType(ticket.getTicketType().toString()));
-            cartItems.add(new CartItem(ticket.getId(),ticket.getCustomerId(),
-                    ticket.getShow(),ticket.getTypeOfTicket(),ticketService.getTicketPriceByType(ticket.getTicketType().toString())));
+            //System.out.println("cart test   " + ticketService.getTicketPriceByType(ticket.getTicketType().toString()));
+            cartItem =new CartItem(ticket.getId(),ticket.getCustomerId(),
+                    ticket.getShow(),ticket.getTypeOfTicket(),ticketService.getTicketPriceByType(ticket.getTicketType().toString()));
+            cartItems.add(cartItem);
+            subtotal = subtotal + Float.parseFloat(cartItem.getPrice());
+        }
+
+        CartTotal cartTotal;
+        if(i==0)
+            cartTotal = new CartTotal();
+        else {
+            bookingFee = Float.parseFloat(ticketService.getBookingFee());
+            salesTax = subtotal * 4 / 100;
+            orderTotal = Float.parseFloat(String.format("%.2f", subtotal + bookingFee + salesTax));
+            cartTotal = new CartTotal(subtotal, salesTax, bookingFee, orderTotal);
         }
         model.addAttribute("CartItem", cartItems);
+        model.addAttribute("CartTotal", cartTotal);
         return "viewCart";
     }
     @Autowired
@@ -89,7 +105,46 @@ public class CheckoutController {
 
         model.addAttribute("userName", session.getAttribute("name"));
         model.addAttribute("email", session.getAttribute("email"));
+
         ticketService.deleteFromCart(id);
+        Customer customer = customerRepository.findByEmail(session.getAttribute("email").toString());
+        List<Ticket> tickets = ticketRepository.findByCID(customer.getId());
+
+        List<CartItem> cartItems = new ArrayList<CartItem>();
+        float subtotal=0, bookingFee=0, salesTax=0, orderTotal=0; int i;
+        CartItem cartItem;
+
+        for (i = 0; i < tickets.size(); i++) {
+            Ticket ticket = tickets.get(i);
+            //System.out.println("cart test   " + ticketService.getTicketPriceByType(ticket.getTicketType().toString()));
+            cartItem =new CartItem(ticket.getId(),ticket.getCustomerId(),
+                    ticket.getShow(),ticket.getTypeOfTicket(),ticketService.getTicketPriceByType(ticket.getTicketType().toString()));
+            cartItems.add(cartItem);
+            subtotal = subtotal + Float.parseFloat(cartItem.getPrice());
+        }
+
+        CartTotal cartTotal;
+        if(i==0)
+            cartTotal = new CartTotal();
+        else {
+            bookingFee = Float.parseFloat(ticketService.getBookingFee());
+            salesTax = subtotal * 4 / 100;
+            orderTotal = Float.parseFloat(String.format("%.2f", subtotal + bookingFee + salesTax));
+            cartTotal = new CartTotal(subtotal, salesTax, bookingFee, orderTotal);
+        }
+        model.addAttribute("CartItem", cartItems);
+        model.addAttribute("CartTotal", cartTotal);
         return "viewCart";
+    }
+
+    @GetMapping(path = "/checkout/{total}")
+    public String checkout(@PathVariable(value = "total") String total, Model model, HttpSession session){
+
+        float orderTotal = Float.parseFloat(total)/100;
+        model.addAttribute("userName", session.getAttribute("name"));
+        model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("orderTotal", orderTotal);
+
+        return "checkout";
     }
 }

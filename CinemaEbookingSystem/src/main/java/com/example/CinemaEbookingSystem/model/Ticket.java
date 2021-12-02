@@ -56,21 +56,6 @@ public class Ticket {
         this.isInCart = isInCart;
     }
 
-    public OneShow getOneShow() {
-        return oneShow;
-    }
-
-    public void setOneShow(OneShow oneShow) {
-        this.oneShow = oneShow;
-    }
-
-    public TypeOfTicket getTypeOfTicket() {
-        return typeOfTicket;
-    }
-
-    public void setTypeOfTicket(TypeOfTicket typeOfTicket) {
-        this.typeOfTicket = typeOfTicket;
-    }
 
     public boolean isInCart() {
         return isInCart;

@@ -15,10 +15,21 @@ public class TicketPrice {
 
     private String price;
 
+    private String bookingFee;
+
     public TicketPrice(TypeOfTicket typeOfTicket, String price) {
         this.typeOfTicket= typeOfTicket;
         this.price= price;
     }
+
+    public String getBookingFee() {
+        return bookingFee;
+    }
+
+    public void setBookingFee(String bookingFee) {
+        this.bookingFee = bookingFee;
+    }
+
     public TicketPrice(){}
 
     public Long getId() {

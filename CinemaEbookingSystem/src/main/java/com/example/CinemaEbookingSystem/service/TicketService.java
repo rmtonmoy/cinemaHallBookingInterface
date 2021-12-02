@@ -17,5 +17,7 @@ public interface TicketService {
     String getTicketPriceByType(String type);
     void savePrice(TypeOfTicket typeOfTicket,String price);
     Ticket getById(long id);
+    String getBookingFee();
     void deleteFromCart(long id);
+    void updateBookingFeeForAll(String bookingFee);
 }

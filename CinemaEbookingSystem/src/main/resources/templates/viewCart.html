@@ -76,20 +76,15 @@
                 </tr>
                 </tbody>
             </table>
-            <div style="text-align: right;">
-                Cart Subtotal = <br>
-                Sales Tax = <br>
-                Booking fee = <br>
-                Order Total = <br>
+            <div style="text-align: right;" th:object="${CartTotal}">
+                Cart Subtotal   =   $<b th:text = "${CartTotal.Subtotal}"></b><br>
+                Sales Tax(4%)   =   $<b th:text = "${CartTotal.SalesTax}"></b><br>
+                Booking fee   =   $<b th:text = "${CartTotal.BookingFee}"></b><br>
+                <hr>
+                <h3>Order Total   =   $<b th:text = "${CartTotal.OrderTotal}"></b><br></h3>
+                <a th:href="@{/checkout/{total}(total=${CartTotal.OrderTotalM100})}" class="btn btn-primary">Proceed to Checkout</a>
 
             </div>
-<!--            <div th:object="$CartTotal">-->
-<!--                Cart Subtotal = <b th:text = "$CartTotal.CartTotal"></b><br>-->
-<!--                Sales Tax = <b th:text = "$CartTotal.SalesTax"></b>-->
-<!--                Booking fee = <b th:text = "$CartTotal.BookingFee"></b>-->
-<!--                Order Total = <b th:text = "$CartTotal.OrderTotal"></b>-->
-
-<!--            </div>-->
 
 
         </div>
