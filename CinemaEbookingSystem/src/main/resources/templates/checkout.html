@@ -37,6 +37,7 @@
       margin-left: 30%;
     }
   </style>
+    <script src="/checkout.js"></script>
 </head>
 
 <body>
@@ -63,49 +64,69 @@
                 <button id="submitPromo" type='submit' class='btn btn-dark'>Apply</button>
             </form>
             <section>
-                <form id="checkoutForm"> <!-- TODO: form action -->
-                    <h2> Billing Information </h2>
-                    <label for = 'creditCard' class = 'form-label'>Credit Card Number: </label>
-                    <input type = 'text' required id = 'creditCard' maxlength = '16' size = '16' pattern = '\d{16}' class = 'form-control'>
-                    <span id="creditCardNote">*</span>
 
-                    <label for = 'cvv' class = 'form-label'>CVV: </label>
-                    <input type = 'text' required id = 'cvv' maxlength = '3' size = '3' pattern = '\d{3}' class = 'form-control'>
-                    <span id="cvvNote">*</span>
-
-                    <label for = 'date' class = 'form-label'>Expiration Date: </label>
-                    <input type = 'text' required id = 'date' class = 'form-control'>
-                    <span id="expirationDateNote">*</span>
-
-                    <label for = 'name' class = 'form-label'>Cardholder Name: </label>
-                    <input type='text' id = 'name' required maxlength = '32' class = 'form-control'>
-                    <span id="nameNote">*</span>
-
-                    <h2> Billing Address </h2>
-                    <label for = 'addressOne' class = 'form-label'>Address Line 1:</label>
-                    <input type='text' id = 'addressOne' required maxlength = '32' class = 'form-control'>
-                    <span id="addressOneNote">*</span>
-
-                    <label for = 'addressTwo' class = 'form-label'>Address Line 2: </label>
-                    <input type='text' id = 'addressTwo' maxlength = '32' class = 'form-control'>
-
-                    <label for = 'city' class = 'form-label'>City:</label>
-                    <input type='text' id = 'city' required maxlength = '32' class = 'form-control'>
-                    <span id="cityNote">*</span>
-
-                    <label for = 'state' class = 'form-label'>State:</label>
-                    <input type='text' id = 'state' required maxlength = '2' size = '2' pattern = '[A-Za-z]{2}' class = 'form-control'>
-                    <span id="stateNote">*</span>
-
-                    <label for = 'zip' class = 'form-label'>Zip Code:</label>
-                    <input type='text' id = 'zip' required maxlength = '5' size = '5' pattern = '[0-9]{5}' class = 'form-control'>
-                    <span id="zipNote">*</span>
-
-                    <button id="submitBtn" type='submit' class='btn btn-dark'>Confirm Purchase</button>
-                    <a href="paymentConfirmation" class="btn btn-info" role="button">Demo Confirm Purchase</a>
-                    <h4></h4>
-                    <a href="orderSummary" class="btn btn-info" role="button">Cancel Purchase</a>
-                </form>
+                    <div class="col-sm-9" >
+                        <h3><b>Payment Card Information</b></h3><br><br>
+                        <form th:action="@{/dummy}" id="checkoutForm" class = "col-sm-9 form-horizontal" method="POST" th:object="${paymentCard}">
+                            <div id="oldcards">
+                            <div  th:each="paymentCard2 : ${listCards}" th:with="decodedCardNumber=${paymentCard2.decodeCardNumber(paymentCard2.cardNumber)},
+              length=${#strings.length(decodedCardNumber)}">
+                            <input type="radio" id="cardinfo" name="cardinfo" th:value="${paymentCard2.id}">
+                                <label for="cardinfo" th:text="${'Ending in ' + #strings.substring(decodedCardNumber, length - 4, length)}"></label><br>
+                            </div>
+                            </div>
+                            <br><button id="addCardInfo" type="button" class="btn btn-primary">Add New Card Information</button>
+                            <div id="checkoutcard" hidden>
+                            <input type="hidden" th:field="*{id}">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Cardholder's name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" th:field="*{cardHolder}" class="form-control" id="name" placeholder="Enter full name" name="name" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="cardNumber">Card number</label>
+                                <div class="col-sm-9">
+                                    <input type="tel" th:field="*{cardNumber}" class="form-control" id="cardNumber" inputmode="numeric" pattern="[0-9\s]{16, 19}"
+                                           minlength="16" maxlength="19" placeholder="XXXX XXXX XXXX XXXX" name="cardNumber" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="expDate">Expiry date</label>
+                                <div class="col-sm-9">
+                                    <input type="text" th:field="*{expirationDate}" class="form-control" id="expDate" placeholder="MM/YY" name="expDate" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="CCV">Security code</label>
+                                <div class="col-sm-9">
+                                    <input type="text" th:field="*{securityCode}" class="form-control" id="CCV" minlength="3" maxlength="3" placeholder="Back of card, 3 digits"
+                                           name="CCV" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="cardType">Card type</label>
+                                <div class="col-sm-9">
+                                    <input type="text" th:field="*{cardType}" class="form-control" id="cardType" placeholder="Enter card type (e.g., VISA, Discover, etc.)"
+                                           name="cardType" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="billingAddress">Billing address</label>
+                                <div class="col-sm-9">
+                                    <input type="text" th:field="*{billingAddress}" class="form-control" id="billingAddress" placeholder="Enter billing address"
+                                           name="billingAddress" required>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="form-group">
+                                <div class="col-sm-9"><br>
+                                    <button type="submit" class="btn btn-default">Confirm Payment</button>
+                                    <a th:href="@{/viewCart}" id="cancel">Cancel</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
             </section>
 
         </div>

@@ -7,10 +7,7 @@ import com.example.CinemaEbookingSystem.model.*;
 import com.example.CinemaEbookingSystem.repository.CustomerRepository;
 import com.example.CinemaEbookingSystem.repository.TicketPriceRepository;
 import com.example.CinemaEbookingSystem.repository.TicketRepository;
-import com.example.CinemaEbookingSystem.service.CustomerService;
-import com.example.CinemaEbookingSystem.service.MovieInfoService;
-import com.example.CinemaEbookingSystem.service.OneShowService;
-import com.example.CinemaEbookingSystem.service.TicketService;
+import com.example.CinemaEbookingSystem.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +27,16 @@ public class CheckoutController {
     
     @Autowired
     OneShowService oneShowService;
+
+
+    @Autowired
+    private PaymentCardService paymentCardService;
+
+    @Autowired
+    private CustomerService customerService;
+
+    @Autowired
+    private CustomerRepository customerRepository;
 
 //    @GetMapping(path = "/checkout")
 //    String getCheckout(Model model, HttpSession session) {
@@ -64,8 +71,6 @@ public class CheckoutController {
     @Autowired
     TicketPriceRepository ticketPriceRepository;
 
-    @Autowired
-    CustomerRepository customerRepository;
 
     @GetMapping(path = "/viewCart")
     public String showAllCartItem(Model model, HttpSession session){
@@ -145,10 +150,20 @@ public class CheckoutController {
     @GetMapping(path = "/checkout/{total}")
     public String checkout(@PathVariable(value = "total") String total, Model model, HttpSession session){
 
+        PaymentCard paymentCard = new PaymentCard();
         float orderTotal = Float.parseFloat(total)/100;
         model.addAttribute("userName", session.getAttribute("name"));
         model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("orderTotal", orderTotal);
+        model.addAttribute("paymentCard",paymentCard);
+
+
+        long customerID = customerRepository.findCustomerId(session.getAttribute("email").toString());
+        Customer customer = customerService.getCustomerById(customerID);
+        List<PaymentCard> cardList = paymentCardService.encodePaymentCards(customer);
+
+        // Display list of payment cards
+        model.addAttribute("listCards", cardList);
 
         return "checkout";
     }
