@@ -67,24 +67,18 @@
           <thead>
             <tr>
               <th>Order #</th>
-              <th>Placed</th>
               <th>Placed by</th>
               <th>Paid with</th>
               <th>Status</th>
-              <th>Description</th>
-              <th>Cost</th>
             </tr>
           </thead>
           <tbody>
             <tr th:each="booking : ${bookings}" th:with="decodedCardNumber=${booking.getPaymentCard().decodeCardNumber(booking.getPaymentCard().getCardNumber())},
               length=${#strings.length(decodedCardNumber)}">
               <td th:text="${booking.id}"></td>
-              <td th:text="${'12-02-2021'}"></td>
               <td th:text="${userName}"></td>
               <td th:text="${'Card ending in ' + #strings.substring(decodedCardNumber, length - 4, length)}"></td>
-              <td><button class="btn btn-success">Complete</button></td>
-              <td><a href="#">invoice</a></td>
-              <td th:text="${'$12.02'}"></td>
+              <td><a th:href="@{/showTickets/{id}(id=${booking.id})}">See Tickets</a></td>
             </tr>
           </tbody>
         </table>
