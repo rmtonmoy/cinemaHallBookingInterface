@@ -2,6 +2,8 @@
 // Handles swapping out booking time options based on movie selected
 "use strict";
 
+var showId;
+
 function doAttributesMatch(a, b, attributes) {
     for (let attr of attributes) {
         if (a.attr(attr) != b.attr(attr)) {
@@ -62,7 +64,7 @@ $(document).ready(function() {
     });
     
     $("#showTime").change(function() {
-        // placeholder
+        showId = $(this).val();
     })
     
     $("#addTicketBtn").click(function() {
@@ -100,7 +102,7 @@ function createTicket(num) {
 
     <h3>Seat:</h3>
     <!-- <h4>Available Seating</h4> -->
-    ${createSeatingChart()}
+    ${createSeatingChart(num)}
 </div>`;
 }
 
@@ -110,7 +112,11 @@ function createSeatingChart(num) {
 }
 
 function getTheaterStats() {
-    // TODO: ajax
+    $.get("/book/gettheaterstats?id=" + showId, null, function(data, status, jqXHR) {
+        // TODO: process response
+        console.log(data);
+    }, "json");
+    return [5, 5];
 }
 
 function _createSeatingChart(num, row, col, taken) {

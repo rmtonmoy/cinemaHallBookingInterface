@@ -28,9 +28,6 @@ public class CheckoutController {
     @Autowired
     OneShowService oneShowService;
     
-    @Autowired
-    TicketService ticketService;
-
     @GetMapping(path = "/checkout")
     String getCheckout(Model model, HttpSession session) {
         model.addAttribute("subtotal", 0.00);
@@ -51,16 +48,5 @@ public class CheckoutController {
         model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("userName", session.getAttribute("name"));
         return "book";
-    }
-    
-    @GetMapping(path = "/book/gettheaterstats")
-    public TheaterStats getTheaterStats(@RequestParam(value = "id") long id) {
-        List<Ticket> tickets = ticketService.getTicketsForShowId(id);
-        Theater theater      = tickets.get(0).getOneShow().getTheater();
-        boolean[][] avail    = new boolean[theater.getMaxR()][theater.getMaxC()];
-        for (Ticket ticket : tickets) {
-            avail[ticket.getTicketRn()][ticket.getTicketCn()] = ticket.isInCart() || ticket.isPurchased();
-        }
-        return new TheaterStats(id, avail);
     }
 }
