@@ -54,14 +54,18 @@ public class AdminHomePageController {
 
     @GetMapping(path = "/addTheater")
     public String showAllTheaters(Model model, HttpSession session){
-        List<Theater> theaterList = theaterService.getAllTheaters();
-        model.addAttribute("something", "Cinema E-booking System");
-
-        model.addAttribute("userName", session.getAttribute("name"));
-        model.addAttribute("email", session.getAttribute("email"));
-        model.addAttribute("listTheater", theaterList);
-        return "addTheater";
+        if (adminRepository.findByEmail(session.getAttribute("email").toString()) != null) {
+            List<Theater> theaterList = theaterService.getAllTheaters();
+            
+            model.addAttribute("userName", session.getAttribute("name"));
+            model.addAttribute("email", session.getAttribute("email"));
+            model.addAttribute("listTheater", theaterList);
+            return "addTheater";
+        } else {
+            return "redirect:/";
+        }
     }
+
     @RequestMapping("/addNewAdmin")
     public String addNewAdmin(Model model, @RequestParam String adminEmail) {
         emailService.sendAdminRequest(adminEmail);
@@ -76,17 +80,20 @@ public class AdminHomePageController {
 
     @GetMapping(path = "/manageMovies")
     public String showAllMovies(Model model, HttpSession session){
-        List<MovieInfo> MovieList = movieInfoService.getAllMovieInfo();
-        List<MovieInfo> listCurrentMovie = movieInfoService.listOfCurrentMovies();
-        List<MovieInfo> listComingSoonMovie = movieInfoService.listOfComingSoonMovies();
-        model.addAttribute("something", "Cinema E-booking System");
-
-        model.addAttribute("userName", session.getAttribute("name"));
-        model.addAttribute("email", session.getAttribute("email"));
-        model.addAttribute("listCurrentMovie",listCurrentMovie);
-        model.addAttribute("listComingSoonMovie",listComingSoonMovie);
-        model.addAttribute("listMovie", MovieList);
-        return "manageMovies";
+        if (adminRepository.findByEmail(session.getAttribute("email").toString()) != null) {
+            List<MovieInfo> MovieList = movieInfoService.getAllMovieInfo();
+            List<MovieInfo> listCurrentMovie = movieInfoService.listOfCurrentMovies();
+            List<MovieInfo> listComingSoonMovie = movieInfoService.listOfComingSoonMovies();
+    
+            model.addAttribute("userName", session.getAttribute("name"));
+            model.addAttribute("email", session.getAttribute("email"));
+            model.addAttribute("listCurrentMovie",listCurrentMovie);
+            model.addAttribute("listComingSoonMovie",listComingSoonMovie);
+            model.addAttribute("listMovie", MovieList);
+            return "manageMovies";
+        } else {
+            return "redirect:/";
+        }
     }
 
     @PostMapping(path = "/manageMoviesDto")
@@ -97,12 +104,15 @@ public class AdminHomePageController {
 
     @GetMapping(path = "/scheduleMovie/{id}")
     public String scheduleMovie(@PathVariable (value = "id") int id, Model model,HttpSession session){
-
-        model.addAttribute("userName", session.getAttribute("name"));
-        model.addAttribute("email", session.getAttribute("email"));
-        model.addAttribute("oneShowList", ticketService.generateSchedule(id));
-        model.addAttribute("movieTitle", movieInfoService.findById(id).getTitle());
-        return "scheduleMovie";
+        if (adminRepository.findByEmail(session.getAttribute("email").toString()) != null) {
+            model.addAttribute("userName", session.getAttribute("name"));
+            model.addAttribute("email", session.getAttribute("email"));
+            model.addAttribute("oneShowList", ticketService.generateSchedule(id));
+            model.addAttribute("movieTitle", movieInfoService.findById(id).getTitle());
+            return "scheduleMovie";
+        } else {
+            return "redirect:/";
+        }
     }
 
 
@@ -153,13 +163,17 @@ public class AdminHomePageController {
     }
 
     @GetMapping(path = "/adminHome")
-    String adminHome(Model model, HttpSession session){
-        System.out.println(session.getAttribute("email"));
-        System.out.println(session.getAttribute("name"));
-        model.addAttribute("something", "Cinema E-booking System");
-        model.addAttribute("userName", session.getAttribute("name"));
-        model.addAttribute("email", session.getAttribute("email"));
-        return "adminHome";
+    String adminHome(Model model, HttpSession session) {
+        if (adminRepository.findByEmail(session.getAttribute("email").toString()) != null) {
+            // System.out.println(session.getAttribute("email"));
+            // System.out.println(session.getAttribute("name"));
+            model.addAttribute("something", "Cinema E-booking System");
+            model.addAttribute("userName", session.getAttribute("name"));
+            model.addAttribute("email", session.getAttribute("email"));
+            return "adminHome";
+        } else {
+            return "redirect:/";
+        }
     }
 
     @GetMapping(path = "/seeSchedule")
@@ -181,32 +195,39 @@ public class AdminHomePageController {
     public TicketPrice ticketPrice(){ return new TicketPrice();}
 
     @GetMapping(path = "/manageTickets")
-    public String showAllTicketPrice(Model model, HttpSession session){
-        List<TicketPrice> ticketPrice = ticketService.allTicketPrice();
-        model.addAttribute("something", "Cinema E-booking System");
-        model.addAttribute("userName", session.getAttribute("name"));
-        model.addAttribute("email", session.getAttribute("email"));
-        model.addAttribute("ListofTicketPrice", ticketPrice);
-        return "manageTickets";
+    public String showAllTicketPrice(Model model, HttpSession session) {
+        if (adminRepository.findByEmail(session.getAttribute("email").toString()) != null) {
+            List<TicketPrice> ticketPrice = ticketService.allTicketPrice();
+            model.addAttribute("userName", session.getAttribute("name"));
+            model.addAttribute("email", session.getAttribute("email"));
+            model.addAttribute("ListofTicketPrice", ticketPrice);
+            model.addAttribute("BookingFee",ticketService.getBookingFee());
+            return "manageTickets";
+        } else {
+            return "redirect:/";
+        }
     }
 
     @PostMapping(path = "/manageTickets")
-    public String saveTicketPrice(@ModelAttribute("ticketP") TicketPrice ticketPrice){
-        System.out.println("typeeeeeeeeeee "+ ticketPrice.getTypeOfTicket());
-        System.out.println("priceeeeeeeee " + ticketPrice.getPrice());
+    public String saveTicketPrice(@ModelAttribute("ticketP") TicketPrice ticketPrice) {
         ticketService.savePrice(ticketPrice.getTypeOfTicket(),ticketPrice.getPrice());
+        ticketService.updateBookingFeeForAll(ticketPrice.getBookingFee());
         return "redirect:/manageTickets";
     }
     
     @GetMapping(path = "/adminHome/editProfile")
     public String adminEditProfile(Model model, HttpSession session) {
-        model.addAttribute("email", session.getAttribute("email"));
-        model.addAttribute("userName", session.getAttribute("name"));
+        if (adminRepository.findByEmail(session.getAttribute("email").toString()) != null) {
+            model.addAttribute("email", session.getAttribute("email"));
+            model.addAttribute("userName", session.getAttribute("name"));
         
-        Admin admin = adminRepository.findByEmail(session.getAttribute("email").toString());
+            Admin admin = adminRepository.findByEmail(session.getAttribute("email").toString());
         
-        model.addAttribute("admin", admin);
-        return "adminEditProfile";
+            model.addAttribute("admin", admin);
+            return "adminEditProfile";
+        } else {
+            return "redirect:/";
+        }
     }
 
     @PostMapping(path = "/saveAdminInfo")
@@ -219,11 +240,15 @@ public class AdminHomePageController {
 
     @GetMapping(path = "/adminHome/changePassword")
     public String changePassword(Model model, HttpSession session) {
-        model.addAttribute("email", session.getAttribute("email"));
-        model.addAttribute("userName", session.getAttribute("name"));
-        model.addAttribute("passwordDto", new PasswordDto());
+        if (adminRepository.findByEmail(session.getAttribute("email").toString()) != null) {
+            model.addAttribute("email", session.getAttribute("email"));
+            model.addAttribute("userName", session.getAttribute("name"));
+            model.addAttribute("passwordDto", new PasswordDto());
         
-        return "adminChangePassword";
+            return "adminChangePassword";
+        } else {
+            return "redirect:/";
+        }
     }
 
     @PostMapping(path = "/adminHome/changePassword")

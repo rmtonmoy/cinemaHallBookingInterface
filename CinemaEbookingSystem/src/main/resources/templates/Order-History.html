@@ -67,45 +67,18 @@
           <thead>
             <tr>
               <th>Order #</th>
-              <th>Placed</th>
               <th>Placed by</th>
+              <th>Paid with</th>
               <th>Status</th>
-              <th>Description</th>
-              <th>Cost</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>9-20-2021</td>
-              <td>Oscar Magana-Rivera</td>
-              <td><button class="btn btn-success">Complete</button></td>
-              <td><a href="#">invoice</a></td>
-              <td>$15.89</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>09-27-2021</td>                            
-              <td>Oscar Magana-Rivera</td>
-              <td><button class="btn btn-success">Complete</button></td>
-              <td><a href="#">invoice</a></td>
-              <td>$21.11</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>09-30-2021</td>                            
-              <td>Oscar Magana-Rivera</td>
-              <td><button class="btn btn-success">Complete</button></td>
-              <td><a href="#">invoice</a></td>
-              <td>$25.45</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>10-01-2021</td>                            
-              <td>Oscar Magana-Rivera</td>
-              <td><button class="btn btn-danger">Cancelled</button></td>
-              <td><a href="#">invoice</a></td>
-              <td>$11.62</td>
+            <tr th:each="booking : ${bookings}" th:with="decodedCardNumber=${booking.getPaymentCard().decodeCardNumber(booking.getPaymentCard().getCardNumber())},
+              length=${#strings.length(decodedCardNumber)}">
+              <td th:text="${booking.id}"></td>
+              <td th:text="${userName}"></td>
+              <td th:text="${'Card ending in ' + #strings.substring(decodedCardNumber, length - 4, length)}"></td>
+              <td><a th:href="@{/showTickets/{id}(id=${booking.id})}">See Tickets</a></td>
             </tr>
           </tbody>
         </table>

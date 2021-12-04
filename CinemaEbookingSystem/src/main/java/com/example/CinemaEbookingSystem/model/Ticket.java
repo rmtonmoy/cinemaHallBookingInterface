@@ -30,6 +30,8 @@ public class Ticket {
 
 
 
+    long customerId;
+
     public Ticket(){
 
     }
@@ -54,6 +56,15 @@ public class Ticket {
         this.isInCart = isInCart;
     }
 
+
+    public boolean isInCart() {
+        return isInCart;
+    }
+
+    public void setInCart(boolean inCart) {
+        isInCart = inCart;
+    }
+
     public OneShow getOneShow() {
         return oneShow;
     }
@@ -70,12 +81,12 @@ public class Ticket {
         this.typeOfTicket = typeOfTicket;
     }
 
-    public boolean isInCart() {
-        return isInCart;
+    public long getCustomerId() {
+        return customerId;
     }
 
-    public void setInCart(boolean inCart) {
-        isInCart = inCart;
+    public void setCustomerId(long customerId) {
+        this.customerId = customerId;
     }
 
     public Long getId() {
@@ -133,4 +144,6 @@ public class Ticket {
     public void setPurchased(boolean purchased) {
         isPurchased = purchased;
     }
+
+
 }

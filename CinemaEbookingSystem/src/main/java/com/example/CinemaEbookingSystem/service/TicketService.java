@@ -14,6 +14,12 @@ public interface TicketService {
     List<List<String>> generateSchedule();
     List<String> generateSchedule(int id);
     List<TicketPrice> allTicketPrice();
+    String getTicketPriceByType(String type);
     void savePrice(TypeOfTicket typeOfTicket,String price);
     List<Ticket> getTicketsForShowId(long id);
+    Ticket getById(long id);
+    String getBookingFee();
+    void deleteFromCart(long id);
+    void updateBookingFeeForAll(String bookingFee);
+    boolean hasAtLeastOneTicket(OneShow oneShow);
 }
