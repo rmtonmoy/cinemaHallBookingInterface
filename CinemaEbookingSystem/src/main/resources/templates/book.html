@@ -62,7 +62,7 @@
                     </div>
                 </section>
                 <hr/>
-                <section>
+                <section id="ticketsSection" hidden>
                     <h2>Select Tickets</h2>
                     
                     <div id="ticketContainer"></div>
@@ -70,15 +70,17 @@
                     <button id="addTicketBtn" type="button" class="btn btn-primary">Add Ticket</button>
                     <button id="rmTicketBtn" type="button" class="btn btn-danger invisible">Remove Last Ticket</button>
                     <br/>
+                    <br/>
+                    <button id="submitBtn" class="btn btn-success invisible" type='submit'>Add Tickets to Cart</button>
                 </section>
-                <br/><br/>
-                <button id="submitBtn" type='submit'>Add Tickets to Cart</button>
-                <br/><br/>
-                <section>
-                    <a href="orderSummary" role="button">View order summary</a>
-                </section>
-                <hr/>
             </form>
+            <br/>
+            <!--
+            <section>
+                <a href="orderSummary" role="button">View order summary</a>
+            </section>
+            <hr/>
+            -->
         </main>
     </body>
 </html>

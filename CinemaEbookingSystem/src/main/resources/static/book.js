@@ -3,6 +3,7 @@
 "use strict";
 
 var showId;
+var theaterStats;
 
 function doAttributesMatch(a, b, attributes) {
     for (let attr of attributes) {
@@ -13,11 +14,18 @@ function doAttributesMatch(a, b, attributes) {
     return true;
 }
 
+function resetTickets() {
+    $(".ticket").remove();
+    $("#ticketsSection").addAttr("hidden");
+    $("#rmTicketBtn").addClass("invisible");
+    $("#submitBtn").addClass("invisible");
+}
+
 $(document).ready(function() {
     let ticketIndex = -1;
     
     $(".movieRadioBtn").change(function() {
-        let btn = $(this)
+        let btn = $(this);
         let id  = btn.attr("data-movie");
         $("#showDate > option").each(function() {
             console.log("showing show date");
@@ -30,6 +38,10 @@ $(document).ready(function() {
         $("#showDate").val(0);
         $("#theater").val(0);
         $("#showTime").val(0);
+        if (ticketIndex != -1) {
+            resetTickets();
+            ticketIndex = -1;
+        }
     });
     
     $("#showDate").change(function() {
@@ -45,6 +57,10 @@ $(document).ready(function() {
             }
             $("#theater").val(0);
             $("#showTime").val(0);
+            if (ticketIndex != -1) {
+                resetTickets();
+                ticketIndex = -1;
+            }
         });
     });
     
@@ -60,19 +76,26 @@ $(document).ready(function() {
                 opt.hide();
             }
             $("#showTime").val(0);
+            if (ticketIndex != -1) {
+                resetTickets();
+                ticketIndex = -1;
+            }
         });
     });
     
     $("#showTime").change(function() {
         showId = $(this).val();
-    })
+        updateTheaterStats();
+    });
     
     $("#addTicketBtn").click(function() {
         ticketIndex++;
         if (ticketIndex == 0) {
             $("#rmTicketBtn").removeClass("invisible");
+            $("#submitBtn").removeClass("invisible");
         }
         $("#ticketContainer").append(createTicket(ticketIndex));
+        // TODO: bind ticket seat button press
     });
     
     $("#rmTicketBtn").click(function() {
@@ -80,6 +103,7 @@ $(document).ready(function() {
         ticketIndex--;
         if (ticketIndex == -1) {
             $("#rmTicketBtn").addClass("invisible");
+            $("#submitBtn").addClass("invisible");
         }
     });
     
@@ -92,7 +116,7 @@ $(document).ready(function() {
 });
 
 function createTicket(num) {
-    return `<div id="ticket${num}" class="form-group">
+    return `<div id="ticket${num}" class="form-group ticket">
     <h3>Ticket ${num + 1}</h3>
     <label for="typeOfTicket">Ticket Type:</label>
     <select th:field="*{tickets[${num}].type}" name="typeOfTicket" id="typeOfTicket" class="form-control col-1">
@@ -107,16 +131,14 @@ function createTicket(num) {
 }
 
 function createSeatingChart(num) {
-    let stats = getTheaterStats();
-    return _createSeatingChart(num, stats.rows, stats.cols, stats.availability);
+    return _createSeatingChart(num, theaterStats.rows, theaterStats.cols, theaterStats.availability);
 }
 
-function getTheaterStats() {
-    return $.ajax({
-        type:  "GET",
-        url:   "/book/gettheaterstats?id=" + showId,
-        async: false
-    }).responseJSON;
+function updateTheaterStats() {
+    $.get("/book/gettheaterstats?id=" + showId, null, function(data) {
+        theaterStats = data;
+        $("#ticketsSection").removeAttr("hidden");
+    }, "json");
 }
 
 // `taken` is a 2D array of booleans representing if each seat is taken or not. Access a seat via taken[row][column].
@@ -126,7 +148,11 @@ function _createSeatingChart(num, row, col, taken) {
     for (let r = 1; r <= row; r++) {
         str += '<div class="container"><div class="btn-group">'
         for (let c = 1; c <= col; c++) {
-            str += `<button th:field="*{tickets[${num}].type}" type="button" class="btn btn-primary" data-id="${r}-${c}">${r}-${c}</button>`;
+            let disabled = "";
+            if (taken[r - 1][c - 1]) {
+                disabled = " disabled"
+            }
+            str += `<button th:field="*{tickets[${num}].type}" type="button" class="btn btn-primary" data-id="${r}-${c}"${disabled}>${r}-${c}</button>`;
         }
         str += '</div></div>';
     }
