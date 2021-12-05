@@ -87,28 +87,40 @@ public class CheckoutController {
     String postBook(Model model, HttpSession session, @ModelAttribute("booking") BookingDto bookingDto) {
         model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("userName", session.getAttribute("name"));
-        List<Ticket> tickets = bookingDto.getTickets(ticketService);
+        model.addAttribute("booking", new BookingDto());
+        model.addAttribute("movies", movieInfoService.listOfCurrentMovies());
+        model.addAttribute("OSS", oneShowService);
         
         System.out.println(bookingDto.showingId);
         System.out.println(bookingDto.ticketsParam);
         
-        boolean okay = true;
-        List<Ticket> problematic = new ArrayList<>();
-        for (Ticket ticket : tickets) {
-            if (!ticketService.canPurchaseTicket(ticket.getId())) {
-                okay = false;
-                problematic.add(ticket);
-            }
+        if (bookingDto.ticketsParam == null || bookingDto.ticketsParam.equals("")) {
+            return "redirect:/book";
         }
-        if (!okay) {
-            model.addAttribute("problematic", problematic);
-            return "book";
-        } else {
-            Customer customer = customerService.getCustomerByEmail((String) session.getAttribute("email"));
+        List<Ticket> tickets = bookingDto.getTickets(ticketService);
+        
+        try {
+            boolean okay = true;
+            List<Ticket> problematic = new ArrayList<>();
             for (Ticket ticket : tickets) {
-                ticketService.bookTicket(ticket.getId(), customer.getId(), ticket.getTicketType());
+                if (!ticketService.canPurchaseTicket(ticket.getId())) {
+                    okay = false;
+                    problematic.add(ticket);
+                }
             }
-            return "redirect:/viewCart";
+            if (!okay) {
+                model.addAttribute("problematic", problematic);
+                return "book";
+            } else {
+                Customer customer = customerService.getCustomerByEmail((String) session.getAttribute("email"));
+                for (Ticket ticket : tickets) {
+                    ticketService.bookTicket(ticket.getId(), customer.getId(), ticket.getTicketType());
+                }
+                return "redirect:/viewCart";
+            }
+        } catch(Exception e) {
+            model.addAttribute("error", true);
+            return "book";
         }
     }
 

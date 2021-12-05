@@ -20,6 +20,7 @@ function resetTickets() {
     $("#ticketsSection").attr("hidden", "");
     $("#rmTicketBtn").addClass("invisible");
     $("#submitBtn").addClass("invisible");
+    params = {};
 }
 
 $(document).ready(function() {
@@ -142,7 +143,7 @@ $(document).ready(function() {
             theaterStats.availability[nums[0]][nums[1]] = false;
         }
         $("#ticket" + thisTicketIndex).remove();
-        params[thisTicketIndex] = null;
+        delete params[thisTicketIndex];
         writeToParam();
     });
     

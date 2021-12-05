@@ -8,6 +8,15 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script src="/book.js"></script>
+        
+        <style>
+            .errorContainer {
+                color: red;
+            }
+            .errorContainer p {
+                background-color: pink;
+            }
+        </style>
     </head>
     
     <body>
@@ -15,6 +24,17 @@
 
         <main class="container" role="main">
             <form th:action="@{/book}" method="post" th:object="${booking}">
+                
+                <div class="errorContainer" th:if="${problematic != null}">
+                    <p><b>Could not add tickets</b> - The following seats have already been reserved:</p>
+                    <ul th:each="ticket : ${problematic}">
+                        <li th:text="${ticket.ticketRn} + '-' + ${ticket.ticketCn}"></li>
+                    </ul>
+                </div>
+                <div class="errorContainer" th:if="${error != null}">
+                    <p><b>Could not add tickets</b> - An error has occurred. Your tickets have not been added to your cart.</p>
+                </div>
+                
                 <section>
                     <h2>Select Movie</h2>
                     <div th:each="movie : ${movies}"> <!-- this is div abuse :( -->
