@@ -16,7 +16,7 @@ function doAttributesMatch(a, b, attributes) {
 
 function resetTickets() {
     $(".ticket").remove();
-    $("#ticketsSection").addAttr("hidden");
+    $("#ticketsSection").attr("hidden", "");
     $("#rmTicketBtn").addClass("invisible");
     $("#submitBtn").addClass("invisible");
 }
@@ -90,28 +90,54 @@ $(document).ready(function() {
     
     $("#addTicketBtn").click(function() {
         ticketIndex++;
-        if (ticketIndex == 0) {
+        let thisTicketIndex = ticketIndex;
+        if (thisTicketIndex == 0) {
             $("#rmTicketBtn").removeClass("invisible");
             $("#submitBtn").removeClass("invisible");
         }
-        $("#ticketContainer").append(createTicket(ticketIndex));
-        $("#ticket" + ticketIndex + " button").click(function(){
-            // TODO button click event
-            // Use a hidden input (or other element) to save the seat selection for form submission
+        $("#ticketContainer").append(createTicket(thisTicketIndex));
+        $("#ticket" + thisTicketIndex + " button").click(function(){
             let button = $(this);
-            $("#seat" + ticketIndex).val(button.attr("data-id"));
+            let nums   = getRowAndColumn(button.attr("data-id"));
+            let row    = nums[0];
+            let col    = nums[1];
             
-            // TODO make it look nice
+            if (theaterStats.availability[row][col]) return;
+            
+            let oldVal = $("#seat" + thisTicketIndex).val();
+            if (oldVal) {
+                let oldNums = getRowAndColumn(oldVal);
+                theaterStats.availability[oldNums[0]][oldNums[1]] = false;
+                $(`[data-id=${oldVal}]`).addClass("btn-primary");
+                $(`[data-id=${oldVal}]`).removeClass("btn-success");
+                console.log(`[data-id=${oldVal}]`);
+            }
+            
+            theaterStats.availability[row][col] = true;
+            $("#seat" + thisTicketIndex).val(button.attr("data-id"));
+            
+            $(`[data-id=${button.attr("data-id")}]`).removeClass("btn-primary");
+            $(`[data-id=${button.attr("data-id")}]`).addClass("btn-secondary");
+            button.removeClass("btn-secondary"); // this algorithm is stupid but it's simple and i cba on saturday night
+            button.addClass("btn-success");
         });
     });
     
     $("#rmTicketBtn").click(function() {
-        $("#ticket" + ticketIndex).remove();
+        let thisTicketIndex = ticketIndex;
         ticketIndex--;
         if (ticketIndex == -1) {
             $("#rmTicketBtn").addClass("invisible");
             $("#submitBtn").addClass("invisible");
         }
+        let seatId = $(`#seat${thisTicketIndex}`).val();
+        if (seatId && seatId != "") {
+            $(`[data-id=${seatId}]`).addClass("btn-primary");
+            $(`[data-id=${seatId}]`).removeClass("btn-success");
+            let nums = getRowAndColumn(seatId);
+            theaterStats.availability[nums[0]][nums[1]] = false;
+        }
+        $("#ticket" + thisTicketIndex).remove();
     });
     
     $("option").each(function() {
@@ -121,6 +147,13 @@ $(document).ready(function() {
     $("#theater").val(0);
     $("#showTime").val(0);
 });
+
+function getRowAndColumn(seatId) {
+    return [
+        parseInt(seatId.substring(0, seatId.indexOf('-')))  - 1,
+        parseInt(seatId.substring(seatId.indexOf('-') + 1)) - 1,
+    ];
+}
 
 function createTicket(num) {
     return `<div id="ticket${num}" class="form-group ticket">
@@ -156,12 +189,13 @@ function _createSeatingChart(num, row, col, taken) {
     for (let r = 1; r <= row; r++) {
         str += '<div class="container"><div class="btn-group">';
         for (let c = 1; c <= col; c++) {
-            let disabled = "";
+            let btnClass;
             if (taken[r - 1][c - 1]) {
-                disabled = " disabled";
+                btnClass = "btn-secondary";
+            } else {
+                btnClass = "btn-primary";
             }
-            str += `<button type="button" class="btn btn-primary" data-id="${r}-${c}"`
-                +  `${disabled}>${r}-${c}</button>`;
+            str += `<button type="button" class="btn ${btnClass}" data-id="${r}-${c}">${r}-${c}</button>`;
         }
         str += '</div></div>';
     }
