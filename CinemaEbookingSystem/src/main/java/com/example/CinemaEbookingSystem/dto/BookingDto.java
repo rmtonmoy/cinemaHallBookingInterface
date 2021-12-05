@@ -9,12 +9,13 @@ import java.util.IllegalFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class BookingDto {
-    public long   showingId;
-    public String ticketsParam; // index:type:row:col;
+    private long   showingId;
+    private String ticketsParam; // index:type:row:col;
     
     @Autowired
     private TicketService ticketService;
     
+    public BookingDto() {}
     public BookingDto(long showing, String tickets) {
         showingId    = showing;
         ticketsParam = tickets;

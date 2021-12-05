@@ -22,4 +22,6 @@ public interface TicketService {
     void deleteFromCart(long id);
     void updateBookingFeeForAll(String bookingFee);
     boolean hasAtLeastOneTicket(OneShow oneShow);
+    boolean canPurchaseTicket(long id);
+    boolean bookTicket(long id, long customerId, TypeOfTicket typeOfTicket);
 }

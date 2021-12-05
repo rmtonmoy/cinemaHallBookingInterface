@@ -19,4 +19,5 @@ public interface CustomerService {
     Customer getCustomerById(long id);
     void deleteCustomerById(long id);
     boolean isCorrectPassword(long id, PasswordDto passwordDto);
+    Customer getCustomerByEmail(String email);
 }

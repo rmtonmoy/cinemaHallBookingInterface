@@ -19,7 +19,7 @@
                     <h2>Select Movie</h2>
                     <div th:each="movie : ${movies}"> <!-- this is div abuse :( -->
                         <input class="movieRadioBtn" type="radio" name="movie" th:data-movie="${movie.id}"
-                               th:value="${movie.movieId}">
+                               th:value="${movie.id}">
                         <span th:text="${movie.title}"></span>
                     </div>
 
@@ -57,7 +57,7 @@
                                         th:data-showing-date="${showing.getShowTime().getDateString()}"
                                         th:data-theater="${showing.getTheater().id}"
                                         th:value="${showing.id}"
-                                        th:field="*{booking.showingId}"></option>
+                                        th:field="${booking.showingId}"></option>
                             </div>
                         </select>
                     </div>
@@ -65,7 +65,7 @@
                 <hr/>
                 <section id="ticketsSection" hidden>
                     <h2>Select Tickets</h2>
-                    <input type="hidden" id="ticketsParam" name="ticketsParam" th:field="*{booking.ticketsParam}" />
+                    <input type="hidden" id="ticketsParam" name="ticketsParam" th:field="${booking.ticketsParam}" />
                     
                     <div id="ticketContainer"></div>
                     

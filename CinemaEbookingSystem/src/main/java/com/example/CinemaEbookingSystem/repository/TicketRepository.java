@@ -2,6 +2,7 @@ package com.example.CinemaEbookingSystem.repository;
 
 import com.example.CinemaEbookingSystem.model.Customer;
 import com.example.CinemaEbookingSystem.model.Ticket;
+import com.example.CinemaEbookingSystem.model.TypeOfTicket;
 import com.example.CinemaEbookingSystem.service.TicketService;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -41,4 +42,12 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     @Query(
             value = "UPDATE ticket set customer_id = 0 WHERE id = ?1", nativeQuery = true)
     void deleteFromCart(long id);
+    
+    @Transactional
+    @Modifying
+    @Query(
+            value = "UPDATE ticket SET is_in_cart = TRUE, customer_id = ?2, type_of_ticket = ?3 WHERE id = ?1",
+            nativeQuery = true
+    )
+    void bookTicket(long id, long customerId, String ticketType);
 }

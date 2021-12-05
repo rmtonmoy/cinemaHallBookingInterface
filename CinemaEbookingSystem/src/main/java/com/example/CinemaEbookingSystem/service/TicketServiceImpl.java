@@ -267,5 +267,19 @@ public class TicketServiceImpl implements TicketService {
             ticketPriceRepository.updateBookingFee(bookingFee, i);
         }
     }
-
+    
+    @Override
+    public boolean canPurchaseTicket(long id) {
+        Ticket ticket = ticketRepository.findByID(id);
+        return !(ticket.isInCart() || ticket.isPurchased());
+    }
+    
+    @Override
+    public boolean bookTicket(long id, long customerId, TypeOfTicket typeOfTicket) {
+        if (!canPurchaseTicket(id)) {
+            return false;
+        }
+        ticketRepository.bookTicket(id, customerId, typeOfTicket.toString());
+        return true;
+    }
 }

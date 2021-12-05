@@ -3,6 +3,7 @@
 
 package com.example.CinemaEbookingSystem.controller;
 
+import com.example.CinemaEbookingSystem.dto.BookingDto;
 import com.example.CinemaEbookingSystem.model.CartItem;
 import com.example.CinemaEbookingSystem.model.CartTotal;
 import com.example.CinemaEbookingSystem.model.Customer;
@@ -30,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import javax.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -65,6 +68,7 @@ public class CheckoutController {
         List<MovieInfo> movies = movieInfoService.listOfCurrentMovies();
         model.addAttribute("movies", movies);
         model.addAttribute("OSS", oneShowService);
+        model.addAttribute("booking", new BookingDto());
 
         model.addAttribute("something", "Cinema E-booking System");
         model.addAttribute("email", session.getAttribute("email"));
@@ -74,6 +78,32 @@ public class CheckoutController {
             return "redirect:/signin";
         }
         return "book";
+    }
+    
+    @PostMapping(path = "/book")
+    String postBook(Model model, HttpSession session, @ModelAttribute("booking") BookingDto bookingDto) {
+        model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("userName", session.getAttribute("name"));
+        List<Ticket> tickets = bookingDto.getTickets();
+        
+        boolean okay = true;
+        List<Ticket> problematic = new ArrayList<>();
+        for (Ticket ticket : tickets) {
+            if (!ticketService.canPurchaseTicket(ticket.getId())) {
+                okay = false;
+                problematic.add(ticket);
+            }
+        }
+        if (!okay) {
+            model.addAttribute("problematic", problematic);
+            return "book";
+        } else {
+            Customer customer = customerService.getCustomerByEmail((String) session.getAttribute("email"));
+            for (Ticket ticket : tickets) {
+                ticketService.bookTicket(ticket.getId(), customer.getId(), ticket.getTicketType());
+            }
+            return "redirect:/viewCart";
+        }
     }
 
     @Autowired
