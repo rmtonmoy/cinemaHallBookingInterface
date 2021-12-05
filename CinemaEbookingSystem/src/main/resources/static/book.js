@@ -4,6 +4,7 @@
 
 var showId;
 var theaterStats;
+var params = {};
 
 function doAttributesMatch(a, b, attributes) {
     for (let attr of attributes) {
@@ -120,6 +121,9 @@ $(document).ready(function() {
             $(`[data-id=${button.attr("data-id")}]`).addClass("btn-secondary");
             button.removeClass("btn-secondary"); // this algorithm is stupid but it's simple and i cba on saturday night
             button.addClass("btn-success");
+            
+            params[thisTicketIndex] = button.attr("data-id");
+            writeToParam();
         });
     });
     
@@ -138,6 +142,8 @@ $(document).ready(function() {
             theaterStats.availability[nums[0]][nums[1]] = false;
         }
         $("#ticket" + thisTicketIndex).remove();
+        params[thisTicketIndex] = null;
+        writeToParam();
     });
     
     $("option").each(function() {
@@ -159,9 +165,11 @@ function createTicket(num) {
     return `<div id="ticket${num}" class="form-group ticket">
     <h3>Ticket ${num + 1}</h3>
     <label for="typeOfTicket">Ticket Type:</label>
-    <select th:field="*{tickets[${num}].type}" name="typeOfTicket${num}" id="typeOfTicket${num}" class="form-control col-1">
+    <select name="typeOfTicket${num}" id="typeOfTicket${num}" class="form-control col-1">
         <option value="adult">Adult</option>
         <option value="child">Child</option>
+        <option value="senior">Senior</option>
+        <option value="student">Student</option>
     </select>
 
     <h3>Seat:</h3>
@@ -184,8 +192,7 @@ function updateTheaterStats() {
 // `taken` is a 2D array of booleans representing if each seat is taken or not. Access a seat via taken[row][column].
 // false indicates the seat is FREE, true indicates the seat is TAKEN.
 function _createSeatingChart(num, row, col, taken) {
-    let str = `<div class="seatingChart"><input type="hidden" id="seat${num}" name="seat${num}" value="">` // `
-            //+ `th:field="*{tickets[${num}].REPLACE_THIS_WITH_THE_RIGHT_MEMBER}" >`; // TODO TODO TODO TODO TODO TODO
+    let str = `<div class="seatingChart"><input type="hidden" id="seat${num}">`
     for (let r = 1; r <= row; r++) {
         str += '<div class="container"><div class="btn-group">';
         for (let c = 1; c <= col; c++) {
@@ -200,4 +207,13 @@ function _createSeatingChart(num, row, col, taken) {
         str += '</div></div>';
     }
     return str;
+}
+
+function writeToParam() {
+    let str = "";
+    for (let i in params) { // index:type:row:col;
+        let nums = getRowAndColumn(params[i]);
+        str += "" + i + ":" + $("#typeOfTicket" + i).val() + ":" + nums[0] + ":" + nums[1] + ";";
+    }
+    $("#ticketsParam").val(str);
 }
