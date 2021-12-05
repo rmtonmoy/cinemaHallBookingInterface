@@ -49,15 +49,14 @@
 
                     <div>
                         <h3>Showing Time:</h3>
-                        <select name="showTime" id="showTime" class="form-control">
+                        <select name="showTime" id="showTime" class="form-control" th:field="${booking.showingId}">
                             <div th:each="movie : ${movies}">
                                 <option th:each="showing : ${OSS.getAllShowsForMovie(movie.id)}"
                                         th:text="${showing.getShowTime().getStartingTimeString()}"
                                         th:data-movie="${movie.id}"
                                         th:data-showing-date="${showing.getShowTime().getDateString()}"
                                         th:data-theater="${showing.getTheater().id}"
-                                        th:value="${showing.id}"
-                                        th:field="${booking.showingId}"></option>
+                                        th:value="${showing.id}"></option>
                             </div>
                         </select>
                     </div>

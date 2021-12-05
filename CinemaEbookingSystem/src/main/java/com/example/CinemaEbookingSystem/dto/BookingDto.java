@@ -9,11 +9,8 @@ import java.util.IllegalFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class BookingDto {
-    private long   showingId;
-    private String ticketsParam; // index:type:row:col;
-    
-    @Autowired
-    private TicketService ticketService;
+    public long   showingId;
+    public String ticketsParam; // index:type:row:col;
     
     public BookingDto() {}
     public BookingDto(long showing, String tickets) {
@@ -41,7 +38,7 @@ public class BookingDto {
       * @return A `List` of `Ticket`s that the customer added to their cart.
       * @throws RuntimeException If `ticketsParam` is malformed. Format is `index:type:row:col;`.
       */
-    public List<Ticket> getTickets() throws RuntimeException {
+    public List<Ticket> getTickets(TicketService ticketService) throws RuntimeException {
         List<Ticket>      tickets = ticketService.getTicketsForShowId(showingId);
         ArrayList<Ticket> temp    = new ArrayList<>();
         
@@ -85,8 +82,8 @@ public class BookingDto {
                 throw new RuntimeException("BookingDto.ticketsParam is malformed (col value is not a parseable integer)");
             }
             
-            ticket.setTicketRn(row);
-            ticket.setTicketCn(col);
+            ticket.setTicketRn(row + 1); // +1 b/c 1-based on db
+            ticket.setTicketCn(col + 1);
             if (ticketType.equals("adult")) { // wow this is disgusting
                 ticket.setTypeOfTicket(TypeOfTicket.Adult);
             } else if (ticketType.equals("child")) {

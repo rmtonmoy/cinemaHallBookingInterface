@@ -51,6 +51,9 @@ public class CheckoutController {
 
     @Autowired
     private CustomerRepository customerRepository;
+    
+    @Autowired
+    private TicketService ticketService;
 
 //    @GetMapping(path = "/checkout")
 //    String getCheckout(Model model, HttpSession session) {
@@ -84,7 +87,10 @@ public class CheckoutController {
     String postBook(Model model, HttpSession session, @ModelAttribute("booking") BookingDto bookingDto) {
         model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("userName", session.getAttribute("name"));
-        List<Ticket> tickets = bookingDto.getTickets();
+        List<Ticket> tickets = bookingDto.getTickets(ticketService);
+        
+        System.out.println(bookingDto.showingId);
+        System.out.println(bookingDto.ticketsParam);
         
         boolean okay = true;
         List<Ticket> problematic = new ArrayList<>();
