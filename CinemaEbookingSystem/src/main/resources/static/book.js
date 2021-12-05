@@ -95,7 +95,14 @@ $(document).ready(function() {
             $("#submitBtn").removeClass("invisible");
         }
         $("#ticketContainer").append(createTicket(ticketIndex));
-        // TODO: bind ticket seat button press
+        $("#ticket" + ticketIndex + " button").click(function(){
+            // TODO button click event
+            // Use a hidden input (or other element) to save the seat selection for form submission
+            let button = $(this);
+            $("#seat" + ticketIndex).val(button.attr("data-id"));
+            
+            // TODO make it look nice
+        });
     });
     
     $("#rmTicketBtn").click(function() {
@@ -119,7 +126,7 @@ function createTicket(num) {
     return `<div id="ticket${num}" class="form-group ticket">
     <h3>Ticket ${num + 1}</h3>
     <label for="typeOfTicket">Ticket Type:</label>
-    <select th:field="*{tickets[${num}].type}" name="typeOfTicket" id="typeOfTicket" class="form-control col-1">
+    <select th:field="*{tickets[${num}].type}" name="typeOfTicket${num}" id="typeOfTicket${num}" class="form-control col-1">
         <option value="adult">Adult</option>
         <option value="child">Child</option>
     </select>
@@ -144,15 +151,17 @@ function updateTheaterStats() {
 // `taken` is a 2D array of booleans representing if each seat is taken or not. Access a seat via taken[row][column].
 // false indicates the seat is FREE, true indicates the seat is TAKEN.
 function _createSeatingChart(num, row, col, taken) {
-    let str = '<div class="seatingChart">';
+    let str = `<div class="seatingChart"><input type="hidden" id="seat${num}" name="seat${num}" value="">` // `
+            //+ `th:field="*{tickets[${num}].REPLACE_THIS_WITH_THE_RIGHT_MEMBER}" >`; // TODO TODO TODO TODO TODO TODO
     for (let r = 1; r <= row; r++) {
-        str += '<div class="container"><div class="btn-group">'
+        str += '<div class="container"><div class="btn-group">';
         for (let c = 1; c <= col; c++) {
             let disabled = "";
             if (taken[r - 1][c - 1]) {
-                disabled = " disabled"
+                disabled = " disabled";
             }
-            str += `<button th:field="*{tickets[${num}].type}" type="button" class="btn btn-primary" data-id="${r}-${c}"${disabled}>${r}-${c}</button>`;
+            str += `<button type="button" class="btn btn-primary" data-id="${r}-${c}"`
+                +  `${disabled}>${r}-${c}</button>`;
         }
         str += '</div></div>';
     }

@@ -38,19 +38,6 @@ public class SignUpController {
     @ModelAttribute("admin")
     public UserRegistrationDto userRegistrationDto2(){ return new UserRegistrationDto(); }
 
-    @ModelAttribute("customer_payment_card_1")
-    public PaymentCardDto paymentCardDto() {
-        return new PaymentCardDto();
-    }
-    @ModelAttribute("customer_payment_card_2") // why can't i just reuse the original method? >:^| -james
-    public PaymentCardDto paymentCardDto2() {
-        return new PaymentCardDto();
-    }
-    @ModelAttribute("customer_payment_card_3")
-    public PaymentCardDto paymentCardDto3() {
-        return new PaymentCardDto();
-    }
-
     @GetMapping(path = "/signup")
     public String showRegistrationForm(Model model, HttpSession session) {
         PaymentCardDto cardsForm = new PaymentCardDto();
