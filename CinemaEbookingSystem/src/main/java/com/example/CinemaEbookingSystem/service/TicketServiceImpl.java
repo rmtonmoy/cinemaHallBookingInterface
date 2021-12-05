@@ -239,6 +239,11 @@ public class TicketServiceImpl implements TicketService {
         //System.out.println("priceeeeeeeee " + price);
         ticketPriceRepository.updatePrice(typeOfTicket.toString(),price);
     }
+    
+    @Override
+    public List<Ticket> getTicketsForShowId(long id) {
+        return ticketRepository.getTicketsForShowId(id);
+    }
 
     @Override
     public Ticket getById(long id) {
@@ -262,5 +267,19 @@ public class TicketServiceImpl implements TicketService {
             ticketPriceRepository.updateBookingFee(bookingFee, i);
         }
     }
-
+    
+    @Override
+    public boolean canPurchaseTicket(long id) {
+        Ticket ticket = ticketRepository.findByID(id);
+        return !(ticket.isInCart() || ticket.isPurchased());
+    }
+    
+    @Override
+    public boolean bookTicket(long id, long customerId, TypeOfTicket typeOfTicket) {
+        if (!canPurchaseTicket(id)) {
+            return false;
+        }
+        ticketRepository.bookTicket(id, customerId, typeOfTicket.toString());
+        return true;
+    }
 }

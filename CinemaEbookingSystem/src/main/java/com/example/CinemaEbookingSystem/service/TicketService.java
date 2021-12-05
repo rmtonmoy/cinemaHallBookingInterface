@@ -16,9 +16,12 @@ public interface TicketService {
     List<TicketPrice> allTicketPrice();
     String getTicketPriceByType(String type);
     void savePrice(TypeOfTicket typeOfTicket,String price);
+    List<Ticket> getTicketsForShowId(long id);
     Ticket getById(long id);
     String getBookingFee();
     void deleteFromCart(long id);
     void updateBookingFeeForAll(String bookingFee);
     boolean hasAtLeastOneTicket(OneShow oneShow);
+    boolean canPurchaseTicket(long id);
+    boolean bookTicket(long id, long customerId, TypeOfTicket typeOfTicket);
 }

@@ -9,7 +9,6 @@ public class PaymentCardDto {
     
     public PaymentCardDto(){}
     public PaymentCardDto(List<PaymentCard> cards) {
-        super();
         this.cards = cards;
     }
     

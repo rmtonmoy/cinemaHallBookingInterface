@@ -91,4 +91,9 @@ public class CustomerServiceImpl implements CustomerService {
             return false;
         }
     }
+    
+    @Override
+    public Customer getCustomerByEmail(String email) {
+        return customerRepository.findByEmail(email);
+    }
 }

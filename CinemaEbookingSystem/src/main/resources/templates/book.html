@@ -8,97 +8,100 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script src="/book.js"></script>
+        
+        <style>
+            .errorContainer {
+                color: red;
+            }
+            .errorContainer p {
+                background-color: pink;
+            }
+        </style>
     </head>
     
     <body>
         <nav th:replace="fragments/header"></nav>
 
         <main class="container" role="main">
-            <form>
+            <form th:action="@{/book}" method="post" th:object="${booking}">
+                
+                <div class="errorContainer" th:if="${problematic != null}">
+                    <p><b>Could not add tickets</b> - The following seats have already been reserved:</p>
+                    <ul th:each="ticket : ${problematic}">
+                        <li th:text="${ticket.ticketRn} + '-' + ${ticket.ticketCn}"></li>
+                    </ul>
+                </div>
+                <div class="errorContainer" th:if="${error != null}">
+                    <p><b>Could not add tickets</b> - An error has occurred. Your tickets have not been added to your cart.</p>
+                </div>
+                
                 <section>
                     <h2>Select Movie</h2>
                     <div th:each="movie : ${movies}"> <!-- this is div abuse :( -->
-                        <input class="movieRadioBtn" type="radio" name="movie" th:data-movie="${movie.id}" th:value="${movie.title}">
+                        <input class="movieRadioBtn" type="radio" name="movie" th:data-movie="${movie.id}"
+                               th:value="${movie.id}">
                         <span th:text="${movie.title}"></span>
                     </div>
 
                     <div>
-                        <h3>Select Day:</h3> <!-- Do this with JavaScript -->
+                        <h3>Select Day:</h3>
                         <select name="showDate" id="showDate" class="form-control">
                             <div th:each="movie : ${movies}">
-                                <option th:each="showing : ${OSS.getAllShowsForMovie(movie.id)}" th:text="${showing.getShowTime().getDateString()}" th:data-movie="${movie.id}"></option>
+                                <option th:each="showing : ${OSS.getAllShowsForMovie(movie.id)}"
+                                        th:text="${showing.getShowTime().getDateString()}" th:data-movie="${movie.id}"
+                                        th:data-showing-date="${showing.getShowTime().getDateString()}"></option>
+                            </div>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <h3>Select Theater:</h3>
+                        <select name="theater" id="theater" class="form-control">
+                            <div th:each="movie : ${movies}">
+                                <option th:each="showing : ${OSS.getAllShowsForMovie(movie.id)}"
+                                        th:text="'Theater ' + ${showing.getTheater().id}"
+                                        th:data-movie="${movie.id}"
+                                        th:data-showing-date="${showing.getShowTime().getDateString()}"
+                                        th:data-theater="${showing.getTheater().id}"></option>
                             </div>
                         </select>
                     </div>
 
                     <div>
-                        <h3>Showing Time:</h3> <!-- Do this with JavaScript -->
-                        <select name="showTime" id="showTime" class="form-control">
+                        <h3>Showing Time:</h3>
+                        <select name="showTime" id="showTime" class="form-control" th:field="${booking.showingId}">
                             <div th:each="movie : ${movies}">
-                                <option th:each="showing : ${OSS.getAllShowsForMovie(movie.id)}" th:text="${showing.getShowTime().getStartingTimeString()}" th:data-movie="${movie.id}"></option>
+                                <option th:each="showing : ${OSS.getAllShowsForMovie(movie.id)}"
+                                        th:text="${showing.getShowTime().getStartingTimeString()}"
+                                        th:data-movie="${movie.id}"
+                                        th:data-showing-date="${showing.getShowTime().getDateString()}"
+                                        th:data-theater="${showing.getTheater().id}"
+                                        th:value="${showing.id}"></option>
                             </div>
                         </select>
                     </div>
                 </section>
                 <hr/>
-                <section>
+                <section id="ticketsSection" hidden>
                     <h2>Select Tickets</h2>
+                    <input type="hidden" id="ticketsParam" name="ticketsParam" th:field="${booking.ticketsParam}" />
                     
-                    <div id="ticket1"> <!-- In the future, IDs will be used by JS to track what tickets are being added -->
-
-                        <div class="form-group">
-                            <label for="typeOfTicket">Ticket Type:</label>
-                            <select name="typeOfTicket" id="typeOfTicket" class="form-control col-1">
-                                <option value="adult">Adult</option>
-                                <option value="child">Child</option>
-                            </select>
-                        
-                        <h3>Seat:</h3>
-                        <h4>Available Seating</h4>
-
-                        <div class="container">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary">A1</button>
-                                <button type="button" class="btn btn-primary">A2</button>
-                                <button type="button" class="btn btn-primary">A3</button>
-                                <button type="button" class="btn btn-primary">A4</button>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary">B1</button>
-                                <button type="button" class="btn btn-primary">B2</button>
-                                <button type="button" class="btn btn-primary">B3</button>
-                                <button type="button" class="btn btn-primary">B4</button>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary">C1</button>
-                                <button type="button" class="btn btn-primary">C2</button>
-                                <button type="button" class="btn btn-primary">C3</button>
-                                <button type="button" class="btn btn-primary">C4</button>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary">D1</button>
-                                <button type="button" class="btn btn-primary">D2</button>
-                                <button type="button" class="btn btn-primary">D3</button>
-                                <button type="button" class="btn btn-primary">D4</button>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
+                    <div id="ticketContainer"></div>
+                    
+                    <button id="addTicketBtn" type="button" class="btn btn-primary">Add Ticket</button>
+                    <button id="rmTicketBtn" type="button" class="btn btn-danger invisible">Remove Last Ticket</button>
+                    <br/>
+                    <br/>
+                    <button id="submitBtn" class="btn btn-success invisible" type='submit'>Add Tickets to Cart</button>
                 </section>
-                <br/><br/>
-                <button id="submitBtn" type='submit'>Add Tickets to Cart</button>
-                <br/><br/>
-                <section>
-                    <a href="orderSummary" role="button">View order summary</a>
-                </section>
-                <hr/>
             </form>
+            <br/>
+            <!--
+            <section>
+                <a href="orderSummary" role="button">View order summary</a>
+            </section>
+            <hr/>
+            -->
         </main>
     </body>
 </html>

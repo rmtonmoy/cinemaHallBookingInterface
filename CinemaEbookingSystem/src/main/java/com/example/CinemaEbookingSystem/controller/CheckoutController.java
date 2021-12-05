@@ -3,11 +3,23 @@
 
 package com.example.CinemaEbookingSystem.controller;
 
-import com.example.CinemaEbookingSystem.model.*;
+import com.example.CinemaEbookingSystem.dto.BookingDto;
+import com.example.CinemaEbookingSystem.model.CartItem;
+import com.example.CinemaEbookingSystem.model.CartTotal;
+import com.example.CinemaEbookingSystem.model.Customer;
+import com.example.CinemaEbookingSystem.model.MovieInfo;
+import com.example.CinemaEbookingSystem.model.PaymentCard;
+import com.example.CinemaEbookingSystem.model.Theater;
+import com.example.CinemaEbookingSystem.model.TheaterStats;
+import com.example.CinemaEbookingSystem.model.Ticket;
 import com.example.CinemaEbookingSystem.repository.CustomerRepository;
 import com.example.CinemaEbookingSystem.repository.TicketPriceRepository;
 import com.example.CinemaEbookingSystem.repository.TicketRepository;
-import com.example.CinemaEbookingSystem.service.*;
+import com.example.CinemaEbookingSystem.service.CustomerService;
+import com.example.CinemaEbookingSystem.service.MovieInfoService;
+import com.example.CinemaEbookingSystem.service.OneShowService;
+import com.example.CinemaEbookingSystem.service.PaymentCardService;
+import com.example.CinemaEbookingSystem.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +31,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import javax.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class CheckoutController {
@@ -27,8 +42,7 @@ public class CheckoutController {
     
     @Autowired
     OneShowService oneShowService;
-
-
+    
     @Autowired
     private PaymentCardService paymentCardService;
 
@@ -37,6 +51,9 @@ public class CheckoutController {
 
     @Autowired
     private CustomerRepository customerRepository;
+    
+    @Autowired
+    private TicketService ticketService;
 
 //    @GetMapping(path = "/checkout")
 //    String getCheckout(Model model, HttpSession session) {
@@ -54,6 +71,7 @@ public class CheckoutController {
         List<MovieInfo> movies = movieInfoService.listOfCurrentMovies();
         model.addAttribute("movies", movies);
         model.addAttribute("OSS", oneShowService);
+        model.addAttribute("booking", new BookingDto());
 
         model.addAttribute("something", "Cinema E-booking System");
         model.addAttribute("email", session.getAttribute("email"));
@@ -63,6 +81,47 @@ public class CheckoutController {
             return "redirect:/signin";
         }
         return "book";
+    }
+    
+    @PostMapping(path = "/book")
+    String postBook(Model model, HttpSession session, @ModelAttribute("booking") BookingDto bookingDto) {
+        model.addAttribute("email", session.getAttribute("email"));
+        model.addAttribute("userName", session.getAttribute("name"));
+        model.addAttribute("booking", new BookingDto());
+        model.addAttribute("movies", movieInfoService.listOfCurrentMovies());
+        model.addAttribute("OSS", oneShowService);
+        
+        System.out.println(bookingDto.showingId);
+        System.out.println(bookingDto.ticketsParam);
+        
+        if (bookingDto.ticketsParam == null || bookingDto.ticketsParam.equals("")) {
+            return "redirect:/book";
+        }
+        List<Ticket> tickets = bookingDto.getTickets(ticketService);
+        
+        try {
+            boolean okay = true;
+            List<Ticket> problematic = new ArrayList<>();
+            for (Ticket ticket : tickets) {
+                if (!ticketService.canPurchaseTicket(ticket.getId())) {
+                    okay = false;
+                    problematic.add(ticket);
+                }
+            }
+            if (!okay) {
+                model.addAttribute("problematic", problematic);
+                return "book";
+            } else {
+                Customer customer = customerService.getCustomerByEmail((String) session.getAttribute("email"));
+                for (Ticket ticket : tickets) {
+                    ticketService.bookTicket(ticket.getId(), customer.getId(), ticket.getTicketType());
+                }
+                return "redirect:/viewCart";
+            }
+        } catch(Exception e) {
+            model.addAttribute("error", true);
+            return "book";
+        }
     }
 
     @Autowired
