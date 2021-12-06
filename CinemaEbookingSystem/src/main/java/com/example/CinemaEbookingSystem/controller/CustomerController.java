@@ -135,8 +135,13 @@ public class CustomerController {
             //System.out.println("cart test   " + ticketService.getTicketPriceByType(ticket.getTicketType().toString()));
             cartItem =new CartItem(ticket.getId(),ticket.getCustomerId(),
                     ticket.getShow(),ticket.getTypeOfTicket(),ticketService.getTicketPriceByType(ticket.getTicketType().toString()));
+
+            cartItem.setTicketCn(ticket.getTicketCn());
+            cartItem.setTicketRn(ticket.getTicketRn());
+
             cartItems.add(cartItem);
             subtotal = subtotal + Float.parseFloat(cartItem.getPrice());
+
         }
 
         CartTotal cartTotal;

@@ -62,6 +62,8 @@
                     <th>ITEM</th>
                     <th>SHOWTIME</th>
                     <th>TICKET TYPE</th>
+                    <th>ROW NUMBER</th>
+                    <th>COLUMN NUMBER</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -69,6 +71,8 @@
                     <td th:text = "${Item.movieName}"></td>
                     <td th:text = "${Item.showTime}"></td>
                     <td th:text = "${Item.ticketType}"></td>
+                    <td th:text = "${Item.ticketRn}"></td>
+                    <td th:text = "${Item.ticketCn}"></td>
                 </tr>
                 </tbody>
             </table>

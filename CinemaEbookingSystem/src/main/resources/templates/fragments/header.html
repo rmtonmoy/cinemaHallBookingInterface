@@ -12,6 +12,9 @@
             <ul class="nav navbar-nav">
                 <li><a href="http://localhost:8080/">Home</a></li>
             </ul>
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/seeSchedule}">Showtimes</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 
                 <li th:if="${email != null}"><a href="#" th:text = "${userName}">></a></li>
