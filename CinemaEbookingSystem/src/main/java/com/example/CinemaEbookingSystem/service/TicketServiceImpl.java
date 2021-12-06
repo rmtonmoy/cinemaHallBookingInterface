@@ -30,6 +30,9 @@ public class TicketServiceImpl implements TicketService {
     @Autowired
     PaymentCardService paymentCardService;
 
+    @Autowired
+    EmailService emailService;
+
     public boolean hasTimeConflict(OneShow oneShow){
         MovieInfo movieInfo = oneShow.getMovieInfo();
         List<Ticket> ticketList = ticketRepository.findAll();
@@ -315,6 +318,7 @@ public class TicketServiceImpl implements TicketService {
             }
         }
 
+        emailService.sendPaymentConfirmationEmail(booking.getId(), customerService.getCustomerById(customerId).getEmail());
         return;
     }
 }

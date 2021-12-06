@@ -19,11 +19,8 @@ public class SignOutController {
 
     @GetMapping(path = "/logout")
     String logout(Model model, HttpServletRequest request, HttpSession session){
-        System.out.println(session.getAttribute("email"));
-        System.out.println(session.getAttribute("name"));
-        model.addAttribute("something", "Cinema E-booking System");
-        model.addAttribute("userName", session.getAttribute("name"));
-        model.addAttribute("email", session.getAttribute("email"));
+
+
         model.addAttribute("listCurrentMovie", movieInfoService.listOfCurrentMovies());
         model.addAttribute("listComingSoonMovie", movieInfoService.listOfComingSoonMovies());
         request.getSession().removeAttribute("email");

@@ -198,6 +198,7 @@ public class CheckoutController {
         }
         model.addAttribute("CartItem", cartItems);
         model.addAttribute("CartTotal", cartTotal);
+        session.setAttribute("total", orderTotal);
         return "viewCart";
     }
 

@@ -196,9 +196,9 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendPaymentConfirmationEmail(String bookingid, String email) {
+    public void sendPaymentConfirmationEmail(long bookingid, String email) {
         String subject = "Payment Confirmation";
-        String body = "Payment Confirmed for Booking ID  "+ bookingid+" Thank you for purchasing from E-Cinema";
+        String body = "Payment Confirmed for Booking ID: " + bookingid+". Thank you for purchasing from E-Cinema.";
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("se.projectgroupc4@gmail.com");
         message.setTo(email);
