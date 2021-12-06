@@ -9,7 +9,7 @@ import com.example.CinemaEbookingSystem.service.MovieInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.CinemaEbookingSystem.repository.AdminRepository;
@@ -17,12 +17,8 @@ import com.example.CinemaEbookingSystem.service.OneShowService;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.Arrays;
 import java.util.Date;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MovieController {
@@ -159,14 +155,14 @@ public class MovieController {
     @ModelAttribute("reviewDto")
     public ReviewDto reviewdto(){ return new ReviewDto();}
 
-    @PostMapping(path = "/addReview")
-    public String addReview(@ModelAttribute("reviewDto") ReviewDto reviewdto, HttpSession session){
+    @PostMapping(path = "/addReview/{id}")
+    public String addReview(@PathVariable(value = "id") int id, @ModelAttribute("reviewDto") ReviewDto reviewdto, HttpSession session){
         String email = (String) session.getAttribute("email");
-        int movieid = reviewdto.getMovieId();
-        MovieInfo movieInfo = movieInfoService.findById(movieid);
+        MovieInfo movieInfo = movieInfoService.findById(id);
         Review review = new Review(reviewdto.getReview(),movieInfo);
+        System.out.print("-> Name = " + id);
         movieInfoService.saveReview(review);
-        return "redirect:/movie?id="+movieid;
+        return "redirect:/movie?id="+id;
     }
 
 
