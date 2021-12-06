@@ -5,6 +5,7 @@ public class CartTotal {
     float SalesTax;
     float BookingFee;
     float OrderTotal;
+    float DiscountedTotal;
     String OrderTotalM100;
 
     public CartTotal() {
@@ -16,7 +17,16 @@ public class CartTotal {
         this.BookingFee = bookingFee;
         this.OrderTotal = orderTotal;
         int OrderTotalInt100 = (int) (OrderTotal*100);
+        this.DiscountedTotal = orderTotal;
         this.OrderTotalM100 = String.valueOf(OrderTotalInt100);
+    }
+
+    public float getDiscountedTotal() {
+        return DiscountedTotal;
+    }
+
+    public void setDiscountedTotal(float discountedTotal) {
+        DiscountedTotal = discountedTotal;
     }
 
     public String getOrderTotalM100() {

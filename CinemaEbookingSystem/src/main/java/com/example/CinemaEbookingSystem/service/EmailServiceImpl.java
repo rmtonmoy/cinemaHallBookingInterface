@@ -194,4 +194,19 @@ public class EmailServiceImpl implements EmailService {
 
         System.out.println("Mail sent successfully\n");
     }
+
+    @Override
+    public void sendPaymentConfirmationEmail(long bookingid, String email) {
+        String subject = "Payment Confirmation";
+        String body = "Payment Confirmed for Booking ID: " + bookingid+". Thank you for purchasing from E-Cinema.";
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("se.projectgroupc4@gmail.com");
+        message.setTo(email);
+        message.setText(body);
+        message.setSubject(subject);
+
+        mailSender.send(message);
+
+        System.out.println("[sendPaymentConfirmationEmail] Mail sent successfully\n");
+    }
 }

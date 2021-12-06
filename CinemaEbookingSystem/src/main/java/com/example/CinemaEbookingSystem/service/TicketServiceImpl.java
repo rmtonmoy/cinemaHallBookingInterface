@@ -2,9 +2,7 @@ package com.example.CinemaEbookingSystem.service;
 
 import com.example.CinemaEbookingSystem.controller.SignOutController;
 import com.example.CinemaEbookingSystem.model.*;
-import com.example.CinemaEbookingSystem.repository.OneShowRepository;
-import com.example.CinemaEbookingSystem.repository.TicketPriceRepository;
-import com.example.CinemaEbookingSystem.repository.TicketRepository;
+import com.example.CinemaEbookingSystem.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +20,18 @@ public class TicketServiceImpl implements TicketService {
 
     @Autowired
     OneShowRepository oneShowRepository;
+
+    @Autowired
+    BookingRepository bookingRepository;
+
+    @Autowired
+    CustomerService customerService;
+
+    @Autowired
+    PaymentCardService paymentCardService;
+
+    @Autowired
+    EmailService emailService;
 
     public boolean hasTimeConflict(OneShow oneShow){
         MovieInfo movieInfo = oneShow.getMovieInfo();
@@ -281,5 +291,34 @@ public class TicketServiceImpl implements TicketService {
         }
         ticketRepository.bookTicket(id, customerId, typeOfTicket.toString());
         return true;
+    }
+
+    @Override
+    public void confirmPurchase(long customerId, long cardId, float totalPrice) {
+        List<Ticket> ticketList = ticketRepository.findAll();
+        Booking booking = new Booking();
+        bookingRepository.save(booking);
+        booking.setCustomer(customerService.getCustomerById(customerId));
+        booking.setPaymentCard(paymentCardService.getPaymentCardById(cardId));
+        booking.setTotalPrice(totalPrice);
+
+        Calendar today = Calendar.getInstance();
+        Integer day = today.get(Calendar.DAY_OF_MONTH);
+        Integer month = today.get(Calendar.MONTH) + 1;
+        Integer year = today.get(Calendar.YEAR);
+
+        String formatedDate = month.toString() + "/" + day.toString() + "/" + year.toString();
+        booking.setDate(formatedDate);
+
+        for(Ticket ticket : ticketList){
+            if(ticket.getCustomerId() == customerId && ticket.isInCart() == true){
+                ticket.setBooking(booking);
+                ticket.setInCart(false);
+                ticket.setPurchased(true);
+            }
+        }
+
+        emailService.sendPaymentConfirmationEmail(booking.getId(), customerService.getCustomerById(customerId).getEmail());
+        return;
     }
 }

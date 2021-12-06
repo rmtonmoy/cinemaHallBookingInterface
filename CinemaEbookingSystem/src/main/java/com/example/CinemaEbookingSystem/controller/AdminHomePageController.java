@@ -177,7 +177,10 @@ public class AdminHomePageController {
     }
 
     @GetMapping(path = "/seeSchedule")
-    String seeSchedule(Model model){
+    String seeSchedule(Model model, HttpSession session){
+
+        model.addAttribute("userName", session.getAttribute("name"));
+        model.addAttribute("email", session.getAttribute("email"));
         List<List<String>> scheduleTable = ticketService.generateSchedule();
         model.addAttribute("scheduleTable", scheduleTable);
 

@@ -25,6 +25,10 @@ public class Ticket {
     @JoinColumn(name = "promotion_id")
     Promotion promotion;
 
+    @ManyToOne
+    @JoinColumn(name = "booking_id")
+    Booking booking;
+
     boolean isPurchased;
     boolean isInCart;
 
@@ -145,5 +149,11 @@ public class Ticket {
         isPurchased = purchased;
     }
 
+    public Booking getBooking() {
+        return booking;
+    }
 
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
 }

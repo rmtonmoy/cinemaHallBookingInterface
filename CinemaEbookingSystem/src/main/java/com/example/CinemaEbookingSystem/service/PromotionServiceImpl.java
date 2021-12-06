@@ -85,4 +85,15 @@ public class PromotionServiceImpl implements PromotionService {
         promotionRepository.delete(promotion);
     }
 
+    @Override
+    public int getDiscountRate(String promoCode) {
+        List<Promotion> promotionList = promotionRepository.findAll();
+        for(Promotion promotion : promotionList){
+            if(promotion.getPromoCode().equals(promoCode)){
+                return promotion.getDiscountAmount();
+            }
+        }
+        return -1;
+    }
+
 }

@@ -29,4 +29,5 @@ public interface EmailService {
     void resetPassword(PasswordAndVerificationDto passwordAndVerificationDto);
     public String createVerificationCodeForAdmin(String email);
     void sendAdminRequest(String email);
+    void sendPaymentConfirmationEmail(long bookingId, String email);
 }

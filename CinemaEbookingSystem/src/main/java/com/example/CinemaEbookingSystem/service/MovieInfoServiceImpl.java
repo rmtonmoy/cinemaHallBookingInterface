@@ -3,8 +3,10 @@ package com.example.CinemaEbookingSystem.service;
 import com.example.CinemaEbookingSystem.dto.MovieDto;
 import com.example.CinemaEbookingSystem.model.MovieInfo;
 import com.example.CinemaEbookingSystem.model.OneShow;
+import com.example.CinemaEbookingSystem.model.Review;
 import com.example.CinemaEbookingSystem.repository.MovieInfoRepository;
 import com.example.CinemaEbookingSystem.repository.OneShowRepository;
+import com.example.CinemaEbookingSystem.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -106,6 +108,13 @@ public class MovieInfoServiceImpl implements MovieInfoService{
             }
         }
         return ret;
+    }
+    @Autowired
+    ReviewRepository reviewRepository;
+
+    @Override
+    public void saveReview(Review review) {
+        reviewRepository.save(review);
     }
 
 

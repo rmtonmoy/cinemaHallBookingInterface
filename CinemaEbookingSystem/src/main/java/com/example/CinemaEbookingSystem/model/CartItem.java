@@ -11,6 +11,10 @@ public class CartItem {
     private String showTime;
     private String ticketType;
     private String price;
+    private int ticketRn;
+    private int ticketCn;
+
+
 
     public CartItem() {
     }
@@ -23,6 +27,22 @@ public class CartItem {
                         + show.getShowTime().getStartingTimeString();
         this.ticketType = typeOfTicket.toString();
         this.price = price;
+    }
+
+    public int getTicketRn() {
+        return ticketRn;
+    }
+
+    public void setTicketRn(int ticketRn) {
+        this.ticketRn = ticketRn;
+    }
+
+    public int getTicketCn() {
+        return ticketCn;
+    }
+
+    public void setTicketCn(int ticketCn) {
+        this.ticketCn = ticketCn;
     }
 
     public long getId() {
