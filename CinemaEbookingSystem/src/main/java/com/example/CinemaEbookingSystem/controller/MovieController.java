@@ -1,7 +1,10 @@
 package com.example.CinemaEbookingSystem.controller;
 
+import com.example.CinemaEbookingSystem.dto.CheckoutDto;
 import com.example.CinemaEbookingSystem.dto.MovieSearchDto;
-import com.example.CinemaEbookingSystem.model.MovieInfo;
+import com.example.CinemaEbookingSystem.dto.ReviewDto;
+import com.example.CinemaEbookingSystem.model.*;
+import com.example.CinemaEbookingSystem.repository.ReviewRepository;
 import com.example.CinemaEbookingSystem.service.MovieInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,8 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.CinemaEbookingSystem.model.Admin;
-import com.example.CinemaEbookingSystem.model.OneShow;
 import com.example.CinemaEbookingSystem.repository.AdminRepository;
 import com.example.CinemaEbookingSystem.service.OneShowService;
 import javax.servlet.http.HttpSession;
@@ -19,6 +20,8 @@ import java.util.List;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.Arrays;
 import java.util.Date;
+
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -65,7 +68,9 @@ public class MovieController {
         model.addAttribute("something", "Cinema E-booking System");
         return "orderSummary";
     }
-    
+    @Autowired
+    ReviewRepository reviewRepository;
+
     @GetMapping(path = "/movie")
     String getMovie(Model model, HttpSession session,
         @RequestParam(name = "id", required = false) int id) {
@@ -78,6 +83,9 @@ public class MovieController {
             //String trailerLink = movie.getLinkToTrailer();
             //model.addAttribute("youtubeId", trailerLink.substring(trailerLink.indexOf("v=") + 2));
             model.addAttribute("showings", oneShowService.getAllShowsForMovie(id));
+            List<Review> reviews = reviewRepository.findByMovieId(id);
+            model.addAttribute("reviews", reviews);
+
         } else {
             return "redirect:/search";
         }
@@ -148,5 +156,18 @@ public class MovieController {
         model.addAttribute("movies", filtered);
         return "search";
     }
+    @ModelAttribute("reviewDto")
+    public ReviewDto reviewdto(){ return new ReviewDto();}
+
+    @PostMapping(path = "/addReview")
+    public String addReview(@ModelAttribute("reviewDto") ReviewDto reviewdto, HttpSession session){
+        String email = (String) session.getAttribute("email");
+        int movieid = reviewdto.getMovieId();
+        MovieInfo movieInfo = movieInfoService.findById(movieid);
+        Review review = new Review(reviewdto.getReview(),movieInfo);
+        movieInfoService.saveReview(review);
+        return "redirect:/movie?id="+movieid;
+    }
+
 
 }
