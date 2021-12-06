@@ -22,19 +22,15 @@
       margin-top: 1.5em;
     }
 
-    #main h1{
-      margin-left: 1.5em;
-    }
-
-    #cancel {
+    #main {
       margin-left: 1em;
     }
 
     .alert {
       text-align: center;
       width: 50%;
-      margin-top: 2em;
-      margin-left: 30%;
+      margin-top: 4em;
+      margin-left: 20%;
     }
   </style>
 </head>
@@ -42,24 +38,26 @@
 <body>
 <nav th:replace="fragments/header"></nav>
 
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar" id="sidebar">
             <div class="d-flex flex-column">
                 <ul class="nav nav-pills nav-stacked flex-column" role="tablist">
-                    <li class="nav-link active"><a th:href="@{/editProfile}">Personal Info</a></li>
-                    <li class="nav-link"><a th:href="@{/editPaymentInfo}">Payment Info</a></li>
+                    <li class="nav-link"><a th:href="@{/editProfile}">Personal Info</a></li>
+                    <li class="nav-link active"><a th:href="@{/editPaymentInfo}">Payment Info</a></li>
                     <li class="nav-link"><a th:href="@{/orderHistory}">Order History</a></li>
                 </ul>
             </div>
         </div>
 
-        <div class="col-sm-9" id="main">
-            <h1><b>Apply Promotion</b></h1><br><br>
+        <div class="col-sm-9" id="main" style="margin:auto;">
+
+            <h1><b>Apply Promotion</b></h1><br>
             <div th:if="${param.InvalidPromo}">
-                <div class="alert alert-info">Invalid Promo</div>
+                <div class="col-sm-9 alert alert-info">Invalid Promo</div>
             </div>
-            <div>&nbsp;Your order total is $<b th:text = "${orderTotal}"></b></div>
+            <div class="col-sm-9"><br><br><h2>Your order total is $<b th:text = "${orderTotal}"></b></h2></div>
 
             <div>
                 <form th:action="@{/promoApplied}" id="checkoutForm" class = "col-sm-9 form-horizontal" method="post" th:object="${checkoutDto}">

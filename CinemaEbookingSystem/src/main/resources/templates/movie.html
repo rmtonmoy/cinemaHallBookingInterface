@@ -60,7 +60,15 @@
         <hr/>
         
         <h2>Reviews</h2> <!-- TODO: Load reviews for movie -->
-        <p>No reviews found.</p>
+        <div th:each="review : ${reviews}" >
+            <p th:text="${review}"></p>
+        </div>
+        <form th:action="@{/addReview}" id="revieworm" method="post" th:object="${reviewDto}">
+            <input type="hidden" th:field="${reviewDto.movieId}" th:value="${movie.id}">
+            <label for="reviewCode" class="form-label">Add a review </label>
+            <input type="text" id="reviewCode" class="form-control" th:field="${reviewDto.review}">
+            <button type="submit">Add Review</button>
+        </form>
     </main>
 </body>
 </html>
