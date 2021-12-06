@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Edit Profile - Cinema E-Booking System</title>
+    <span th:replace="fragments/head"></span>
+    <style>
+    .navbar {
+      border-radius: 0;
+    }
+
+    .nav-pills .nav-link a{
+      color: rgb(43, 43, 43);
+    }
+
+    .nav-pills .nav-link.active a{
+      color: rgb(43, 43, 43);
+      background-color: lightgray;
+      font-weight: bold;
+    }
+
+    #sidebar {
+      margin-top: 1.5em;
+    }
+
+    #main h1{
+      margin-left: 1.5em;
+    }
+
+    #cancel {
+      margin-left: 1em;
+    }
+
+    .alert {
+      text-align: center;
+      width: 50%;
+      margin-top: 2em;
+      margin-left: 30%;
+    }
+  </style>
+</head>
+
+<body>
+<nav th:replace="fragments/header"></nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar" id="sidebar">
+            <div class="d-flex flex-column">
+                <ul class="nav nav-pills nav-stacked flex-column" role="tablist">
+                    <li class="nav-link active"><a th:href="@{/editProfile}">Personal Info</a></li>
+                    <li class="nav-link"><a th:href="@{/editPaymentInfo}">Payment Info</a></li>
+                    <li class="nav-link"><a th:href="@{/orderHistory}">Order History</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-sm-9" id="main">
+            <h1><b>Apply Promotion</b></h1><br><br>
+            <div th:if="${param.InvalidPromo}">
+                <div class="alert alert-info">Invalid Promo</div>
+            </div>
+            <div>&nbsp;Your order total is $<b th:text = "${orderTotal}"></b></div>
+
+            <div>
+                <form th:action="@{/promoApplied}" id="checkoutForm" class = "col-sm-9 form-horizontal" method="post" th:object="${checkoutDto}">
+                    <label for="promoCode" class="form-label">Enter a promotion code: </label>
+                    <input type="text" id="promoCode" class="form-control" th:field="${checkoutDto.promoCode}">
+                    <button type="submit">Apply Promo</button>
+                </form>
+            </div>
+            <div class="col-sm-9"><br>
+            <br><a th:href="@{/checkout}" class="btn btn-primary">Skip</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

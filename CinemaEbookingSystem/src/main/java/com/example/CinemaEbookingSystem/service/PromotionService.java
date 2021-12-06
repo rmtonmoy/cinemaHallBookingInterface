@@ -25,4 +25,6 @@ public interface PromotionService {
     void updatePromotion(Promotion promotion);
 
     void deletePromotion(Promotion promotion);
+
+    int getDiscountRate(String promoCode);
 }
