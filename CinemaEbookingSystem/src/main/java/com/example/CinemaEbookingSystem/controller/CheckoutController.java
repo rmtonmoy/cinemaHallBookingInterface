@@ -297,7 +297,10 @@ public class CheckoutController {
 
 
     @GetMapping(path = "/paymentConfirmation")
-    public String showPaymentConfirmation(Model model){
+    public String showPaymentConfirmation(Model model, HttpSession session){
+
+        model.addAttribute("userName", session.getAttribute("name"));
+        model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("something", "Cinema E-booking System");
         return "paymentConfirmation";
     }

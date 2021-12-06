@@ -20,9 +20,9 @@
 <body>
 <h1 th:text="${something}"></h1>
 <nav th:replace="fragments/header"></nav>
-<div class="table _container" style="text-align: center;">
+<div class="table _container" style="text-align: center; ">
     <h3>Weekly Schedule</h3>
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped" style="text-align: center;table-layout: fixed; width: 100%; ">
         <tr th:each="row: ${scheduleTable}">
             <td th:each="value: ${row}">
                 <div th:switch="${value}">

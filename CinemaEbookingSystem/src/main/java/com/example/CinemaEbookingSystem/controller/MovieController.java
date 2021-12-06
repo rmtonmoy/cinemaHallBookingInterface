@@ -165,5 +165,12 @@ public class MovieController {
         return "redirect:/movie?id="+id;
     }
 
+    @GetMapping(path = "/moviePageByName")
+    String moviePageByName(Model model, HttpSession session, @RequestParam(name = "movieName") String movieName) {
+
+        MovieInfo movieInfo = movieInfoService.findByTitle(movieName);
+        return "/movie?id="+movieInfo.getId();
+    }
+
 
 }
