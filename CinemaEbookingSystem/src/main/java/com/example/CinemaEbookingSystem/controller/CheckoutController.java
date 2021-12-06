@@ -291,8 +291,7 @@ public class CheckoutController {
         String email = (String) session.getAttribute("email");
         Customer customer = customerRepository.findByEmail(email);
         System.out.print("BOUGHT BY CUSTOMER " + customer.getId());
-        System.out.println("PROMO ADDED: " + checkoutDto.getPromoCode());
-
+        ticketService.confirmPurchase(customer.getId(), Integer.valueOf(checkoutDto.getPaymentCardId()), (float)session.getAttribute("total"));
         return "redirect:/paymentConfirmation";
     }
 

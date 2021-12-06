@@ -3,6 +3,7 @@ package com.example.CinemaEbookingSystem.model;
 import javax.persistence.*;
 import java.nio.MappedByteBuffer;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Table
@@ -13,22 +14,24 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
-    @JoinColumn(name = "booking_id")    // This column will be added to the "Ticket" table
-                                        // hence such naming
-    private List<Ticket> ticketList = new ArrayList<>();
-
     @OneToOne
     @JoinColumn(name = "card_info")
     private PaymentCard paymentCard;
 
-    /*public List<Ticket> getTicketList() {
-        return ticketList;
+    @ManyToOne
+    @JoinColumn(name = "fk_CID")
+    private Customer customer;
+
+    String date;
+    float totalPrice;
+
+    public float getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTicketList(List<Ticket> ticketList) {
-        this.ticketList = ticketList;
-    }*/
+    public void setTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     public PaymentCard getPaymentCard() {
         return paymentCard;
@@ -46,9 +49,6 @@ public class Booking {
         this.customer = customer;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "fk_CID")
-    private Customer customer;
 
     public Long getId() {
         return id;
@@ -58,11 +58,11 @@ public class Booking {
         this.id = id;
     }
 
-    public List<Ticket> getTicketList() {
-        return ticketList;
+    public String getDate() {
+        return date;
     }
 
-    public void setTicketList(List<Ticket> ticketList) {
-        this.ticketList = ticketList;
+    public void setDate(String date) {
+        this.date = date;
     }
 }

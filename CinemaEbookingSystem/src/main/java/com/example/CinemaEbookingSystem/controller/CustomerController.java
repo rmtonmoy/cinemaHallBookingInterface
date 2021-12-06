@@ -114,7 +114,13 @@ public class CustomerController {
                 break;
             }
         }
-        List<Ticket> tickets = booking.getTicketList();
+        List<Ticket> tickets = new ArrayList<>();
+        List<Ticket> allTickets = ticketRepository.findAll();
+        for(Ticket ticket : allTickets){
+            if(ticket.getBooking() == booking){
+                tickets.add(ticket);
+            }
+        }
 
         List<CartItem> cartItems = new ArrayList<CartItem>();
         float subtotal=0, bookingFee=0, salesTax=0, orderTotal=0; int i;

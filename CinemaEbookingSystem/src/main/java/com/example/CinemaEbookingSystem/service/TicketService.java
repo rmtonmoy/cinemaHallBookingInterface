@@ -24,4 +24,5 @@ public interface TicketService {
     boolean hasAtLeastOneTicket(OneShow oneShow);
     boolean canPurchaseTicket(long id);
     boolean bookTicket(long id, long customerId, TypeOfTicket typeOfTicket);
+    void confirmPurchase(long customerId, long cardId, float totalPrice);
 }

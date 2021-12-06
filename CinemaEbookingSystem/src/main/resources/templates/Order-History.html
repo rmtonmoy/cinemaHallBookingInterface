@@ -67,8 +67,9 @@
           <thead>
             <tr>
               <th>Order #</th>
-              <th>Placed by</th>
+              <th>Purchase Date</th>
               <th>Paid with</th>
+              <th>Amount paid</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -76,8 +77,9 @@
             <tr th:each="booking : ${bookings}" th:with="decodedCardNumber=${booking.getPaymentCard().decodeCardNumber(booking.getPaymentCard().getCardNumber())},
               length=${#strings.length(decodedCardNumber)}">
               <td th:text="${booking.id}"></td>
-              <td th:text="${userName}"></td>
+              <td th:text="${booking.date}"></td>
               <td th:text="${'Card ending in ' + #strings.substring(decodedCardNumber, length - 4, length)}"></td>
+              <td th:text="${booking.totalPrice}"></td>
               <td><a th:href="@{/showTickets/{id}(id=${booking.id})}">See Tickets</a></td>
             </tr>
           </tbody>

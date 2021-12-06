@@ -40,7 +40,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     @Transactional
     @Modifying
     @Query(
-            value = "UPDATE ticket set customer_id = 0 WHERE id = ?1", nativeQuery = true)
+            value = "UPDATE ticket set is_in_cart = 0, customer_id = 0 WHERE id = ?1", nativeQuery = true)
     void deleteFromCart(long id);
     
     @Transactional
