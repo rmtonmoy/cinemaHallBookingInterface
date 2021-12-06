@@ -14,6 +14,11 @@ public class Review {
     @JoinColumn(name= "fk_MID")
     private MovieInfo movie;
 
+    public Review(String review, MovieInfo movie) {
+        this.review = review;
+        this.movie = movie;
+    }
+
     public Review(int rid, String review) {
         super();
         this.rid = rid;

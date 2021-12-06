@@ -16,10 +16,9 @@ public class Customer extends User {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     private List<PaymentCard> cardlist = new ArrayList<>();
+    private boolean isRegisteredForPromo;
 
-    private boolean isRegistered;
-
-    //@ManyToMany
+//@ManyToMany
     //@JoinTable(name="OrderHistory",
     //        joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id"),
     //inverseJoinColumns = @JoinColumn(name = "booking_id", referencedColumnName = "id"))
@@ -35,7 +34,7 @@ public class Customer extends User {
         super();
         this.status = status;
         this.cardlist = cardlist;
-        this.isRegistered = isRegistered;
+        this.isRegisteredForPromo = isRegistered;
     }
     public Customer(String firstName, String lastName, String password, String email, String dob) {
         super(firstName, lastName, password, email, dob);
@@ -45,7 +44,15 @@ public class Customer extends User {
     public Customer(String firstName, String lastName, String password, String email, String dob, UserStatus userStatus, boolean isRegistered) {
         super(firstName, lastName, password, email, dob);
         this.status = userStatus;
-        this.isRegistered = isRegistered;
+        this.isRegisteredForPromo = isRegistered;
+    }
+
+    public Customer(String firstName, String lastName, String password, String email, String dob, UserStatus status, List<PaymentCard> cardlist, boolean isRegistered, List<Booking> booking) {
+        super(firstName, lastName, password, email, dob);
+        this.status = status;
+        this.cardlist = cardlist;
+        this.isRegisteredForPromo = isRegistered;
+        this.booking = booking;
     }
 
     public UserStatus getStatus() {
@@ -74,6 +81,14 @@ public class Customer extends User {
 
     public void setBooking(List<Booking> booking) {
         this.booking = booking;
+    }
+
+    public boolean isIsRegisteredForPromo() {
+        return isRegisteredForPromo;
+    }
+
+    public void setRegisteredForPromo(boolean registeredForPromo) {
+        isRegisteredForPromo = registeredForPromo;
     }
 
     public void editProfile() {}

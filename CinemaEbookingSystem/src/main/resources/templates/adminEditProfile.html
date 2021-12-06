@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Admin Edit Profile - Cinema E-Booking System</title>
+  <span th:replace="fragments/head"></span>
+  <style>
+    .navbar {
+      border-radius: 0;
+    }
+
+    .nav-pills .nav-link a{
+      color: rgb(43, 43, 43);
+    }
+
+    .nav-pills .nav-link.active a{
+      color: rgb(43, 43, 43);
+      background-color: lightgray;
+      font-weight: bold;
+    }
+
+    #main {
+      margin-left: 13%;
+    }
+
+    #main h1{
+      margin-left: 2em;
+    }
+
+    #cancel {
+      margin-left: 1em;
+    }
+
+    .alert {
+      text-align: center;
+      width: 50%;
+      margin-top: 4em;
+      margin-left: 25%;
+    }
+  </style>
+</head>
+
+<body>
+  <nav th:replace="fragments/adminHeader"></nav>
+
+  <div class="container-fluid">       
+    <div class="row">                          
+      <div class="col-sm-9 main" id="main">
+        <h1><b>Edit Profile</b></h1><br><br>
+        <form th:action="@{/saveAdminInfo}" th:object="${admin}" method="POST" class="form-horizontal">
+          <input type="hidden" th:field="*{id}">
+          <input type="hidden" th:field="*{password}">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="fname">First name</label>
+            <div class="col-sm-9">
+              <input type="text" th:field="*{firstName}" class="form-control" id="fname" placeholder="Enter first name" name="fname" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="lname">Last name</label>
+            <div class="col-sm-9">
+              <input type="text" th:field="*{lastName}" class="form-control" id="lname" placeholder="Enter last name" name="lname" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="dob">Date of birth</label>
+            <div class="col-sm-9">
+              <input type="text" th:field="*{dob}" class="form-control" id="dob" placeholder="MM/DD/YYYY" name="dob">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Email</label>
+            <div class="col-sm-9">
+              <input type="email" th:field="*{email}" class="form-control" id="email" name="email" readonly>
+            </div>
+          </div>
+          <div class="form-group">
+            <a class="col-sm-offset-2 col-sm-2" th:href="@{/adminHome/changePassword}">Change password</a>
+          </div>
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">Save Changes</button>
+              <a th:href="@{/adminHome/editProfile}" id="cancel">Cancel</a>
+            </div>
+          </div>
+        </form>
+        <div th:if="${param.SuccessInfo}">
+            <div class="alert alert-success">Success! Your information has been updated</div>
+        </div>
+        <div th:if="${param.SuccessPassword}">
+            <div class="alert alert-success">Success! Your password has been changed</div>
+        </div>
+      </div> 
+    </div> 
+  </div>
+</body>
+</html>

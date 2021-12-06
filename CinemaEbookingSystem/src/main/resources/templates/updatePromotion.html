@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Cinema E-booking System</title>
+    <span th:replace="fragments/head"></span>
+    <style>
+        .navbar-nav.navbar-center {
+            position: absolute;
+            left: 50%;
+            transform: translatex(-50%);
+        }
+        .table {
+            margin: 0 auto;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+<h1 th:text="${something}"></h1>
+<nav th:replace="fragments/header"></nav>
+<div style=" margin: auto;width: 40%;padding: 20px; background-color: rgba(126, 169, 242, 0.5);">
+<form th:action="@{/updatePromo}" method="post" th:object="${updatepromotion}" id="addNewPromoForm">
+    <input type="hidden" th:field="${updatepromotion.id}" />
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" th:field="${updatepromotion.promoTitle}"
+               id="title"/>
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" class="form-control" th:field="${updatepromotion.promoDescription}"
+               id="description"/>
+    </div>
+    <div class="form-group">
+        <label for="imageUrl">Promo Cover</label>
+        <input type="text" class="form-control" th:field="${updatepromotion.imageUrl}"
+               id="imageUrl"/>
+    </div>
+    <div class="form-group">
+        <label for="promoCode">Promo Code</label>
+        <input type="text" class="form-control" th:field="${updatepromotion.promoCode}"
+               id="promoCode"/>
+    </div>
+    <div class="form-group">
+        <label for="discountAmount">Discount Amount</label>
+        <input type="text" class="form-control" th:field="${updatepromotion.discountAmount}"
+               id="discountAmount"/>
+    </div>
+    <button type="submit" class="btn btn-primary">
+        Save changes
+    </button>
+</form>
+</div>
+</body>
+</html>

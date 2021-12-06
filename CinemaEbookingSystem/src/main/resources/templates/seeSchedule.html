@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Cinema E-booking System</title>
+    <span th:replace="fragments/head"></span>
+    <style>
+        .navbar-nav.navbar-center {
+            position: absolute;
+            left: 50%;
+            transform: translatex(-50%);
+        }
+        .table {
+            margin: 0 auto;
+            width: 80%;
+        }
+    </style>
+</head>
+
+
+<body>
+<h1 th:text="${something}"></h1>
+<nav th:replace="fragments/header"></nav>
+<div class="table _container" style="text-align: center; ">
+    <h3>Weekly Schedule</h3>
+    <table class="table table-bordered table-striped" style="text-align: center;table-layout: fixed; width: 100%; ">
+        <tr th:each="row: ${scheduleTable}">
+            <td th:each="value: ${row}">
+                <div th:switch="${value}">
+                    <input th:case="0" type = "text" value="0">
+                    <input th:case="*" style="background-color:lightgreen" type = "text" th:value="${value}" readonly>
+                </div>
+            </td>
+        </tr>
+    </table><br>
+    </div>
+</body>
+</html>

@@ -3,6 +3,7 @@ package com.example.CinemaEbookingSystem.model;
 import javax.persistence.*;
 import java.nio.MappedByteBuffer;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Table
@@ -13,19 +14,23 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "booking")
-    private List<Ticket> ticketList = new ArrayList<>();
-
     @OneToOne
     @JoinColumn(name = "card_info")
     private PaymentCard paymentCard;
 
-    public List<Ticket> getTicketList() {
-        return ticketList;
+    @ManyToOne
+    @JoinColumn(name = "fk_CID")
+    private Customer customer;
+
+    String date;
+    float totalPrice;
+
+    public float getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTicketList(List<Ticket> ticketList) {
-        this.ticketList = ticketList;
+    public void setTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public PaymentCard getPaymentCard() {
@@ -44,9 +49,6 @@ public class Booking {
         this.customer = customer;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "fk_CID")
-    private Customer customer;
 
     public Long getId() {
         return id;
@@ -54,5 +56,13 @@ public class Booking {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

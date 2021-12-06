@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Cinema E-booking System</title>
+    <span th:replace="fragments/head"></span>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h1 th:text="${something}"></h1>
+<nav th:replace="fragments/header"></nav>
+    <div style="text-align:center;">
+        <h3>Email Sent Successfully</h3><br>
+        <a th:href="@{/managePromo}" class="btn btn-primary">Go Back</a>
+    </div>
+</body>
+</html>

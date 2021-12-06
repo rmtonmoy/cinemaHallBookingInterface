@@ -18,30 +18,19 @@
       font-weight: bold;
     }
 
-    #navbar-pages {
-      margin-left: 1em;
-    }
-
-    #navbar-pages a {
-      font-weight: bold;
-    }
-
-    #shopping-cart {
-      margin-left: 1em;
-      padding-left: 1.5em;
-      padding-right: 1.5em;
-    }
-
-    #user-profile {
-      margin-left: 4em;
-    }
-
     #sidebar {
       margin-top: 1.5em;
     }
 
     #main {
       margin-left: 1em;
+    }
+
+    .alert {
+      text-align: center;
+      width: 50%;
+      margin-top: 4em;
+      margin-left: 20%;
     }
   </style>
 </head>
@@ -92,6 +81,10 @@
         </table>
 
         <a th:href = "@{/addPaymentCardForm}" class="btn btn-default">Add Payment Card</a>
+
+        <div th:if="${param.LimitExceeded}">
+          <div class="alert alert-danger">Sorry, you cannot save more than 3 payment cards</div>
+        </div>
       </div> 
     </div> 
   </div>

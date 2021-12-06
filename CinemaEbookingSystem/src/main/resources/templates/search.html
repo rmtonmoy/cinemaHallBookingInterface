@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <title>Search - Cinema E-Booking System</title>
+    <span th:replace="fragments/head"></span>
+    <style>
+        .movieResult img {
+            float: left;
+            height: 13ch;
+            margin: 0px 2ch;
+        }
+        
+        #submitBtn {
+            margin-top: 2ch;
+        }
+    </style>
+</head>
+
+<body>
+    <nav th:replace="fragments/header"></nav>
+    <main class="container" role="main">
+        <h1>Search Movies</h1>
+        <form th:object="${searchParams}">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label for="title">Title:</label>
+                    <input class="form-control" id="title" name="title" type="text" size="40" th:field="*{title}"/>
+                    <br/>
+                    <button id="submitBtn" type="submit" class="btn btn-dark">Search</button>
+                </div>
+                <div class="col-sm-2">
+                    <label for="cat">Categories</label>
+                    <br/>
+                    <select id="cat" name="cat">
+                        <option class="" th:each="category : ${categories}" th:value="${category}" th:text="${category}" th:field="*{cat}"></option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <label for="showing">Showing Status</label>
+                    <br/>
+                    <input class="form-check-input" id="any" type="radio" name="status" value="any" th:field="*{status}" checked />
+                    <label class="form-check-label" for="any">Any</label>
+                    <br/>
+                    <input class="form-check-input" id="showing" type="radio" name="status" value="showing" th:field="*{status}" />
+                    <label class="form-check-label" for="showing">Currently Showing</label>
+                    <br/>
+                    <input class="form-check-input" id="soon" type="radio" name="status" value="soon" th:field="*{status}" />
+                    <label class="form-check-label" for="soon">Coming Soon</label>
+                    <br/>
+                </div>
+                <div class="col-sm-3">
+                    <label for="date">Showing Date</label>
+                    <br/>
+                    <input class="form-control" id="date" name="date" type="date" th:field="*{date}" />
+                </div>
+            </div>
+        </form>
+        
+        <hr/>
+        
+        <div class="movieResult" th:each="movie : ${movies}">
+            <div>
+                <h3 th:text="${movie.title}"></h3>
+                <p th:text="${movie.MPAA_rating}"></p>
+            </div>
+            
+            <div th:if="${date == null}">
+                <h4>Showing Dates</h4>
+                <ul th:unless="${ #lists.isEmpty( OSS.getAllShowsForMovie(movie.getId()) ) }">
+                    <li th:each="show : ${OSS.getAllShowsForMovie(movie.getId())}" th:text="${show.getShowTime().getDateString()}"></li>
+                </ul>
+                <ul th:if="${ #lists.isEmpty( OSS.getAllShowsForMovie(movie.getId()) ) }">
+                    <li>No showings available at this time</li>
+                </ul>
+            </div>
+            <div th:if="${date != null}">
+                <h4>Showing Times</h4>
+                <ul>
+                    <li th:each="show : ${OSS.getAllShowsForMovie(movie.getId())}" th:text="${show.getShowTime().getStartingTimeString()}"></li>
+                </ul>
+            </div>
+            
+            <div class="item">
+                <iframe width="40%" height="300" th:src="${movie.linkToTrailer}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            
+            <!-- <a class="btn btn-primary" th:href="${movie.linkToTrailer}" target="_blank" rel="noopener noreferrer external">Watch Trailer</a> -->
+            <a class="btn btn-primary" th:href="'/movie?id=' + ${movie.id}">View Info</a>
+            <br/>
+        </div>
+        <p th:if="${#lists.isEmpty(movies)}">No movies found.</p>
+    </main>
+</body>
+</html>

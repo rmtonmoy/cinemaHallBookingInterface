@@ -1,107 +1,78 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-    
-    <head>
-        <title>Checkout - Cinema E-Booking System</title>
-        <link rel="stylesheet" href="/checkoutFormStyle.css">
-        <span th:replace="fragments/head"></span>
-    </head>
-    
-    <body>
-        <nav th:replace="fragments/header"></nav>
-        
-        <main class="container" role="main">
-            <h1>Checkout</h1>
-            
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Edit Profile - Cinema E-Booking System</title>
+    <span th:replace="fragments/head"></span>
+    <style>
+    .navbar {
+      border-radius: 0;
+    }
+
+    .nav-pills .nav-link a{
+      color: rgb(43, 43, 43);
+    }
+
+    .nav-pills .nav-link.active a{
+      color: rgb(43, 43, 43);
+      background-color: lightgray;
+      font-weight: bold;
+    }
+
+    #sidebar {
+      margin-top: 1.5em;
+    }
+
+    #main h1{
+      margin-left: 1.5em;
+    }
+
+    #cancel {
+      margin-left: 1em;
+    }
+
+    .alert {
+      text-align: center;
+      width: 50%;
+      margin-top: 2em;
+      margin-left: 30%;
+    }
+  </style>
+    <script src="/checkout.js"></script>
+</head>
+
+<body>
+<nav th:replace="fragments/header"></nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9 main" id="main">
+            <h1><b>Checkout</b></h1><br><br>
+            <p>Your order total is $<b th:text = "${orderTotal}"></b></p>
             <section>
-                <h2>
-                    Cart
-                </h2>
-                <table>
-                    <tr>
-                        <th>Item</th>
-                        <th>Price</th>
-                    </tr>
-                    <tr th:each="item : ${cart}"> <!-- Placeholder -->
-                        <td th:text="${item.name}"></td>
-                        <td th:text="${item.price}"></td>
-                    </tr>
-                    <tr>
-                        <td>Subtotal:</td> <!-- TODO: Adjust gap with CSS -->
-                        <td>$<span th:text="${subtotal}"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Tax:</td>
-                        <td>$<span th:text="${tax}"></span></td>
-                    </tr>
-                    <tr>
-                        <td><b>Total:</b></td>
-                        <td>$<span th:text="${subtotal}"></span></td>
-                    </tr>
-                </table>
-                <br/>
-                <form id="promoForm">
-                    <label for="promoCode" class="form-label">Enter a promotion code: </label>
-                    <input type="text" id="promoCode" class="form-control" />
-                    <button id="submitPromo" type='submit' class='btn btn-dark'>Apply</button>
-                </form>
+
+                    <div class="col-sm-9" >
+                        <h3><b>Payment Card Information</b></h3><br>
+                        <a th:href="@{/editPaymentInfo}" id="addCardInfo" class="btn btn-primary">Add New Card</a><br><br>
+                        <form th:action="@{/paymentConfirmation}" id="checkoutForm" class = "col-sm-9 form-horizontal" method="post" th:object="${checkoutDto}">
+                            <div id="oldcards">
+                            <div  th:each="paymentCard2 : ${listCards}" th:with="decodedCardNumber=${paymentCard2.decodeCardNumber(paymentCard2.cardNumber)},
+              length=${#strings.length(decodedCardNumber)}">
+                            <input type="radio" id="cardinfo" name="cardinfo" th:value="${paymentCard2.id}" th:field="${checkoutDto.paymentCardId}">
+                                <label for="cardinfo" th:text="${'Ending in ' + #strings.substring(decodedCardNumber, length - 4, length)}"></label><br>
+                            </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-9"><br>
+                                    <button type="submit" class="btn btn-default">Confirm Payment</button>
+                                    <a th:href="@{/viewCart}" id="cancel">Cancel</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
             </section>
-            
-            <hr/>
-            
-            <section>
-                <form id="checkoutForm"> <!-- TODO: form action -->
-                    <h2> Billing Information </h2>
-                    <label for = 'creditCard' class = 'form-label'>Credit Card Number: </label>
-                    <input type = 'text' required id = 'creditCard' maxlength = '16' size = '16' pattern = '\d{16}' class = 'form-control'>
-                    <span id="creditCardNote">*</span>
 
-                    <label for = 'cvv' class = 'form-label'>CVV: </label>
-                    <input type = 'text' required id = 'cvv' maxlength = '3' size = '3' pattern = '\d{3}' class = 'form-control'>
-                    <span id="cvvNote">*</span>
-
-                    <label for = 'date' class = 'form-label'>Expiration Date: </label>
-                    <input type = 'text' required id = 'date' class = 'form-control'>
-                    <span id="expirationDateNote">*</span>
-
-                    <label for = 'name' class = 'form-label'>Cardholder Name: </label>
-                    <input type='text' id = 'name' required maxlength = '32' class = 'form-control'>
-                    <span id="nameNote">*</span>
-
-                    <h2> Billing Address </h2>
-                    <label for = 'addressOne' class = 'form-label'>Address Line 1:</label>
-                    <input type='text' id = 'addressOne' required maxlength = '32' class = 'form-control'>
-                    <span id="addressOneNote">*</span>
-
-                    <label for = 'addressTwo' class = 'form-label'>Address Line 2: </label>
-                    <input type='text' id = 'addressTwo' maxlength = '32' class = 'form-control'>
-
-                    <label for = 'city' class = 'form-label'>City:</label>
-                    <input type='text' id = 'city' required maxlength = '32' class = 'form-control'>
-                    <span id="cityNote">*</span>
-
-                    <label for = 'state' class = 'form-label'>State:</label>
-                    <input type='text' id = 'state' required maxlength = '2' size = '2' pattern = '[A-Za-z]{2}' class = 'form-control'>
-                    <span id="stateNote">*</span>
-
-                    <label for = 'zip' class = 'form-label'>Zip Code:</label>
-                    <input type='text' id = 'zip' required maxlength = '5' size = '5' pattern = '[0-9]{5}' class = 'form-control'>
-                    <span id="zipNote">*</span>
-                    
-                    <button id="submitBtn" type='submit' class='btn btn-dark'>Confirm Purchase</button>
-                    <a href="paymentConfirmation" class="btn btn-info" role="button">Demo Confirm Purchase</a>
-                    <h4></h4>
-                    <a href="orderSummary" class="btn btn-info" role="button">Cancel Purchase</a>
-                </form>
-            </section>
-        </main>
-        
-        <footer>
-            <!-- TODO: Footer -->
-            <br/> <!-- Temporary measure -->
-        </footer>
-        
-    </body>
-    
-    
+        </div>
+    </div>
+</div>
+</body>
 </html>

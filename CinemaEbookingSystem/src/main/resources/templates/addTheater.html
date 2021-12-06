@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Cinema E-booking System</title>
+    <span th:replace="fragments/head"></span>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .navbar {
+            border-radius: 0;
+        }
+    </style>
+</head>
+<body>
+<nav th:replace="fragments/adminHeader"></nav>
+
+<h2>List of Theaters</h2>
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr style="background-color: #5bbfde">
+        <th>ID</th>
+        <th>Number of rows</th>
+        <th>Number of columns</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="theater : ${listTheater}">
+        <td th:text = "${theater.id}"></td>
+        <td th:text = "${theater.maxR}"></td>
+        <td th:text = "${theater.maxC}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="table _container">
+
+
+
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#formModal2">Add New Theater</button>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Confirm Delete</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure that you want to delete this item?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="formModal2" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        New Theater
+                    </h4>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form th:action="@{/addTheater}" method="post" th:object="${theaterDto}" id ="addNewTheaterForm" role="form">
+                        <div class="form-group">
+                            <label for="rows">Enter rows</label>
+                            <input type="text" class="form-control" th:field="${theaterDto.maxR}"
+                                   id="rows" placeholder="Enter rows"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="cols">Enter columns</label>
+                            <input type="text" class="form-control" th:field="${theaterDto.maxC}"
+                                   id="cols" placeholder="Enter columns"/>
+                        </div>
+
+                    </form>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" onclick="form_submit()" class="btn btn-primary" data-dismiss="modal">
+                        Save changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function form_submit() {
+        document.getElementById("addNewTheaterForm").submit();
+   }
+</script>
+
+</body>
+</html>

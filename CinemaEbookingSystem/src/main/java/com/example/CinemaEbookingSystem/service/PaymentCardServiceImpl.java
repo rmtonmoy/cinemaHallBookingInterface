@@ -3,11 +3,7 @@ package com.example.CinemaEbookingSystem.service;
 import com.example.CinemaEbookingSystem.dto.PaymentCardDto;
 import com.example.CinemaEbookingSystem.model.Customer;
 import com.example.CinemaEbookingSystem.repository.PaymentCardRepository;
-import com.fasterxml.jackson.databind.JsonSerializable.Base;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.example.CinemaEbookingSystem.model.Customer;
 import com.example.CinemaEbookingSystem.model.PaymentCard;
 import org.springframework.stereotype.Service;
 
@@ -54,5 +50,27 @@ public class PaymentCardServiceImpl implements PaymentCardService {
     @Override 
     public void deletePaymentCardById(long id) {
         this.paymentCardRepository.deleteById(id);
+    }
+
+    @Override
+    public List<PaymentCard> encodePaymentCards(Customer customer) {
+        List<PaymentCard> cardList = customer.getCardlist();
+        
+        for (int i = 0; i < cardList.size(); i++) {
+            PaymentCard paymentCard = cardList.get(i);
+            String cardNumber = paymentCard.getCardNumber();
+
+            if (!(paymentCard.isEncoded(cardNumber))) {
+                paymentCard.setCardNumber(paymentCard.encodeCardNumber(cardNumber));
+            }
+        }
+
+        return cardList;
+    }
+
+    @Override
+    public void decodePaymentCard(PaymentCard paymentCard) {
+        String cardNumber = paymentCard.getCardNumber();
+        paymentCard.setCardNumber(paymentCard.decodeCardNumber(cardNumber));
     }
 }

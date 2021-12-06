@@ -1,10 +1,6 @@
 package com.example.CinemaEbookingSystem.controller;
 
-import com.example.CinemaEbookingSystem.dto.PaymentCardDto;
-import java.util.Base64;
-
 import javax.servlet.http.HttpSession;
-
 import com.example.CinemaEbookingSystem.model.PaymentCard;
 import com.example.CinemaEbookingSystem.model.Customer;
 import com.example.CinemaEbookingSystem.repository.CustomerRepository;
@@ -17,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 
 @Controller
@@ -38,9 +36,10 @@ public class PaymentCardController {
         
         long customerID = customerRepository.findCustomerId(session.getAttribute("email").toString());
         Customer customer = customerService.getCustomerById(customerID);
+        List<PaymentCard> cardList = paymentCardService.encodePaymentCards(customer);
 
         // Display list of payment cards
-        model.addAttribute("listCards", customer.getCardlist());
+        model.addAttribute("listCards", cardList);
         return "Edit-Payment-Info";
     }
 
@@ -49,10 +48,18 @@ public class PaymentCardController {
         model.addAttribute("email", session.getAttribute("email"));
         model.addAttribute("userName", session.getAttribute("name"));
 
-        // Create model attribute to bind form data
-        PaymentCard paymentCard = new PaymentCard();
-        model.addAttribute("paymentCard", paymentCard);
-        return "New-Payment-Card";
+        long customerID = customerRepository.findCustomerId(session.getAttribute("email").toString());
+        Customer customer = customerService.getCustomerById(customerID);
+        List<PaymentCard> cardList = customer.getCardlist();
+
+        if (cardList.size() >= 3) {
+            return "redirect:/editPaymentInfo?LimitExceeded";
+        } else {
+            // Create model attribute to bind form data
+            PaymentCard paymentCard = new PaymentCard();
+            model.addAttribute("paymentCard", paymentCard);
+            return "New-Payment-Card";
+        }
     }
 
     @PostMapping(path = "/savePaymentCard")
@@ -71,8 +78,7 @@ public class PaymentCardController {
 
         // Get payment card from the service
         PaymentCard paymentCard = paymentCardService.getPaymentCardById(id);
-        String cardNumber = paymentCard.getCardNumber();
-        paymentCard.setCardNumber(paymentCard.decodeCardNumber(cardNumber));
+        paymentCardService.decodePaymentCard(paymentCard);
         
         // Set payment card as a model attribute to pre-populate the form
         model.addAttribute("paymentCard", paymentCard);
